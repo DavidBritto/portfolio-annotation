@@ -1,998 +1,1308 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>David Britto — DevOps specialist & IA Engineer</title>
-<link rel="icon" type="image/png" href="1.png">
-<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,300&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --black:       #000000;
-    --white:       #ffffff;
-    --w92:         rgba(0, 182, 0, 0.92);
-    --w90:         rgba(240, 235, 235, 0.9);
-    --w60:         rgba(255,255,255,0.60);
-    --w35:         rgba(255,255,255,0.35);
-    --w12:         rgba(255,255,255,0.12);
-    --w06:         rgba(255,255,255,0.06);
-    --w03:         rgba(255,255,255,0.03);
-    --line:        rgba(255,255,255,0.14);
-    --line-bright: rgba(255,255,255,0.30);
-    --accent:      #FFFFFF;
-  }
-
-  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--black);
-    color: var(--w90);
-    font-family: 'Roboto', sans-serif;
-    font-weight: 300;
-    min-height: 100vh;
-    overflow-x: hidden;
-    -webkit-font-smoothing: antialiased;
-  }
-
-  /* ── PAGE LOAD ANIMATION ── */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(23px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-  .reveal {
-    opacity: 0;
-    animation: fadeUp 0.7s cubic-bezier(0.16,1,0.3,1) forwards;
-  }
-  .d1 { animation-delay: 0.05s; }
-  .d2 { animation-delay: 0.15s; }
-  .d3 { animation-delay: 0.25s; }
-  .d4 { animation-delay: 0.35s; }
-  .d5 { animation-delay: 0.45s; }
-  .d6 { animation-delay: 0.55s; }
-  .d7 { animation-delay: 0.65s; }
-  .d8 { animation-delay: 0.75s; }
-
-  /* ── LAYOUT ── */
-  .container {
-    max-width: 1060px;
-    margin: 0 auto;
-    padding: 0 48px;
-  }
-
-  /* ── HEADER ── */
-  header {
-    border-bottom: 1px solid var(--line);
-    padding: 72px 0 56px;
-  }
-
-  .header-inner {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    align-items: end;
-    gap: 40px;
-  }
-
-  .eyebrow {
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--w35);
-    margin-bottom: 20px;
-  }
-
-  h1 {
-    font-size: clamp(2.6rem, 5.5vw, 4.2rem);
-    font-weight: 100;
-    letter-spacing: -0.01em;
-    color: var(--white);
-    line-height: 1;
-    margin-bottom: 16px;
-  }
-
-  .title-role {
-    font-size: 13px;
-    font-weight: 300;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--w60);
-  }
-
-  .header-meta {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 10px;
-  }
-
-  .avail-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 6px 14px;
-    border: 1px solid var(--line-bright);
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--white);
-  }
-
-  .dot {
-    width: 5px; height: 5px;
-    border-radius: 50%;
-    background: var(--w92);
-    animation: blink 2s ease-in-out infinite;
-  }
-  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
-
-  .meta-links {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 4px;
-  }
-
-  .meta-links a {
-    font-size: 11px;
-    font-weight: 300;
-    color: var(--w35);
-    text-decoration: none;
-    letter-spacing: 0.04em;
-    transition: color 0.2s;
-  }
-  .meta-links a:hover { color: var(--w90); }
-
-  /* ── NAV ── */
-  nav {
-    border-bottom: 1px solid var(--line);
-    position: sticky;
-    top: 0;
-    background: rgba(0,0,0,0.96);
-    backdrop-filter: blur(12px);
-    z-index: 100;
-  }
-
-  .nav-inner {
-    display: flex;
-    gap: 0;
-    overflow-x: auto;
-  }
-
-  nav a {
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--w35);
-    text-decoration: none;
-    padding: 16px 20px;
-    border-bottom: 1px solid transparent;
-    transition: color 0.2s, border-color 0.2s;
-    white-space: nowrap;
-    margin-bottom: -1px;
-  }
-  nav a:hover { color: var(--w90); border-bottom-color: var(--w60); }
-
-  /* ── MAIN ── */
-  main {
-    padding: 80px 0 120px;
-    display: flex;
-    flex-direction: column;
-    gap: 80px;
-  }
-
-  /* ── SECTION ── */
-  section { display: flex; flex-direction: column; gap: 32px; }
-
-  .sec-head {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    align-items: center;
-    gap: 24px;
-  }
-
-  .sec-label {
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--w35);
-    white-space: nowrap;
-  }
-
-  .sec-rule { height: 1px; background: var(--line); }
-
-  h2 {
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.20em;
-    text-transform: uppercase;
-    color: var(--white);
-  }
-
-  /* ── SUMMARY ── */
-  .summary-text {
-    font-size: 15px;
-    font-weight: 300;
-    line-height: 1.80;
-    color: var(--w60);
-    max-width: 780px;
-  }
-
-  .summary-text strong {
-    color: var(--w90);
-    font-weight: 400;
-  }
-
-  /* ── SKILLS ── */
-  .skills-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
-    border-top: 1px solid var(--line);
-    border-left: 1px solid var(--line);
-  }
-
-  .skill-cell {
-    border-right: 1px solid var(--line);
-    border-bottom: 1px solid var(--line);
-    padding: 20px 22px;
-    transition: background 0.2s;
-  }
-  .skill-cell:hover { background: var(--w03); }
-
-  .skill-cat {
-    font-size: 9px;
-    font-weight: 500;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--w35);
-    margin-bottom: 6px;
-  }
-
-  .skill-name {
-    font-size: 13px;
-    font-weight: 400;
-    color: var(--w90);
-    margin-bottom: 10px;
-  }
-
-  .bar-track {
-    height: 1px;
-    background: var(--w12);
-    width: 100%;
-    margin-bottom: 6px;
-  }
-
-  .bar-fill {
-    height: 1px;
-    background: var(--white);
-    position: relative;
-  }
-
-  .skill-lvl {
-    font-size: 9px;
-    font-weight: 400;
-    color: var(--w35);
-    letter-spacing: 0.08em;
-    text-align: right;
-  }
-
-  /* ── DOMAINS ── */
-  .domains-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
-    border-top: 1px solid var(--line);
-    border-left: 1px solid var(--line);
-  }
-
-  .domain-cell {
-    border-right: 1px solid var(--line);
-    border-bottom: 1px solid var(--line);
-    padding: 28px 28px 24px;
-    transition: background 0.2s;
-  }
-  .domain-cell:hover { background: var(--w03); }
-
-  .domain-icon {
-    font-size: 18px;
-    display: block;
-    margin-bottom: 14px;
-    opacity: 0.85;
-  }
-
-  .domain-title {
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--white);
-    letter-spacing: 0.04em;
-    margin-bottom: 10px;
-  }
-
-  .domain-desc {
-    font-size: 12px;
-    font-weight: 300;
-    line-height: 1.70;
-    color: var(--w60);
-  }
-
-  .domain-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin-top: 16px;
-  }
-
-  .tag {
-    font-size: 9px;
-    font-weight: 500;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    padding: 4px 9px;
-    border: 1px solid var(--line);
-    color: var(--w35);
-    transition: all 0.2s;
-  }
-  .tag:hover { border-color: var(--w60); color: var(--w90); }
-  .tag.hot { border-color: var(--w35); color: var(--w60); }
-
-  /* ── EXPERIENCE ── */
-  .exp-list { display: flex; flex-direction: column; }
-
-  .exp-item {
-    border-top: 1px solid var(--line);
-    padding: 32px 0;
-    display: grid;
-    grid-template-columns: 220px 1fr;
-    gap: 40px;
-    transition: background 0.2s;
-  }
-  .exp-item:last-child { border-bottom: 1px solid var(--line); }
-  .exp-item:hover { background: var(--w03); padding-left: 16px; padding-right: 16px; margin-left: -16px; margin-right: -16px; }
-
-  .exp-left { display: flex; flex-direction: column; gap: 6px; }
-
-  .exp-role {
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--white);
-    line-height: 1.4;
-  }
-
-  .exp-company {
-    font-size: 11px;
-    font-weight: 300;
-    color: var(--w60);
-    letter-spacing: 0.02em;
-  }
-
-  .exp-period {
-    font-size: 10px;
-    font-weight: 400;
-    letter-spacing: 0.10em;
-    color: var(--w35);
-    margin-top: 4px;
-  }
-
-  .exp-bullets {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    padding-top: 2px;
-  }
-
-  .exp-bullets li {
-    font-size: 13px;
-    font-weight: 300;
-    line-height: 1.65;
-    color: var(--w60);
-    padding-left: 16px;
-    position: relative;
-  }
-  .exp-bullets li::before {
-    content: '—';
-    position: absolute;
-    left: 0;
-    color: var(--w35);
-    font-weight: 100;
-  }
-
-  /* ── LANGUAGES ── */
-  .lang-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    border-top: 1px solid var(--line);
-    border-left: 1px solid var(--line);
-  }
-
-  .lang-cell {
-    border-right: 1px solid var(--line);
-    border-bottom: 1px solid var(--line);
-    padding: 24px 28px;
-  }
-
-  .lang-name {
-    font-size: 16px;
-    font-weight: 300;
-    color: var(--white);
-    margin-bottom: 4px;
-  }
-
-  .lang-level {
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--w35);
-    margin-bottom: 16px;
-  }
-
-  .lang-bar-track {
-    height: 1px;
-    background: var(--w12);
-  }
-  .lang-bar-fill { height: 1px; background: var(--white); }
-
-  /* ── ATTRIBUTES ── */
-  .attr-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    border-top: 1px solid var(--line);
-    border-left: 1px solid var(--line);
-  }
-
-  .attr-cell {
-    border-right: 1px solid var(--line);
-    border-bottom: 1px solid var(--line);
-    padding: 16px 20px;
-    font-size: 12px;
-    font-weight: 300;
-    color: var(--w60);
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    transition: all 0.2s;
-  }
-  .attr-cell:hover { color: var(--w90); background: var(--w03); }
-
-  .attr-mark {
-    width: 4px; height: 4px;
-    border: 1px solid var(--w35);
-    border-radius: 50%;
-    flex-shrink: 0;
-    transition: background 0.2s, border-color 0.2s;
-  }
-  .attr-cell:hover .attr-mark { background: var(--white); border-color: var(--white); }
-
-  /* ── PLATFORMS ── */
-  .platforms-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    border-top: 1px solid var(--line);
-    border-left: 1px solid var(--line);
-  }
-
-  .platform-cell {
-    border-right: 1px solid var(--line);
-    border-bottom: 1px solid var(--line);
-    padding: 20px 22px;
-    display: flex;
-    align-items: flex-start;
-    gap: 14px;
-    transition: background 0.2s;
-  }
-  .platform-cell:hover { background: var(--w03); }
-
-  .platform-ind {
-    width: 1px;
-    height: 32px;
-    flex-shrink: 0;
-    margin-top: 3px;
-  }
-  .platform-ind.primary { background: var(--white); }
-  .platform-ind.secondary { background: var(--w35); }
-
-  .platform-name {
-    font-size: 13px;
-    font-weight: 400;
-    color: var(--w90);
-    margin-bottom: 3px;
-  }
-  .platform-note {
-    font-size: 10px;
-    font-weight: 300;
-    color: var(--w35);
-    letter-spacing: 0.04em;
-  }
-
-  /* ── CTA ── */
-  .cta-block {
-    border: 1px solid var(--line);
-    padding: 56px 48px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 28px;
-    text-align: center;
-    position: relative;
-  }
-
-  .cta-title {
-    font-size: clamp(1.4rem, 3vw, 2rem);
-    font-weight: 100;
-    color: var(--white);
-    letter-spacing: -0.01em;
-    line-height: 1.3;
-  }
-
-  .cta-sub {
-    font-size: 13px;
-    font-weight: 300;
-    color: var(--w60);
-    line-height: 1.7;
-    max-width: 520px;
-  }
-
-  .cta-links {
-    display: flex;
-    gap: 14px;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .cta-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 12px 28px;
-    font-family: 'Roboto', sans-serif;
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    text-decoration: none;
-    border: 1px solid var(--line);
-    color: var(--w60);
-    transition: all 0.2s;
-    cursor: pointer;
-    background: transparent;
-  }
-  .cta-btn:hover { border-color: var(--white); color: var(--white); }
-  .cta-btn.primary {
-    border-color: var(--white);
-    color: var(--white);
-    background: var(--w06);
-  }
-  .cta-btn.primary:hover { background: var(--w12); }
-
-  /* ── FOOTER ── */
-  footer {
-    border-top: 1px solid var(--line);
-    padding: 28px 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 12px;
-  }
-
-  .footer-text {
-    font-size: 10px;
-    font-weight: 300;
-    letter-spacing: 0.10em;
-    color: var(--w35);
-    text-transform: uppercase;
-  }
-
-  /* ── RESPONSIVE ── */
-  @media (max-width: 768px) {
-    .container { padding: 0 24px; }
-    .header-inner { grid-template-columns: 1fr; }
-    .header-meta { align-items: flex-start; }
-    .exp-item { grid-template-columns: 1fr; gap: 16px; }
-    .lang-grid { grid-template-columns: 1fr; }
-    .cta-block { padding: 36px 24px; }
-    footer { flex-direction: column; gap: 6px; }
-  }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>David Britto — DevOps specialist & IA Engineer</title>
+  <link rel="icon" type="image/png" href="1.png">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,300&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --black: #000000;
+      --white: #ffffff;
+      --w92: rgba(0, 182, 0, 0.92);
+      --w90: rgba(240, 235, 235, 0.9);
+      --w60: rgba(255, 255, 255, 0.60);
+      --w35: rgba(255, 255, 255, 0.35);
+      --w12: rgba(255, 255, 255, 0.12);
+      --w06: rgba(255, 255, 255, 0.06);
+      --w03: rgba(255, 255, 255, 0.03);
+      --line: rgba(255, 255, 255, 0.14);
+      --line-bright: rgba(255, 255, 255, 0.30);
+      --accent: #FFFFFF;
+    }
+
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--black);
+      color: var(--w90);
+      font-family: 'Roboto', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── PAGE LOAD ANIMATION ── */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(23px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .reveal {
+      opacity: 0;
+      animation: fadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .d1 {
+      animation-delay: 0.05s;
+    }
+
+    .d2 {
+      animation-delay: 0.15s;
+    }
+
+    .d3 {
+      animation-delay: 0.25s;
+    }
+
+    .d4 {
+      animation-delay: 0.35s;
+    }
+
+    .d5 {
+      animation-delay: 0.45s;
+    }
+
+    .d6 {
+      animation-delay: 0.55s;
+    }
+
+    .d7 {
+      animation-delay: 0.65s;
+    }
+
+    .d8 {
+      animation-delay: 0.75s;
+    }
+
+    /* ── LAYOUT ── */
+    .container {
+      max-width: 1060px;
+      margin: 0 auto;
+      padding: 0 48px;
+    }
+
+    /* ── HEADER ── */
+    header {
+      border-bottom: 1px solid var(--line);
+      padding: 72px 0 56px;
+    }
+
+    .header-inner {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: end;
+      gap: 40px;
+    }
+
+    .eyebrow {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--w35);
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: clamp(2.6rem, 5.5vw, 4.2rem);
+      font-weight: 100;
+      letter-spacing: -0.01em;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 16px;
+    }
+
+    .title-role {
+      font-size: 13px;
+      font-weight: 300;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--w60);
+    }
+
+    .header-meta {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 10px;
+    }
+
+    .avail-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border: 1px solid var(--line-bright);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--white);
+    }
+
+    .dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--w92);
+      animation: blink 2s ease-in-out infinite;
+    }
+
+    @keyframes blink {
+
+      0%,
+      100% {
+        opacity: 1
+      }
+
+      50% {
+        opacity: 0.2
+      }
+    }
+
+    .meta-links {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 4px;
+    }
+
+    .meta-links a {
+      font-size: 11px;
+      font-weight: 300;
+      color: var(--w35);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      transition: color 0.2s;
+    }
+
+    .meta-links a:hover {
+      color: var(--w90);
+    }
+
+    /* ── NAV ── */
+    nav {
+      border-bottom: 1px solid var(--line);
+      position: sticky;
+      top: 0;
+      background: rgba(0, 0, 0, 0.96);
+      backdrop-filter: blur(12px);
+      z-index: 100;
+    }
+
+    .nav-inner {
+      display: flex;
+      gap: 0;
+      overflow-x: auto;
+    }
+
+    nav a {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--w35);
+      text-decoration: none;
+      padding: 16px 20px;
+      border-bottom: 1px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+      white-space: nowrap;
+      margin-bottom: -1px;
+    }
+
+    nav a:hover {
+      color: var(--w90);
+      border-bottom-color: var(--w60);
+    }
+
+    /* ── MAIN ── */
+    main {
+      padding: 80px 0 120px;
+      display: flex;
+      flex-direction: column;
+      gap: 80px;
+    }
+
+    /* ── SECTION ── */
+    section {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .sec-head {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .sec-label {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--w35);
+      white-space: nowrap;
+    }
+
+    .sec-rule {
+      height: 1px;
+      background: var(--line);
+    }
+
+    h2 {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.20em;
+      text-transform: uppercase;
+      color: var(--white);
+    }
+
+    /* ── SUMMARY ── */
+    .summary-text {
+      font-size: 15px;
+      font-weight: 300;
+      line-height: 1.80;
+      color: var(--w60);
+      max-width: 780px;
+    }
+
+    .summary-text strong {
+      color: var(--w90);
+      font-weight: 400;
+    }
+
+    /* ── SKILLS ── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+      border-top: 1px solid var(--line);
+      border-left: 1px solid var(--line);
+    }
+
+    .skill-cell {
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 20px 22px;
+      transition: background 0.2s;
+    }
+
+    .skill-cell:hover {
+      background: var(--w03);
+    }
+
+    .skill-cat {
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--w35);
+      margin-bottom: 6px;
+    }
+
+    .skill-name {
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--w90);
+      margin-bottom: 10px;
+    }
+
+    .bar-track {
+      height: 1px;
+      background: var(--w12);
+      width: 100%;
+      margin-bottom: 6px;
+    }
+
+    .bar-fill {
+      height: 1px;
+      background: var(--white);
+      position: relative;
+    }
+
+    .skill-lvl {
+      font-size: 9px;
+      font-weight: 400;
+      color: var(--w35);
+      letter-spacing: 0.08em;
+      text-align: right;
+    }
+
+    /* ── DOMAINS ── */
+    .domains-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      border-top: 1px solid var(--line);
+      border-left: 1px solid var(--line);
+    }
+
+    .sub-sec-head {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      align-items: center;
+      gap: 24px;
+      margin-top: 48px;
+    }
+
+    .sub-sec-label {
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--w35);
+      white-space: nowrap;
+    }
+
+    .domain-cell {
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 28px 28px 24px;
+      transition: background 0.2s;
+    }
+
+    .domain-cell:hover {
+      background: var(--w03);
+    }
+
+    .domain-icon {
+      font-size: 18px;
+      display: block;
+      margin-bottom: 14px;
+      opacity: 0.85;
+    }
+
+    .domain-title {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--white);
+      letter-spacing: 0.04em;
+      margin-bottom: 10px;
+    }
+
+    .domain-desc {
+      font-size: 12px;
+      font-weight: 300;
+      line-height: 1.70;
+      color: var(--w60);
+    }
+
+    .domain-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 16px;
+    }
+
+    .tag {
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 4px 9px;
+      border: 1px solid var(--line);
+      color: var(--w35);
+      transition: all 0.2s;
+    }
+
+    .tag:hover {
+      border-color: var(--w60);
+      color: var(--w90);
+    }
+
+    .tag.hot {
+      border-color: var(--w35);
+      color: var(--w60);
+    }
+
+    /* ── EXPERIENCE ── */
+    .exp-list {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .exp-item {
+      border-top: 1px solid var(--line);
+      padding: 32px 0;
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 40px;
+      transition: background 0.2s;
+    }
+
+    .exp-item:last-child {
+      border-bottom: 1px solid var(--line);
+    }
+
+    .exp-item:hover {
+      background: var(--w03);
+      padding-left: 16px;
+      padding-right: 16px;
+      margin-left: -16px;
+      margin-right: -16px;
+    }
+
+    .exp-left {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .exp-role {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--white);
+      line-height: 1.4;
+    }
+
+    .exp-company {
+      font-size: 11px;
+      font-weight: 300;
+      color: var(--w60);
+      letter-spacing: 0.02em;
+    }
+
+    .exp-period {
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 0.10em;
+      color: var(--w35);
+      margin-top: 4px;
+    }
+
+    .exp-bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding-top: 2px;
+    }
+
+    .exp-bullets li {
+      font-size: 13px;
+      font-weight: 300;
+      line-height: 1.65;
+      color: var(--w60);
+      padding-left: 16px;
+      position: relative;
+    }
+
+    .exp-bullets li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--w35);
+      font-weight: 100;
+    }
+
+    /* ── LANGUAGES ── */
+    .lang-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-top: 1px solid var(--line);
+      border-left: 1px solid var(--line);
+    }
+
+    .lang-cell {
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 24px 28px;
+    }
+
+    .lang-name {
+      font-size: 16px;
+      font-weight: 300;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+
+    .lang-level {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--w35);
+      margin-bottom: 16px;
+    }
+
+    .lang-bar-track {
+      height: 1px;
+      background: var(--w12);
+    }
+
+    .lang-bar-fill {
+      height: 1px;
+      background: var(--white);
+    }
+
+    /* ── ATTRIBUTES ── */
+    .attr-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      border-top: 1px solid var(--line);
+      border-left: 1px solid var(--line);
+    }
+
+    .attr-cell {
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 16px 20px;
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--w60);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: all 0.2s;
+    }
+
+    .attr-cell:hover {
+      color: var(--w90);
+      background: var(--w03);
+    }
+
+    .attr-mark {
+      width: 4px;
+      height: 4px;
+      border: 1px solid var(--w35);
+      border-radius: 50%;
+      flex-shrink: 0;
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    .attr-cell:hover .attr-mark {
+      background: var(--white);
+      border-color: var(--white);
+    }
+
+    /* ── PLATFORMS ── */
+    .platforms-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      border-top: 1px solid var(--line);
+      border-left: 1px solid var(--line);
+    }
+
+    .platform-cell {
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 20px 22px;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      transition: background 0.2s;
+    }
+
+    .platform-cell:hover {
+      background: var(--w03);
+    }
+
+    .platform-ind {
+      width: 1px;
+      height: 32px;
+      flex-shrink: 0;
+      margin-top: 3px;
+    }
+
+    .platform-ind.primary {
+      background: var(--white);
+    }
+
+    .platform-ind.secondary {
+      background: var(--w35);
+    }
+
+    .platform-name {
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--w90);
+      margin-bottom: 3px;
+    }
+
+    .platform-note {
+      font-size: 10px;
+      font-weight: 300;
+      color: var(--w35);
+      letter-spacing: 0.04em;
+    }
+
+    /* ── CTA ── */
+    .cta-block {
+      border: 1px solid var(--line);
+      padding: 56px 48px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 28px;
+      text-align: center;
+      position: relative;
+    }
+
+    .cta-title {
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 100;
+      color: var(--white);
+      letter-spacing: -0.01em;
+      line-height: 1.3;
+    }
+
+    .cta-sub {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--w60);
+      line-height: 1.7;
+      max-width: 520px;
+    }
+
+    .cta-links {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 28px;
+      font-family: 'Roboto', sans-serif;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 1px solid var(--line);
+      color: var(--w60);
+      transition: all 0.2s;
+      cursor: pointer;
+      background: transparent;
+    }
+
+    .cta-btn:hover {
+      border-color: var(--white);
+      color: var(--white);
+    }
+
+    .cta-btn.primary {
+      border-color: var(--white);
+      color: var(--white);
+      background: var(--w06);
+    }
+
+    .cta-btn.primary:hover {
+      background: var(--w12);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 28px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .footer-text {
+      font-size: 10px;
+      font-weight: 300;
+      letter-spacing: 0.10em;
+      color: var(--w35);
+      text-transform: uppercase;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .container {
+        padding: 0 24px;
+      }
+
+      .header-inner {
+        grid-template-columns: 1fr;
+      }
+
+      .header-meta {
+        align-items: flex-start;
+      }
+
+      .exp-item {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .lang-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .cta-block {
+        padding: 36px 24px;
+      }
+
+      footer {
+        flex-direction: column;
+        gap: 6px;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-<!-- HEADER -->
-<div class="container">
-  <header class="reveal d1">
-    <div class="header-inner">
-      <div>
-        <div class="eyebrow">DevOps Specialist · AI Engineer implementations</div>
-        <h1>David Britto</h1>
-        <div class="title-role">Full-Stack Developer · DevOps Specialist · AI Engineer</div>
-      </div>
-      <div class="header-meta">
-        <div class="avail-badge">
-          <div class="dot"></div>
-          Available for Remote Work
-        </div>
-        <div class="meta-links">
-          <a href="mailto:davidbritto54@gmail.com">davidbritto54@gmail.com</a>
-          <a href="https://github.com/DavidBritto" target="_blank">github.com/DavidBritto</a>
-          <a href="https://linkedin.com/in/davidbrittoeth" target="_blank">linkedin.com/in/davidbrittoeth</a>
-          <a href="#" style="color:var(--w35);cursor:default;pointer-events:none;">Chaco, Argentina · UTC-3</a>
-        </div>
-      </div>
-    </div>
-  </header>
-</div>
-
-<!-- NAV -->
-<nav class="reveal d2">
+  <!-- HEADER -->
   <div class="container">
-    <div class="nav-inner">
-      <a href="#summary">Summary</a>
-      <a href="#skills">Skills</a>
-      <a href="#domains">Domains</a>
-      <a href="#experience">Experience</a>
-      <a href="#languages">Languages</a>
-      <a href="#platforms">Platforms</a>
-      <a href="#contact">Contact</a>
-    </div>
+    <header class="reveal d1">
+      <div class="header-inner">
+        <div>
+          <div class="eyebrow">DevOps Specialist · AI Engineer implementations</div>
+          <h1>David Britto</h1>
+          <div class="title-role">Full-Stack Developer · DevOps Specialist · AI Engineer</div>
+        </div>
+        <div class="header-meta">
+          <div class="avail-badge">
+            <div class="dot"></div>
+            Available for Remote Work
+          </div>
+          <div class="meta-links">
+            <a href="mailto:davidbritto54@gmail.com">davidbritto54@gmail.com</a>
+            <a href="https://github.com/DavidBritto" target="_blank">github.com/DavidBritto</a>
+            <a href="https://linkedin.com/in/davidbrittoeth" target="_blank">linkedin.com/in/davidbrittoeth</a>
+            <a href="#" style="color:var(--w35);cursor:default;pointer-events:none;">Chaco, Argentina · UTC-3</a>
+          </div>
+        </div>
+      </div>
+    </header>
   </div>
-</nav>
 
-<!-- MAIN -->
-<div class="container">
-<main>
-
-  <!-- SUMMARY -->
-  <section id="summary" class="reveal d3">
-    <div class="sec-head">
-      <span class="sec-label">01 — Summary</span>
-      <div class="sec-rule"></div>
-    </div>
-    <p class="summary-text">
-      Data professional with a <strong>Finance background</strong> transitioning into
-      <strong>Data Engineering & DevOps</strong>, with 1–3 years of hands-on technical experience.
-      Highly skilled in <strong>AI training data production</strong>, prompt evaluation, code annotation,
-      and <strong>RLHF</strong> workflows. Combines domain expertise in financial data with solid
-      technical knowledge in Python, SQL, Docker, and cloud infrastructure — uniquely suited for
-      <strong>technical AI annotation</strong>, code review tasks, and
-      <strong>SFT data creation</strong>. Bilingual Spanish / English.
-    </p>
-  </section>
-
-  <!-- SKILLS -->
-  <section id="skills" class="reveal d4">
-    <div class="sec-head">
-      <span class="sec-label">02 — Technical Skills</span>
-      <div class="sec-rule"></div>
-    </div>
-    <div class="skills-grid">
-      <div class="skill-cell">
-        <div class="skill-cat">Programming</div>
-        <div class="skill-name">Python</div>
-        <div class="bar-track"><div class="bar-fill" style="width:78%"></div></div>
-        <div class="skill-lvl">Advanced · 2+ yrs</div>
-      </div>
-      <div class="skill-cell">
-        <div class="skill-cat">Data</div>
-        <div class="skill-name">SQL / MySQL</div>
-        <div class="bar-track"><div class="bar-fill" style="width:75%"></div></div>
-        <div class="skill-lvl">Advanced · 2+ yrs</div>
-      </div>
-      <div class="skill-cell">
-        <div class="skill-cat">Version Control</div>
-        <div class="skill-name">Git / GitHub</div>
-        <div class="bar-track"><div class="bar-fill" style="width:80%"></div></div>
-        <div class="skill-lvl">Advanced · Daily use</div>
-      </div>
-      <div class="skill-cell">
-        <div class="skill-cat">Infrastructure</div>
-        <div class="skill-name">Docker</div>
-        <div class="bar-track"><div class="bar-fill" style="width:70%"></div></div>
-        <div class="skill-lvl">Intermediate · 1–2 yrs</div>
-      </div>
-      <div class="skill-cell">
-        <div class="skill-cat">IaC</div>
-        <div class="skill-name">Terraform</div>
-        <div class="bar-track"><div class="bar-fill" style="width:60%"></div></div>
-        <div class="skill-lvl">Intermediate · Active</div>
-      </div>
-      <div class="skill-cell">
-        <div class="skill-cat">Big Data</div>
-        <div class="skill-name">Apache Spark</div>
-        <div class="bar-track"><div class="bar-fill" style="width:58%"></div></div>
-        <div class="skill-lvl">Intermediate</div>
-      </div>
-      <div class="skill-cell">
-        <div class="skill-cat">Cloud</div>
-        <div class="skill-name">BigQuery / GCP</div>
-        <div class="bar-track"><div class="bar-fill" style="width:55%"></div></div>
-        <div class="skill-lvl">Intermediate</div>
-      </div>
-      <div class="skill-cell">
-        <div class="skill-cat">Web Dev</div>
-        <div class="skill-name">Django / REST APIs</div>
-        <div class="bar-track"><div class="bar-fill" style="width:65%"></div></div>
-        <div class="skill-lvl">Intermediate</div>
-      </div>
-      <div class="skill-cell">
-        <div class="skill-cat">CI/CD</div>
-        <div class="skill-name">GitHub Actions</div>
-        <div class="bar-track"><div class="bar-fill" style="width:62%"></div></div>
-        <div class="skill-lvl">Intermediate</div>
-      </div>
-      <div class="skill-cell">
-        <div class="skill-cat">Orchestration</div>
-        <div class="skill-name">Kestra</div>
-        <div class="bar-track"><div class="bar-fill" style="width:50%"></div></div>
-        <div class="skill-lvl">Learning · Active</div>
-      </div>
-      <div class="skill-cell">
-        <div class="skill-cat">OS</div>
-        <div class="skill-name">Linux (Mint/Ubuntu)</div>
-        <div class="bar-track"><div class="bar-fill" style="width:72%"></div></div>
-        <div class="skill-lvl">Advanced · Daily driver</div>
-      </div>
-      <div class="skill-cell">
-        <div class="skill-cat">Finance</div>
-        <div class="skill-name">Financial Analysis</div>
-        <div class="bar-track"><div class="bar-fill" style="width:85%"></div></div>
-        <div class="skill-lvl">Expert · Background</div>
+  <!-- NAV -->
+  <nav class="reveal d2">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="#summary">Summary</a>
+        <a href="#skills">Skills</a>
+        <a href="#domains">Domains</a>
+        <a href="#experience">Experience</a>
+        <a href="#languages">Languages</a>
+        <a href="#platforms">Platforms</a>
+        <a href="#contact">Contact</a>
       </div>
     </div>
-  </section>
+  </nav>
 
-  <!-- DOMAINS -->
-  <section id="domains" class="reveal d5">
-    <div class="sec-head">
-      <span class="sec-label">03 — Domain Expertise</span>
-      <div class="sec-rule"></div>
-    </div>
-    <div class="domains-grid">
+  <!-- MAIN -->
+  <div class="container">
+    <main>
 
-      <div class="domain-cell">
-        <span class="domain-icon">💹</span>
-        <div class="domain-title">Finance & Economics</div>
-        <div class="domain-desc">Deep understanding of financial instruments, market terminology, accounting, and economic concepts. Ideal for labeling financial documents, NER on economic entities, and evaluating finance-related LLM outputs.</div>
-        <div class="domain-tags">
-          <span class="tag hot">NER · Financial</span>
-          <span class="tag hot">Document QA</span>
-          <span class="tag">Risk Assessment</span>
+      <!-- SUMMARY -->
+      <section id="summary" class="reveal d3">
+        <div class="sec-head">
+          <span class="sec-label">01 — Summary</span>
+          <div class="sec-rule"></div>
         </div>
-      </div>
+        <p class="summary-text">
+          Data professional with a <strong>Finance background</strong> transitioning into
+          <strong>Data Engineering & DevOps</strong>, with 1–3 years of hands-on technical experience.
+          Highly skilled in <strong>AI training data production</strong>, prompt evaluation, code annotation,
+          and <strong>RLHF</strong> workflows. Combines domain expertise in financial data with solid
+          technical knowledge in Python, SQL, Docker, and cloud infrastructure — uniquely suited for
+          <strong>technical AI annotation</strong>, code review tasks, and
+          <strong>SFT data creation</strong>. Bilingual Spanish / English.
+        </p>
+      </section>
 
-      <div class="domain-cell">
-        <span class="domain-icon">🐍</span>
-        <div class="domain-title">Python Code Review</div>
-        <div class="domain-desc">Capable of reviewing, evaluating, and annotating Python code for correctness, efficiency, and best practices. Skilled in identifying bugs, rating code quality, and producing SFT-quality code corrections for AI training.</div>
-        <div class="domain-tags">
-          <span class="tag hot">Code Annotation</span>
-          <span class="tag hot">RLHF · Code</span>
-          <span class="tag">SFT Data</span>
+      <!-- SKILLS -->
+      <section id="skills" class="reveal d4">
+        <div class="sec-head">
+          <span class="sec-label">02 — Technical Skills</span>
+          <div class="sec-rule"></div>
         </div>
-      </div>
-
-      <div class="domain-cell">
-        <span class="domain-icon">🗄️</span>
-        <div class="domain-title">Data Engineering</div>
-        <div class="domain-desc">Strong grasp of ETL pipelines, data modeling, SQL optimization, streaming architectures (Kafka), and warehouse tools (BigQuery, dbt). Valuable for annotating technical docs and evaluating DE-domain AI responses.</div>
-        <div class="domain-tags">
-          <span class="tag hot">Technical QA</span>
-          <span class="tag hot">LLM Evaluation</span>
-          <span class="tag">SQL Annotation</span>
+        <div class="skills-grid">
+          <div class="skill-cell">
+            <div class="skill-cat">Programming</div>
+            <div class="skill-name">Python</div>
+            <div class="bar-track">
+              <div class="bar-fill" style="width:78%"></div>
+            </div>
+            <div class="skill-lvl">Advanced · 2+ yrs</div>
+          </div>
+          <div class="skill-cell">
+            <div class="skill-cat">Data</div>
+            <div class="skill-name">SQL / MySQL</div>
+            <div class="bar-track">
+              <div class="bar-fill" style="width:75%"></div>
+            </div>
+            <div class="skill-lvl">Advanced · 2+ yrs</div>
+          </div>
+          <div class="skill-cell">
+            <div class="skill-cat">Version Control</div>
+            <div class="skill-name">Git / GitHub</div>
+            <div class="bar-track">
+              <div class="bar-fill" style="width:80%"></div>
+            </div>
+            <div class="skill-lvl">Advanced · Daily use</div>
+          </div>
+          <div class="skill-cell">
+            <div class="skill-cat">Infrastructure</div>
+            <div class="skill-name">Docker</div>
+            <div class="bar-track">
+              <div class="bar-fill" style="width:70%"></div>
+            </div>
+            <div class="skill-lvl">Intermediate · 1–2 yrs</div>
+          </div>
+          <div class="skill-cell">
+            <div class="skill-cat">IaC</div>
+            <div class="skill-name">Terraform</div>
+            <div class="bar-track">
+              <div class="bar-fill" style="width:60%"></div>
+            </div>
+            <div class="skill-lvl">Intermediate · Active</div>
+          </div>
+          <div class="skill-cell">
+            <div class="skill-cat">Big Data</div>
+            <div class="skill-name">Apache Spark</div>
+            <div class="bar-track">
+              <div class="bar-fill" style="width:58%"></div>
+            </div>
+            <div class="skill-lvl">Intermediate</div>
+          </div>
+          <div class="skill-cell">
+            <div class="skill-cat">Cloud</div>
+            <div class="skill-name">BigQuery / GCP</div>
+            <div class="bar-track">
+              <div class="bar-fill" style="width:55%"></div>
+            </div>
+            <div class="skill-lvl">Intermediate</div>
+          </div>
+          <div class="skill-cell">
+            <div class="skill-cat">Web Dev</div>
+            <div class="skill-name">Django / Fast APIs</div>
+            <div class="bar-track">
+              <div class="bar-fill" style="width:65%"></div>
+            </div>
+            <div class="skill-lvl">Intermediate</div>
+          </div>
+          <div class="skill-cell">
+            <div class="skill-cat">CI/CD</div>
+            <div class="skill-name">GitHub Actions</div>
+            <div class="bar-track">
+              <div class="bar-fill" style="width:62%"></div>
+            </div>
+            <div class="skill-lvl">Intermediate</div>
+          </div>
+          <div class="skill-cell">
+            <div class="skill-cat">Orchestration</div>
+            <div class="skill-name">Kestra</div>
+            <div class="bar-track">
+              <div class="bar-fill" style="width:50%"></div>
+            </div>
+            <div class="skill-lvl">Learning · Active</div>
+          </div>
+          <div class="skill-cell">
+            <div class="skill-cat">OS</div>
+            <div class="skill-name">Linux (Mint/Ubuntu)</div>
+            <div class="bar-track">
+              <div class="bar-fill" style="width:72%"></div>
+            </div>
+            <div class="skill-lvl">Advanced · Daily driver</div>
+          </div>
+          <div class="skill-cell">
+            <div class="skill-cat">Finance</div>
+            <div class="skill-name">Financial Analysis</div>
+            <div class="bar-track">
+              <div class="bar-fill" style="width:85%"></div>
+            </div>
+            <div class="skill-lvl">Expert · Background</div>
+          </div>
         </div>
-      </div>
+      </section>
 
-      <div class="domain-cell">
-        <span class="domain-icon">☁️</span>
-        <div class="domain-title">DevOps & Infrastructure</div>
-        <div class="domain-desc">Hands-on experience with Docker, Terraform, CI/CD pipelines, and cloud infrastructure. Can accurately evaluate and label content related to DevOps practices, containerization, and IaC.</div>
-        <div class="domain-tags">
-          <span class="tag hot">Infrastructure QA</span>
-          <span class="tag">IaC Review</span>
-          <span class="tag">Docker Tasks</span>
+      <!-- DOMAINS -->
+      <section id="domains" class="reveal d5">
+        <div class="sec-head">
+          <span class="sec-label">03 — Domain Expertise</span>
+          <div class="sec-rule"></div>
         </div>
-      </div>
+        <div class="domains-grid">
 
-      <div class="domain-cell">
-        <span class="domain-icon">🔬</span>
-        <div class="domain-title">Math & STEM Reasoning</div>
-        <div class="domain-desc">Strong interest and knowledge in mathematics and physics. Able to evaluate scientific reasoning, flag logical errors in math explanations, and rate STEM content quality for AI training datasets.</div>
-        <div class="domain-tags">
-          <span class="tag hot">Reasoning Eval</span>
-          <span class="tag">STEM Annotation</span>
-          <span class="tag">Logic QA</span>
+          <div class="domain-cell">
+            <span class="domain-icon">☁️</span>
+            <div class="domain-title">DevOps & Infrastructure</div>
+            <div class="domain-desc">Hands-on experience with Docker, Terraform, CI/CD pipelines, Kubernetes, and cloud
+              infrastructure on AWS. Builds and evaluates containerized architectures, IaC modules, and automated
+              deployment workflows end-to-end.</div>
+            <div class="domain-tags">
+              <span class="tag hot">Docker · Kubernetes</span>
+              <span class="tag hot">Terraform · IaC</span>
+              <span class="tag hot">CI/CD · GitHub Actions</span>
+              <span class="tag">Infrastructure QA</span>
+              <span class="tag">Cloud · AWS</span>
+            </div>
+          </div>
+
+          <div class="domain-cell">
+            <span class="domain-icon">🤖</span>
+            <div class="domain-title">AI Engineering</div>
+            <div class="domain-desc">Design and orchestration of multi-agent systems using LangChain, LangGraph, and
+              AutoGen. Skilled in prompt engineering, RAG pipelines, vector databases, and fine-tuning workflows
+              for production-grade LLM applications.</div>
+            <div class="domain-tags">
+              <span class="tag hot">Agent Orchestration</span>
+              <span class="tag hot">Prompt Engineering</span>
+              <span class="tag hot">RAG · Retrieval</span>
+              <span class="tag hot">Fine-Tuning · SFT</span>
+              <span class="tag">LangChain · LangGraph</span>
+              <span class="tag">Vector DB · Embeddings</span>
+              <span class="tag">RLHF · Alignment</span>
+            </div>
+          </div>
+
+          <div class="domain-cell">
+            <span class="domain-icon">🐍</span>
+            <div class="domain-title">Python · FastAPI & ML</div>
+            <div class="domain-desc">Building production APIs with FastAPI — async, typed, OpenAPI-documented. Applied
+              knowledge of ML workflows: model training, evaluation, and serving. Familiar with LLM inference
+              pipelines, Hugging Face ecosystem, and MLOps tooling.</div>
+            <div class="domain-tags">
+              <span class="tag hot">FastAPI · Async</span>
+              <span class="tag hot">Hugging Face</span>
+              <span class="tag hot">LLM Inference</span>
+              <span class="tag">scikit-learn · PyTorch</span>
+              <span class="tag">MLflow · MLOps</span>
+              <span class="tag">Pydantic · OpenAPI</span>
+            </div>
+          </div>
+
+          <div class="domain-cell">
+            <span class="domain-icon">💹</span>
+            <div class="domain-title">Finance & Economics</div>
+            <div class="domain-desc">Deep understanding of financial instruments, market terminology, accounting, and
+              economic concepts. Ideal for labeling financial documents, NER on economic entities, and evaluating
+              finance-related LLM outputs.</div>
+            <div class="domain-tags">
+              <span class="tag hot">NER · Financial</span>
+              <span class="tag hot">Document QA</span>
+              <span class="tag">Risk Assessment</span>
+            </div>
+          </div>
+
         </div>
-      </div>
 
-      <div class="domain-cell">
-        <span class="domain-icon">🌐</span>
-        <div class="domain-title">Web Development</div>
-        <div class="domain-desc">Experience building web apps with Python/Django, REST APIs, and MySQL. Can evaluate fullstack code outputs and annotate front-end and back-end code tasks with technical precision.</div>
-        <div class="domain-tags">
-          <span class="tag hot">Fullstack QA</span>
-          <span class="tag">Django / REST</span>
-          <span class="tag">SQL Review</span>
+        <!-- 3.1 — Exploration & Interests -->
+        <div class="sub-sec-head">
+          <span class="sub-sec-label">3.1 — Exploration & Interests</span>
+          <div class="sec-rule"></div>
         </div>
-      </div>
+        <div class="domains-grid">
 
-    </div>
-  </section>
+          <div class="domain-cell">
+            <span class="domain-icon">🗄️</span>
+            <div class="domain-title">Data Engineering</div>
+            <div class="domain-desc">Actively learning ETL/ELT pipelines, data modeling, SQL optimization, streaming
+              architectures (Kafka), and warehouse tools (BigQuery, dbt). Building hands-on projects via
+              DataTalks.Club DE Zoomcamp.</div>
+            <div class="domain-tags">
+              <span class="tag">dbt · BigQuery</span>
+              <span class="tag">Kafka · Spark</span>
+              <span class="tag">Kestra · Airflow</span>
+              <span class="tag">ETL · ELT</span>
+            </div>
+          </div>
 
-  <!-- EXPERIENCE -->
-  <section id="experience" class="reveal d6">
-    <div class="sec-head">
-      <span class="sec-label">04 — Experience</span>
-      <div class="sec-rule"></div>
-    </div>
-    <div class="exp-list">
+          <div class="domain-cell">
+            <span class="domain-icon">₿</span>
+            <div class="domain-title">Crypto & DeFi</div>
+            <div class="domain-desc">Interest in blockchain fundamentals, on-chain data analysis, and decentralized
+              finance protocols. Exploring smart contract logic and tokenomics as applied domains for
+              data and AI tooling.</div>
+            <div class="domain-tags">
+              <span class="tag">On-chain Analytics</span>
+              <span class="tag">DeFi Protocols</span>
+              <span class="tag">Tokenomics</span>
+            </div>
+          </div>
 
-      <div class="exp-item">
-        <div class="exp-left">
-          <div class="exp-role">Data Engineering Student</div>
-          <div class="exp-company">DataTalks.Club<br>DE Zoomcamp 2026</div>
-          <div class="exp-period">2026 — Ongoing</div>
+          <div class="domain-cell">
+            <span class="domain-icon">🔬</span>
+            <div class="domain-title">Math & Physics</div>
+            <div class="domain-desc">Solid foundation in linear algebra (vectors, matrices, eigenvalues, SVD) and
+              calculus — the mathematical backbone of ML and data science. Interest in statistical learning theory,
+              probability, and physics-informed reasoning applicable to model evaluation and STEM annotation.</div>
+            <div class="domain-tags">
+              <span class="tag">Linear Algebra · SVD</span>
+              <span class="tag">Calculus · Gradients</span>
+              <span class="tag">Probability · Stats</span>
+              <span class="tag">Eigenvalues · PCA</span>
+              <span class="tag">STEM Reasoning</span>
+              <span class="tag">Logic QA</span>
+            </div>
+          </div>
+
         </div>
-        <ul class="exp-bullets">
-          <li>Producing end-to-end data pipelines combining Kestra, BigQuery, dbt, Spark, and Kafka — generating technical artifacts suitable for AI training corpora.</li>
-          <li>Regularly evaluating, debugging, and correcting complex Python and SQL code — directly transferable to code annotation and RLHF tasks.</li>
-          <li>Applying rigorous quality standards: consistency, accuracy, and clear structured reasoning in every output.</li>
-        </ul>
-      </div>
+      </section>
 
-      <div class="exp-item">
-        <div class="exp-left">
-          <div class="exp-role">DevOps Specialist</div>
-          <div class="exp-company">Autodidact<br>90-Day Challenge</div>
-          <div class="exp-period">2026 — Ongoing</div>
+      <!-- EXPERIENCE -->
+      <section id="experience" class="reveal d6">
+        <div class="sec-head">
+          <span class="sec-label">04 — Experience</span>
+          <div class="sec-rule"></div>
         </div>
-        <ul class="exp-bullets">
-          <li>Building a complete Voting App pipeline (Flask, Node.js, PostgreSQL) covering the full DevOps stack: Docker, Terraform, CI/CD with GitHub Actions.</li>
-          <li>Week-by-week structured delivery with documented outputs — demonstrating consistent throughput under self-managed remote workflows.</li>
-          <li>Deep immersion in IaC (Terraform) — able to evaluate and annotate infrastructure-related AI outputs with technical precision.</li>
-        </ul>
-      </div>
+        <div class="exp-list">
 
-      <div class="exp-item">
-        <div class="exp-left">
-          <div class="exp-role">Fullstack Developer</div>
-          <div class="exp-company">Informatorio Chaco<br>Stage 2</div>
-          <div class="exp-period">2025 — 2026</div>
+          <div class="exp-item">
+            <div class="exp-left">
+              <div class="exp-role">Data Engineering Student</div>
+              <div class="exp-company">DataTalks.Club<br>DE Zoomcamp 2026</div>
+              <div class="exp-period">2026 — Ongoing</div>
+            </div>
+            <ul class="exp-bullets">
+              <li>Producing end-to-end data pipelines combining Kestra, BigQuery, dbt, Spark, and Kafka — generating
+                technical artifacts suitable for AI training corpora.</li>
+              <li>Regularly evaluating, debugging, and correcting complex Python and SQL code — directly transferable to
+                code annotation and RLHF tasks.</li>
+              <li>Applying rigorous quality standards: consistency, accuracy, and clear structured reasoning in every
+                output.</li>
+            </ul>
+          </div>
+
+          <div class="exp-item">
+            <div class="exp-left">
+              <div class="exp-role">DevOps Specialist</div>
+              <div class="exp-company">Autodidact<br>90-Day Challenge</div>
+              <div class="exp-period">2026 — Ongoing</div>
+            </div>
+            <ul class="exp-bullets">
+              <li>Building a complete Voting App pipeline (Flask, Node.js, PostgreSQL) covering the full DevOps stack:
+                Docker, Terraform, CI/CD with GitHub Actions.</li>
+              <li>Week-by-week structured delivery with documented outputs — demonstrating consistent throughput under
+                self-managed remote workflows.</li>
+              <li>Deep immersion in IaC (Terraform) — able to evaluate and annotate infrastructure-related AI outputs
+                with technical precision.</li>
+            </ul>
+          </div>
+
+          <div class="exp-item">
+            <div class="exp-left">
+              <div class="exp-role">Fullstack Developer</div>
+              <div class="exp-company">Informatorio Chaco<br>Stage 2</div>
+              <div class="exp-period">2025 — 2026</div>
+            </div>
+            <ul class="exp-bullets">
+              <li>Completed structured fullstack program with Python, Django, REST APIs, and MySQL — covering both
+                back-end logic and database design.</li>
+              <li>Developed systematic debugging and code review habits applicable to annotation tasks requiring
+                technical accuracy judgment.</li>
+            </ul>
+          </div>
+
+          <div class="exp-item">
+            <div class="exp-left">
+              <div class="exp-role">Finance Professional</div>
+              <div class="exp-company">Previous Career<br>Argentina</div>
+              <div class="exp-period">Multiple years</div>
+            </div>
+            <ul class="exp-bullets">
+              <li>Extensive background in financial analysis, accounting, and economic reasoning — strong domain
+                expertise for annotating finance-related AI content.</li>
+              <li>High attention to detail in document review, data interpretation, and structured reporting — directly
+                applicable to data labeling quality standards.</li>
+              <li>Experience with financial statements, credit analysis, and currency calculations (ARS/USD) — relevant
+                for financial NER and document classification tasks.</li>
+            </ul>
+          </div>
+
         </div>
-        <ul class="exp-bullets">
-          <li>Completed structured fullstack program with Python, Django, REST APIs, and MySQL — covering both back-end logic and database design.</li>
-          <li>Developed systematic debugging and code review habits applicable to annotation tasks requiring technical accuracy judgment.</li>
-        </ul>
-      </div>
+      </section>
 
-      <div class="exp-item">
-        <div class="exp-left">
-          <div class="exp-role">Finance Professional</div>
-          <div class="exp-company">Previous Career<br>Argentina</div>
-          <div class="exp-period">Multiple years</div>
+      <!-- LANGUAGES -->
+      <section id="languages" class="reveal d7">
+        <div class="sec-head">
+          <span class="sec-label">05 — Languages</span>
+          <div class="sec-rule"></div>
         </div>
-        <ul class="exp-bullets">
-          <li>Extensive background in financial analysis, accounting, and economic reasoning — strong domain expertise for annotating finance-related AI content.</li>
-          <li>High attention to detail in document review, data interpretation, and structured reporting — directly applicable to data labeling quality standards.</li>
-          <li>Experience with financial statements, credit analysis, and currency calculations (ARS/USD) — relevant for financial NER and document classification tasks.</li>
-        </ul>
-      </div>
+        <div class="lang-grid">
+          <div class="lang-cell">
+            <div class="lang-name">Spanish</div>
+            <div class="lang-level">Native · C2</div>
+            <div class="lang-bar-track">
+              <div class="lang-bar-fill" style="width:100%"></div>
+            </div>
+          </div>
+          <div class="lang-cell">
+            <div class="lang-name">English</div>
+            <div class="lang-level">Professional · B2–C1</div>
+            <div class="lang-bar-track">
+              <div class="lang-bar-fill" style="width:82%"></div>
+            </div>
+          </div>
+          <div class="lang-cell">
+            <div class="lang-name">Portuguese</div>
+            <div class="lang-level">Basic · A2</div>
+            <div class="lang-bar-track">
+              <div class="lang-bar-fill" style="width:30%"></div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-    </div>
-  </section>
+      <!-- ATTRIBUTES -->
+      <section class="reveal d7">
+        <div class="sec-head">
+          <span class="sec-label">06 — Key Attributes</span>
+          <div class="sec-rule"></div>
+        </div>
+        <div class="attr-grid">
+          <div class="attr-cell">
+            <div class="attr-mark"></div>High accuracy & consistency
+          </div>
+          <div class="attr-cell">
+            <div class="attr-mark"></div>Strong instruction following
+          </div>
+          <div class="attr-cell">
+            <div class="attr-mark"></div>Attention to edge cases
+          </div>
+          <div class="attr-cell">
+            <div class="attr-mark"></div>Self-managed remote worker
+          </div>
+          <div class="attr-cell">
+            <div class="attr-mark"></div>Structured analytical thinking
+          </div>
+          <div class="attr-cell">
+            <div class="attr-mark"></div>Technical domain expertise
+          </div>
+          <div class="attr-cell">
+            <div class="attr-mark"></div>Finance domain knowledge
+          </div>
+          <div class="attr-cell">
+            <div class="attr-mark"></div>STEM reasoning capabilities
+          </div>
+          <div class="attr-cell">
+            <div class="attr-mark"></div>Bilingual ES / EN
+          </div>
+          <div class="attr-cell">
+            <div class="attr-mark"></div>Flexible availability
+          </div>
+          <div class="attr-cell">
+            <div class="attr-mark"></div>Fast learner / adaptable
+          </div>
+          <div class="attr-cell">
+            <div class="attr-mark"></div>Bias awareness in AI output
+          </div>
+        </div>
+      </section>
 
-  <!-- LANGUAGES -->
-  <section id="languages" class="reveal d7">
-    <div class="sec-head">
-      <span class="sec-label">05 — Languages</span>
-      <div class="sec-rule"></div>
-    </div>
-    <div class="lang-grid">
-      <div class="lang-cell">
-        <div class="lang-name">Spanish</div>
-        <div class="lang-level">Native · C2</div>
-        <div class="lang-bar-track"><div class="lang-bar-fill" style="width:100%"></div></div>
-      </div>
-      <div class="lang-cell">
-        <div class="lang-name">English</div>
-        <div class="lang-level">Professional · B2–C1</div>
-        <div class="lang-bar-track"><div class="lang-bar-fill" style="width:82%"></div></div>
-      </div>
-      <div class="lang-cell">
-        <div class="lang-name">Portuguese</div>
-        <div class="lang-level">Basic · A2</div>
-        <div class="lang-bar-track"><div class="lang-bar-fill" style="width:30%"></div></div>
-      </div>
-    </div>
-  </section>
+      <!-- PLATFORMS -->
+      <section id="platforms" class="reveal d8">
+        <div class="sec-head">
+          <span class="sec-label">07 — Target Platforms</span>
+          <div class="sec-rule"></div>
+        </div>
+        <div class="platforms-grid">
+          <div class="platform-cell">
+            <div class="platform-ind primary"></div>
+            <div>
+              <div class="platform-name">Dataforce</div>
+              <div class="platform-note">DE / Finance tasks · High priority</div>
+            </div>
+          </div>
+          <div class="platform-cell">
+            <div class="platform-ind primary"></div>
+            <div>
+              <div class="platform-name">Surge AI</div>
+              <div class="platform-note">Technical annotation · High priority</div>
+            </div>
+          </div>
+          <div class="platform-cell">
+            <div class="platform-ind primary"></div>
+            <div>
+              <div class="platform-name">Scale AI / Remotasks</div>
+              <div class="platform-note">Code review · RLHF tasks</div>
+            </div>
+          </div>
+          <div class="platform-cell">
+            <div class="platform-ind primary"></div>
+            <div>
+              <div class="platform-name">Micro1</div>
+              <div class="platform-note">Full-Stack · JSON Schema</div>
+            </div>
+          </div>
+          <div class="platform-cell">
+            <div class="platform-ind secondary"></div>
+            <div>
+              <div class="platform-name">Outlier AI</div>
+              <div class="platform-note">STEM / code annotation</div>
+            </div>
+          </div>
+          <div class="platform-cell">
+            <div class="platform-ind secondary"></div>
+            <div>
+              <div class="platform-name">Appen</div>
+              <div class="platform-note">ES/EN bilingual tasks</div>
+            </div>
+          </div>
+          <div class="platform-cell">
+            <div class="platform-ind secondary"></div>
+            <div>
+              <div class="platform-name">Telus International</div>
+              <div class="platform-note">Search relevance · QA</div>
+            </div>
+          </div>
+          <div class="platform-cell">
+            <div class="platform-ind secondary"></div>
+            <div>
+              <div class="platform-name">Invisible Technologies</div>
+              <div class="platform-note">AI ops · Process tasks</div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-  <!-- ATTRIBUTES -->
-  <section class="reveal d7">
-    <div class="sec-head">
-      <span class="sec-label">06 — Key Attributes</span>
-      <div class="sec-rule"></div>
-    </div>
-    <div class="attr-grid">
-      <div class="attr-cell"><div class="attr-mark"></div>High accuracy & consistency</div>
-      <div class="attr-cell"><div class="attr-mark"></div>Strong instruction following</div>
-      <div class="attr-cell"><div class="attr-mark"></div>Attention to edge cases</div>
-      <div class="attr-cell"><div class="attr-mark"></div>Self-managed remote worker</div>
-      <div class="attr-cell"><div class="attr-mark"></div>Structured analytical thinking</div>
-      <div class="attr-cell"><div class="attr-mark"></div>Technical domain expertise</div>
-      <div class="attr-cell"><div class="attr-mark"></div>Finance domain knowledge</div>
-      <div class="attr-cell"><div class="attr-mark"></div>STEM reasoning capabilities</div>
-      <div class="attr-cell"><div class="attr-mark"></div>Bilingual ES / EN</div>
-      <div class="attr-cell"><div class="attr-mark"></div>Flexible availability</div>
-      <div class="attr-cell"><div class="attr-mark"></div>Fast learner / adaptable</div>
-      <div class="attr-cell"><div class="attr-mark"></div>Bias awareness in AI output</div>
-    </div>
-  </section>
+      <!-- CTA -->
+      <section id="contact" class="reveal d8">
+        <div class="cta-block">
+          <div class="cta-title">Ready to contribute to DevOps & IA Engineering</div>
+          <p class="cta-sub">Available immediately for remote annotation, DevOps tasks IA implementation. Specialized in
+            Finance and Data Engineering domains. Bilingual Spanish / English.</p>
+          <div class="cta-links">
+            <a class="cta-btn primary" href="mailto:davidbritto54@gmail.com">Email Me</a>
+            <a class="cta-btn" href="https://github.com/DavidBritto" target="_blank">GitHub</a>
+            <a class="cta-btn" href="https://linkedin.com/in/davidbrittoeth" target="_blank">LinkedIn</a>
+          </div>
+        </div>
+      </section>
 
-  <!-- PLATFORMS -->
-  <section id="platforms" class="reveal d8">
-    <div class="sec-head">
-      <span class="sec-label">07 — Target Platforms</span>
-      <div class="sec-rule"></div>
-    </div>
-    <div class="platforms-grid">
-      <div class="platform-cell">
-        <div class="platform-ind primary"></div>
-        <div><div class="platform-name">Dataforce</div><div class="platform-note">DE / Finance tasks · High priority</div></div>
-      </div>
-      <div class="platform-cell">
-        <div class="platform-ind primary"></div>
-        <div><div class="platform-name">Surge AI</div><div class="platform-note">Technical annotation · High priority</div></div>
-      </div>
-      <div class="platform-cell">
-        <div class="platform-ind primary"></div>
-        <div><div class="platform-name">Scale AI / Remotasks</div><div class="platform-note">Code review · RLHF tasks</div></div>
-      </div>
-      <div class="platform-cell">
-        <div class="platform-ind primary"></div>
-        <div><div class="platform-name">Micro1</div><div class="platform-note">Full-Stack · JSON Schema</div></div>
-      </div>
-      <div class="platform-cell">
-        <div class="platform-ind secondary"></div>
-        <div><div class="platform-name">Outlier AI</div><div class="platform-note">STEM / code annotation</div></div>
-      </div>
-      <div class="platform-cell">
-        <div class="platform-ind secondary"></div>
-        <div><div class="platform-name">Appen</div><div class="platform-note">ES/EN bilingual tasks</div></div>
-      </div>
-      <div class="platform-cell">
-        <div class="platform-ind secondary"></div>
-        <div><div class="platform-name">Telus International</div><div class="platform-note">Search relevance · QA</div></div>
-      </div>
-      <div class="platform-cell">
-        <div class="platform-ind secondary"></div>
-        <div><div class="platform-name">Invisible Technologies</div><div class="platform-note">AI ops · Process tasks</div></div>
-      </div>
-    </div>
-  </section>
+    </main>
 
-  <!-- CTA -->
-  <section id="contact" class="reveal d8">
-    <div class="cta-block">
-      <div class="cta-title">Ready to contribute to DevOps & IA Engineering</div>
-      <p class="cta-sub">Available immediately for remote annotation, DevOps tasks IA implementation. Specialized in Finance and Data Engineering domains. Bilingual Spanish / English.</p>
-      <div class="cta-links">
-        <a class="cta-btn primary" href="mailto:davidbritto54@gmail.com">Email Me</a>
-        <a class="cta-btn" href="https://github.com/DavidBritto" target="_blank">GitHub</a>
-        <a class="cta-btn" href="https://linkedin.com/in/davidbrittoeth" target="_blank">LinkedIn</a>
-      </div>
-    </div>
-  </section>
-
-</main>
-
-<!-- FOOTER -->
-<footer>
-  <span class="footer-text">David Britto · DevOps Specialist & IA Engineer · 2026</span>
-  <span class="footer-text">Chaco, Argentina · UTC-3 · Remote Ready</span>
-</footer>
-</div>
+    <!-- FOOTER -->
+    <footer>
+      <span class="footer-text">David Britto · DevOps Specialist & IA Engineer · 2026</span>
+      <span class="footer-text">Chaco, Argentina · UTC-3 · Remote Ready</span>
+    </footer>
+  </div>
 
 </body>
+
 </html>
