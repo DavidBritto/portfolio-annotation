@@ -4,1092 +4,1184 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>David Britto — DevOps, Space Stack & AWS Ecommerce</title>
+  <title>David Britto - Deep Void Portfolio</title>
   <link rel="icon" type="image/png" href="1.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
     href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,300&display=swap"
     rel="stylesheet">
   <style>
     :root {
-      --black: #000000;
+      --black: #020308;
+      --void: #050713;
+      --void-soft: #090d1d;
       --white: #ffffff;
-      --w92: rgba(0, 182, 0, 0.92);
-      --w90: rgba(240, 235, 235, 0.9);
-      --w60: rgba(255, 255, 255, 0.60);
-      --w35: rgba(255, 255, 255, 0.35);
-      --w12: rgba(255, 255, 255, 0.12);
-      --w06: rgba(255, 255, 255, 0.06);
-      --w03: rgba(255, 255, 255, 0.03);
-      --line: rgba(255, 255, 255, 0.14);
-      --line-bright: rgba(255, 255, 255, 0.30);
-      --accent: #FFFFFF;
+      --text: rgba(243, 246, 255, 0.88);
+      --muted: rgba(214, 222, 255, 0.58);
+      --faint: rgba(214, 222, 255, 0.32);
+      --ghost: rgba(214, 222, 255, 0.11);
+      --line: rgba(206, 218, 255, 0.16);
+      --line-strong: rgba(227, 234, 255, 0.34);
+      --glass: rgba(9, 13, 28, 0.58);
+      --glass-bright: rgba(24, 32, 62, 0.56);
+      --accent: #d9e6ff;
+      --cyan: #84f3ff;
+      --green: #8cffb0;
+      --violet: #b7a3ff;
+      --amber: #ffd08a;
+      --idle-glow: 0;
+      --idle-scale: 1;
     }
 
     *,
     *::before,
     *::after {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
     }
 
     html {
       scroll-behavior: smooth;
+      background: var(--black);
     }
 
     body {
-      background: var(--black);
-      color: var(--w90);
-      font-family: 'Roboto', sans-serif;
-      font-weight: 300;
       min-height: 100vh;
       overflow-x: hidden;
+      background:
+        radial-gradient(circle at 50% 12%, rgba(88, 112, 255, 0.14), transparent 28rem),
+        radial-gradient(circle at 80% 18%, rgba(132, 243, 255, 0.10), transparent 22rem),
+        linear-gradient(180deg, #050713 0%, #020308 48%, #000000 100%);
+      color: var(--text);
+      font-family: "Roboto", sans-serif;
+      font-weight: 300;
       -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
     }
 
-    /* ── PAGE LOAD ANIMATION ── */
-    @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform: translateY(23px);
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      pointer-events: none;
+      transition: opacity 1.2s ease, transform 1.2s ease;
+    }
+
+    body::before {
+      background:
+        linear-gradient(120deg, transparent 0 48%, rgba(132, 243, 255, 0.08) 49%, transparent 51% 100%),
+        linear-gradient(65deg, transparent 0 55%, rgba(183, 163, 255, 0.07) 56%, transparent 58% 100%);
+      opacity: calc(0.16 + (var(--idle-glow) * 0.28));
+      transform: scale(calc(1 + (var(--idle-glow) * 0.025)));
+      filter: blur(1px);
+    }
+
+    body::after {
+      background:
+        radial-gradient(circle at 50% 42%, rgba(255, 255, 255, 0.05), transparent 28rem),
+        radial-gradient(circle at 50% 58%, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.82) 74%);
+      opacity: calc(0.78 + (var(--idle-glow) * 0.18));
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .void-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: -3;
+      width: 100%;
+      height: 100%;
+      background: #020308;
+    }
+
+    .page-shell {
+      width: min(1180px, calc(100% - 48px));
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .grain {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      opacity: 0.15;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 72px 72px;
+      -webkit-mask-image: radial-gradient(circle at 50% 44%, black, transparent 76%);
+      mask-image: radial-gradient(circle at 50% 44%, black, transparent 76%);
+    }
+
+    .topbar {
+      min-height: 82px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      color: var(--faint);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-size: 10px;
+      font-weight: 500;
+    }
+
+    .mark {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .mark-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 20px rgba(140, 255, 176, 0.7);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      padding: 10px 12px;
+      text-decoration: none;
+      transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+      border: 1px solid transparent;
+    }
+
+    .nav-links a:hover,
+    .nav-links a:focus-visible {
+      color: var(--text);
+      border-color: var(--line);
+      background: rgba(255, 255, 255, 0.03);
+      outline: none;
+    }
+
+    .hero {
+      min-height: calc(100vh - 82px);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 330px;
+      align-items: center;
+      gap: clamp(36px, 7vw, 88px);
+      padding: 48px 0 88px;
+    }
+
+    .hero-copy {
+      position: relative;
+    }
+
+    .eyebrow {
+      color: var(--cyan);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      margin-bottom: 22px;
+    }
+
+    h1 {
+      max-width: 860px;
+      color: var(--white);
+      font-size: clamp(3.3rem, 9vw, 8.4rem);
+      font-weight: 100;
+      letter-spacing: -0.075em;
+      line-height: 0.82;
+      text-transform: uppercase;
+      text-shadow:
+        0 0 calc(18px + (var(--idle-glow) * 28px)) rgba(217, 230, 255, 0.18),
+        0 18px 80px rgba(0, 0, 0, 0.65);
+      transition: text-shadow 1s ease;
+    }
+
+    .hero-line {
+      display: block;
+    }
+
+    .hero-line.offset {
+      padding-left: clamp(32px, 9vw, 132px);
+      color: rgba(255, 255, 255, 0.72);
+    }
+
+    .lead {
+      max-width: 710px;
+      margin-top: 34px;
+      color: var(--muted);
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      line-height: 1.85;
+    }
+
+    .lead strong {
+      color: var(--text);
+      font-weight: 400;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 34px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0 18px;
+      border: 1px solid var(--line);
+      color: var(--muted);
+      background: rgba(255, 255, 255, 0.025);
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-size: 10px;
+      font-weight: 500;
+      transition: transform 0.25s ease, color 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+    }
+
+    .button.primary {
+      color: var(--white);
+      border-color: var(--line-strong);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.10), rgba(255, 255, 255, 0.025));
+    }
+
+    .button:hover,
+    .button:focus-visible {
+      color: var(--white);
+      border-color: rgba(255, 255, 255, 0.58);
+      background: rgba(255, 255, 255, 0.075);
+      transform: translateY(-2px);
+      outline: none;
+    }
+
+    .signal-panel {
+      align-self: stretch;
+      min-height: 460px;
+      position: relative;
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.018)),
+        rgba(3, 5, 13, 0.45);
+      box-shadow:
+        inset 0 0 0 1px rgba(255, 255, 255, 0.025),
+        0 30px 90px rgba(0, 0, 0, 0.45),
+        0 0 calc(30px + (var(--idle-glow) * 40px)) rgba(132, 243, 255, 0.08);
+      overflow: hidden;
+      backdrop-filter: blur(18px);
+      transition: box-shadow 1s ease, transform 1s ease;
+      transform: translateY(calc(var(--idle-glow) * -8px));
+    }
+
+    .signal-panel::before {
+      content: "";
+      position: absolute;
+      inset: 32px;
+      border: 1px solid rgba(255, 255, 255, 0.10);
+      border-radius: 50%;
+      box-shadow:
+        0 0 0 58px rgba(255, 255, 255, 0.018),
+        0 0 0 116px rgba(255, 255, 255, 0.01);
+      opacity: calc(0.5 + (var(--idle-glow) * 0.34));
+      transform: scale(calc(0.96 + (var(--idle-glow) * 0.05)));
+      transition: opacity 1s ease, transform 1s ease;
+    }
+
+    .signal-panel::after {
+      content: "";
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      top: 48%;
+      left: 50%;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      background:
+        radial-gradient(circle, rgba(255, 255, 255, 0.92) 0 2px, transparent 3px),
+        radial-gradient(circle, rgba(132, 243, 255, 0.2), transparent 62%);
+      box-shadow:
+        0 0 46px rgba(132, 243, 255, 0.22),
+        0 0 calc(90px + (var(--idle-glow) * 70px)) rgba(183, 163, 255, 0.18);
+      opacity: calc(0.72 + (var(--idle-glow) * 0.24));
+      transition: box-shadow 1s ease, opacity 1s ease;
+    }
+
+    .orbit-label {
+      position: absolute;
+      left: 28px;
+      right: 28px;
+      bottom: 26px;
+      display: grid;
+      gap: 12px;
+      z-index: 1;
+    }
+
+    .status-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      color: var(--faint);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .idle-state {
+      color: var(--cyan);
+    }
+
+    .scanline {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(132, 243, 255, 0.66), transparent);
+      transform-origin: left;
+      opacity: calc(0.44 + (var(--idle-glow) * 0.46));
+      animation: scanline 5s ease-in-out infinite;
+    }
+
+    body.is-idle .scanline {
+      animation-duration: 2.8s;
+    }
+
+    @keyframes scanline {
+      0%,
+      100% {
+        transform: scaleX(0.16);
       }
 
+      50% {
+        transform: scaleX(1);
+      }
+    }
+
+    main {
+      display: grid;
+      gap: 112px;
+      padding: 0 0 86px;
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 22px;
+      align-items: center;
+      margin-bottom: 36px;
+    }
+
+    .section-kicker {
+      color: var(--faint);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .section-line {
+      height: 1px;
+      background: linear-gradient(90deg, var(--line), transparent);
+    }
+
+    .project-cloud {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 22px;
+      perspective: 1400px;
+    }
+
+    .project-card {
+      position: relative;
+      min-height: 470px;
+      padding: 26px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 28px;
+      border: 1px solid var(--line);
+      background:
+        radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.09), transparent 18rem),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.056), rgba(255, 255, 255, 0.018)),
+        var(--glass);
+      box-shadow:
+        0 26px 80px rgba(0, 0, 0, 0.36),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      overflow: hidden;
+      backdrop-filter: blur(18px);
+      transform: translateY(var(--float-y)) rotateX(var(--tilt-x)) rotateZ(var(--tilt-z));
+      transition:
+        transform 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+        border-color 0.35s ease,
+        background 0.35s ease,
+        box-shadow 0.35s ease;
+      animation: floatCard var(--float-speed) ease-in-out infinite;
+      animation-delay: var(--float-delay);
+    }
+
+    .project-card:nth-child(1) {
+      --float-y: 22px;
+      --tilt-x: 1.5deg;
+      --tilt-z: -1.3deg;
+      --float-speed: 8s;
+      --float-delay: -1s;
+      --project-color: var(--cyan);
+      --project-rgb: 132, 243, 255;
+    }
+
+    .project-card:nth-child(2) {
+      --float-y: -10px;
+      --tilt-x: -1.2deg;
+      --tilt-z: 0.6deg;
+      --float-speed: 9.5s;
+      --float-delay: -3s;
+      --project-color: var(--violet);
+      --project-rgb: 183, 163, 255;
+    }
+
+    .project-card:nth-child(3) {
+      --float-y: 30px;
+      --tilt-x: 1deg;
+      --tilt-z: 1.1deg;
+      --float-speed: 8.8s;
+      --float-delay: -2s;
+      --project-color: var(--amber);
+      --project-rgb: 255, 208, 138;
+    }
+
+    .project-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(115deg, transparent, rgba(255, 255, 255, 0.08), transparent),
+        radial-gradient(circle at 22% 18%, rgba(var(--project-rgb), 0.24), transparent 14rem);
+      opacity: calc(0.32 + (var(--idle-glow) * 0.18));
+      pointer-events: none;
+      transition: opacity 0.8s ease;
+    }
+
+    .project-card::after {
+      content: "";
+      position: absolute;
+      left: 26px;
+      right: 26px;
+      bottom: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--project-color), transparent);
+      opacity: 0.52;
+    }
+
+    .project-card:hover,
+    .project-card:focus-within {
+      transform: translateY(calc(var(--float-y) - 10px)) rotateX(0deg) rotateZ(0deg);
+      border-color: var(--line-strong);
+      background:
+        radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.13), transparent 18rem),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.026)),
+        var(--glass-bright);
+      box-shadow:
+        0 36px 110px rgba(0, 0, 0, 0.48),
+        0 0 54px rgba(var(--project-rgb), 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    }
+
+    @keyframes floatCard {
+      0%,
+      100% {
+        translate: 0 0;
+      }
+
+      50% {
+        translate: 0 -12px;
+      }
+    }
+
+    .project-top,
+    .project-bottom {
+      position: relative;
+      z-index: 1;
+    }
+
+    .project-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 44px;
+      color: var(--faint);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .project-index {
+      color: var(--project-color);
+    }
+
+    h2 {
+      color: var(--white);
+      font-size: clamp(1.5rem, 3vw, 2.45rem);
+      font-weight: 100;
+      letter-spacing: -0.035em;
+      line-height: 1.02;
+      margin-bottom: 18px;
+    }
+
+    .project-copy {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.78;
+    }
+
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 26px;
+    }
+
+    .tag {
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: var(--faint);
+      padding: 7px 9px;
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: rgba(255, 255, 255, 0.025);
+    }
+
+    .project-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .mini-link {
+      color: var(--muted);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+      padding-bottom: 5px;
+      text-decoration: none;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      transition: color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .mini-link:hover,
+    .mini-link:focus-visible {
+      color: var(--white);
+      border-color: var(--project-color);
+      outline: none;
+    }
+
+    .mission-grid {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 28px;
+      align-items: stretch;
+    }
+
+    .mission-card {
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.035);
+      padding: clamp(26px, 4vw, 46px);
+      backdrop-filter: blur(16px);
+    }
+
+    .mission-card h2 {
+      margin-bottom: 20px;
+    }
+
+    .mission-card p {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.9;
+    }
+
+    .signal-list {
+      display: grid;
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+    }
+
+    .signal-item {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 22px;
+      padding: 22px;
+      background: rgba(2, 3, 8, 0.72);
+    }
+
+    .signal-item span {
+      color: var(--faint);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .signal-item p {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .contact-card {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background:
+        radial-gradient(circle at 50% 0%, rgba(132, 243, 255, 0.13), transparent 28rem),
+        rgba(255, 255, 255, 0.035);
+      padding: clamp(34px, 6vw, 68px);
+      display: grid;
+      gap: 28px;
+      place-items: center;
+      text-align: center;
+      backdrop-filter: blur(18px);
+    }
+
+    .contact-card h2 {
+      max-width: 780px;
+      font-size: clamp(2rem, 5vw, 4.5rem);
+    }
+
+    .contact-card p {
+      max-width: 620px;
+      color: var(--muted);
+      line-height: 1.85;
+    }
+
+    footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      padding: 36px 0 42px;
+      color: var(--faint);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      border-top: 1px solid var(--line);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      animation: reveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .delay-1 {
+      animation-delay: 0.1s;
+    }
+
+    .delay-2 {
+      animation-delay: 0.2s;
+    }
+
+    .delay-3 {
+      animation-delay: 0.3s;
+    }
+
+    @keyframes reveal {
       to {
         opacity: 1;
         transform: translateY(0);
       }
     }
 
-    .reveal {
-      opacity: 0;
-      animation: fadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    body.is-idle {
+      --idle-glow: 1;
+      --idle-scale: 1.04;
     }
 
-    .d1 {
-      animation-delay: 0.05s;
+    body.is-idle .idle-state::after {
+      content: " / deep scan";
+      color: var(--faint);
     }
 
-    .d2 {
-      animation-delay: 0.15s;
-    }
-
-    .d3 {
-      animation-delay: 0.25s;
-    }
-
-    .d4 {
-      animation-delay: 0.35s;
-    }
-
-    .d5 {
-      animation-delay: 0.45s;
-    }
-
-    .d6 {
-      animation-delay: 0.55s;
-    }
-
-    .d7 {
-      animation-delay: 0.65s;
-    }
-
-    .d8 {
-      animation-delay: 0.75s;
-    }
-
-    /* ── LAYOUT ── */
-    .container {
-      max-width: 1060px;
-      margin: 0 auto;
-      padding: 0 48px;
-    }
-
-    /* ── HEADER ── */
-    header {
-      border-bottom: 1px solid var(--line);
-      padding: 72px 0 56px;
-    }
-
-    .header-inner {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      align-items: end;
-      gap: 40px;
-    }
-
-    .eyebrow {
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--w35);
-      margin-bottom: 20px;
-    }
-
-    h1 {
-      font-size: clamp(2.6rem, 5.5vw, 4.2rem);
-      font-weight: 100;
-      letter-spacing: -0.01em;
-      color: var(--white);
-      line-height: 1;
-      margin-bottom: 16px;
-    }
-
-    .title-role {
-      font-size: 13px;
-      font-weight: 300;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--w60);
-    }
-
-    .header-meta {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 10px;
-    }
-
-    .avail-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 14px;
-      border: 1px solid var(--line-bright);
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--white);
-    }
-
-    .dot {
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background: var(--w92);
-      animation: blink 2s ease-in-out infinite;
-    }
-
-    @keyframes blink {
-
-      0%,
-      100% {
-        opacity: 1
-      }
-
-      50% {
-        opacity: 0.2
-      }
-    }
-
-    .meta-links {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 4px;
-    }
-
-    .meta-links a {
-      font-size: 11px;
-      font-weight: 300;
-      color: var(--w35);
-      text-decoration: none;
-      letter-spacing: 0.04em;
-      transition: color 0.2s;
-    }
-
-    .meta-links a:hover {
-      color: var(--w90);
-    }
-
-    /* ── NAV ── */
-    nav {
-      border-bottom: 1px solid var(--line);
-      position: sticky;
-      top: 0;
-      background: rgba(0, 0, 0, 0.96);
-      backdrop-filter: blur(12px);
-      z-index: 100;
-    }
-
-    .nav-inner {
-      display: flex;
-      gap: 0;
-      overflow-x: auto;
-    }
-
-    nav a {
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--w35);
-      text-decoration: none;
-      padding: 16px 20px;
-      border-bottom: 1px solid transparent;
-      transition: color 0.2s, border-color 0.2s;
-      white-space: nowrap;
-      margin-bottom: -1px;
-    }
-
-    nav a:hover {
-      color: var(--w90);
-      border-bottom-color: var(--w60);
-    }
-
-    /* ── MAIN ── */
-    main {
-      padding: 80px 0 120px;
-      display: flex;
-      flex-direction: column;
-      gap: 80px;
-    }
-
-    /* ── SECTION ── */
-    section {
-      display: flex;
-      flex-direction: column;
-      gap: 32px;
-    }
-
-    .sec-head {
-      display: grid;
-      grid-template-columns: auto 1fr;
-      align-items: center;
-      gap: 24px;
-    }
-
-    .sec-label {
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--w35);
-      white-space: nowrap;
-    }
-
-    .sec-rule {
-      height: 1px;
-      background: var(--line);
-    }
-
-    h2 {
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.20em;
-      text-transform: uppercase;
-      color: var(--white);
-    }
-
-    /* ── SUMMARY ── */
-    .summary-text {
-      font-size: 15px;
-      font-weight: 300;
-      line-height: 1.80;
-      color: var(--w60);
-      max-width: 780px;
-    }
-
-    .summary-text strong {
-      color: var(--w90);
-      font-weight: 400;
-    }
-
-    /* ── SKILLS ── */
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
-      border-top: 1px solid var(--line);
-      border-left: 1px solid var(--line);
-    }
-
-    .skill-cell {
-      border-right: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-      padding: 20px 22px;
-      transition: background 0.2s;
-    }
-
-    .skill-cell:hover {
-      background: var(--w03);
-    }
-
-    .skill-cat {
-      font-size: 9px;
-      font-weight: 500;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--w35);
-      margin-bottom: 6px;
-    }
-
-    .skill-name {
-      font-size: 13px;
-      font-weight: 400;
-      color: var(--w90);
-      margin-bottom: 10px;
-    }
-
-    .bar-track {
-      height: 1px;
-      background: var(--w12);
-      width: 100%;
-      margin-bottom: 6px;
-    }
-
-    .bar-fill {
-      height: 1px;
-      background: var(--white);
-      position: relative;
-    }
-
-    .skill-lvl {
-      font-size: 9px;
-      font-weight: 400;
-      color: var(--w35);
-      letter-spacing: 0.08em;
-      text-align: right;
-    }
-
-    /* ── DOMAINS ── */
-    .domains-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
-      border-top: 1px solid var(--line);
-      border-left: 1px solid var(--line);
-    }
-
-    .sub-sec-head {
-      display: grid;
-      grid-template-columns: auto 1fr;
-      align-items: center;
-      gap: 24px;
-      margin-top: 48px;
-    }
-
-    .sub-sec-label {
-      font-size: 9px;
-      font-weight: 500;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--w35);
-      white-space: nowrap;
-    }
-
-    .domain-cell {
-      border-right: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-      padding: 28px 28px 24px;
-      transition: background 0.2s;
-    }
-
-    .domain-cell:hover {
-      background: var(--w03);
-    }
-
-    .domain-icon {
-      font-size: 18px;
-      display: block;
-      margin-bottom: 14px;
-      opacity: 0.85;
-    }
-
-    .domain-title {
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--white);
-      letter-spacing: 0.04em;
-      margin-bottom: 10px;
-    }
-
-    .domain-desc {
-      font-size: 12px;
-      font-weight: 300;
-      line-height: 1.70;
-      color: var(--w60);
-    }
-
-    .domain-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 16px;
-    }
-
-    .tag {
-      font-size: 9px;
-      font-weight: 500;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      padding: 4px 9px;
-      border: 1px solid var(--line);
-      color: var(--w35);
-      transition: all 0.2s;
-    }
-
-    .tag:hover {
-      border-color: var(--w60);
-      color: var(--w90);
-    }
-
-    .tag.hot {
-      border-color: var(--w35);
-      color: var(--w60);
-    }
-
-    /* ── EXPERIENCE ── */
-    .exp-list {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .exp-item {
-      border-top: 1px solid var(--line);
-      padding: 32px 0;
-      display: grid;
-      grid-template-columns: 220px 1fr;
-      gap: 40px;
-      transition: background 0.2s;
-    }
-
-    .exp-item:last-child {
-      border-bottom: 1px solid var(--line);
-    }
-
-    .exp-item:hover {
-      background: var(--w03);
-      padding-left: 16px;
-      padding-right: 16px;
-      margin-left: -16px;
-      margin-right: -16px;
-    }
-
-    .exp-left {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .exp-role {
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--white);
-      line-height: 1.4;
-    }
-
-    .exp-company {
-      font-size: 11px;
-      font-weight: 300;
-      color: var(--w60);
-      letter-spacing: 0.02em;
-    }
-
-    .exp-period {
-      font-size: 10px;
-      font-weight: 400;
-      letter-spacing: 0.10em;
-      color: var(--w35);
-      margin-top: 4px;
-    }
-
-    .exp-bullets {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      padding-top: 2px;
-    }
-
-    .exp-bullets li {
-      font-size: 13px;
-      font-weight: 300;
-      line-height: 1.65;
-      color: var(--w60);
-      padding-left: 16px;
-      position: relative;
-    }
-
-    .exp-bullets li::before {
-      content: '—';
-      position: absolute;
-      left: 0;
-      color: var(--w35);
-      font-weight: 100;
-    }
-
-    /* ── LANGUAGES ── */
-    .lang-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      border-top: 1px solid var(--line);
-      border-left: 1px solid var(--line);
-    }
-
-    .lang-cell {
-      border-right: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-      padding: 24px 28px;
-    }
-
-    .lang-name {
-      font-size: 16px;
-      font-weight: 300;
-      color: var(--white);
-      margin-bottom: 4px;
-    }
-
-    .lang-level {
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--w35);
-      margin-bottom: 16px;
-    }
-
-    .lang-bar-track {
-      height: 1px;
-      background: var(--w12);
-    }
-
-    .lang-bar-fill {
-      height: 1px;
-      background: var(--white);
-    }
-
-    /* ── ATTRIBUTES ── */
-    .attr-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      border-top: 1px solid var(--line);
-      border-left: 1px solid var(--line);
-    }
-
-    .attr-cell {
-      border-right: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-      padding: 16px 20px;
-      font-size: 12px;
-      font-weight: 300;
-      color: var(--w60);
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      transition: all 0.2s;
-    }
-
-    .attr-cell:hover {
-      color: var(--w90);
-      background: var(--w03);
-    }
-
-    .attr-mark {
-      width: 4px;
-      height: 4px;
-      border: 1px solid var(--w35);
-      border-radius: 50%;
-      flex-shrink: 0;
-      transition: background 0.2s, border-color 0.2s;
-    }
-
-    .attr-cell:hover .attr-mark {
-      background: var(--white);
-      border-color: var(--white);
-    }
-
-    /* ── PLATFORMS ── */
-    .platforms-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      border-top: 1px solid var(--line);
-      border-left: 1px solid var(--line);
-    }
-
-    .platform-cell {
-      border-right: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-      padding: 20px 22px;
-      display: flex;
-      align-items: flex-start;
-      gap: 14px;
-      transition: background 0.2s;
-    }
-
-    .platform-cell:hover {
-      background: var(--w03);
-    }
-
-    .platform-ind {
-      width: 1px;
-      height: 32px;
-      flex-shrink: 0;
-      margin-top: 3px;
-    }
-
-    .platform-ind.primary {
-      background: var(--white);
-    }
-
-    .platform-ind.secondary {
-      background: var(--w35);
-    }
-
-    .platform-name {
-      font-size: 13px;
-      font-weight: 400;
-      color: var(--w90);
-      margin-bottom: 3px;
-    }
-
-    .platform-note {
-      font-size: 10px;
-      font-weight: 300;
-      color: var(--w35);
-      letter-spacing: 0.04em;
-    }
-
-    /* ── PORTFOLIO ── */
-    .proj-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-      border-top: 1px solid var(--line);
-      border-left: 1px solid var(--line);
-    }
-
-    .proj-card {
-      border-right: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-      padding: 28px 28px 24px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      transition: background 0.2s;
-    }
-
-    .proj-card:hover {
-      background: var(--w03);
-    }
-
-    .proj-status {
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      font-size: 9px;
-      font-weight: 500;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--w35);
-    }
-
-    .proj-dot {
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background: var(--w35);
-      flex-shrink: 0;
-    }
-
-    .proj-dot.live {
-      background: var(--w92);
-    }
-
-    .proj-title {
-      font-size: 15px;
-      font-weight: 400;
-      color: var(--white);
-      letter-spacing: -0.01em;
-      line-height: 1.3;
-    }
-
-    .proj-desc {
-      font-size: 12px;
-      font-weight: 300;
-      line-height: 1.72;
-      color: var(--w60);
-      flex-grow: 1;
-    }
-
-    .proj-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 5px;
-    }
-
-    .proj-links {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      padding-top: 6px;
-    }
-
-    .proj-link {
-      font-size: 9px;
-      font-weight: 500;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      text-decoration: none;
-      padding: 6px 14px;
-      border: 1px solid var(--line);
-      color: var(--w35);
-      transition: all 0.2s;
-    }
-
-    .proj-link:hover {
-      border-color: var(--w60);
-      color: var(--w90);
-    }
-
-    .proj-link.primary {
-      border-color: var(--w35);
-      color: var(--w60);
-    }
-
-    .proj-link.primary:hover {
-      border-color: var(--white);
-      color: var(--white);
-    }
-
-    /* ── CTA ── */
-    .cta-block {
-      border: 1px solid var(--line);
-      padding: 56px 48px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 28px;
-      text-align: center;
-      position: relative;
-    }
-
-    .cta-title {
-      font-size: clamp(1.4rem, 3vw, 2rem);
-      font-weight: 100;
-      color: var(--white);
-      letter-spacing: -0.01em;
-      line-height: 1.3;
-    }
-
-    .cta-sub {
-      font-size: 13px;
-      font-weight: 300;
-      color: var(--w60);
-      line-height: 1.7;
-      max-width: 520px;
-    }
-
-    .cta-links {
-      display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .cta-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 12px 28px;
-      font-family: 'Roboto', sans-serif;
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      text-decoration: none;
-      border: 1px solid var(--line);
-      color: var(--w60);
-      transition: all 0.2s;
-      cursor: pointer;
-      background: transparent;
-    }
-
-    .cta-btn:hover {
-      border-color: var(--white);
-      color: var(--white);
-    }
-
-    .cta-btn.primary {
-      border-color: var(--white);
-      color: var(--white);
-      background: var(--w06);
-    }
-
-    .cta-btn.primary:hover {
-      background: var(--w12);
-    }
-
-    /* ── FOOTER ── */
-    footer {
-      border-top: 1px solid var(--line);
-      padding: 28px 0;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .footer-text {
-      font-size: 10px;
-      font-weight: 300;
-      letter-spacing: 0.10em;
-      color: var(--w35);
-      text-transform: uppercase;
-    }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 768px) {
-      .container {
-        padding: 0 24px;
-      }
-
-      .header-inner {
+    @media (max-width: 980px) {
+      .hero,
+      .mission-grid {
         grid-template-columns: 1fr;
       }
 
-      .header-meta {
+      .signal-panel {
+        min-height: 340px;
+      }
+
+      .project-cloud {
+        grid-template-columns: 1fr;
+      }
+
+      .project-card,
+      .project-card:nth-child(1),
+      .project-card:nth-child(2),
+      .project-card:nth-child(3) {
+        min-height: auto;
+        transform: none;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .page-shell {
+        width: min(100% - 28px, 1180px);
+      }
+
+      .topbar {
         align-items: flex-start;
+        flex-direction: column;
+        justify-content: center;
+        padding: 22px 0;
       }
 
-      .exp-item {
+      .nav-links {
+        justify-content: flex-start;
+      }
+
+      .hero {
+        min-height: auto;
+        padding: 34px 0 74px;
+      }
+
+      .hero-line.offset {
+        padding-left: 22px;
+      }
+
+      .button {
+        width: 100%;
+      }
+
+      .project-card {
+        padding: 22px;
+      }
+
+      .project-meta {
+        margin-bottom: 30px;
+      }
+
+      .signal-item {
         grid-template-columns: 1fr;
-        gap: 16px;
-      }
-
-      .lang-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .cta-block {
-        padding: 36px 24px;
+        gap: 10px;
       }
 
       footer {
         flex-direction: column;
-        gap: 6px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.001ms !important;
       }
     }
   </style>
 </head>
 
 <body>
+  <canvas class="void-canvas" id="voidCanvas" aria-hidden="true"></canvas>
+  <div class="grain" aria-hidden="true"></div>
 
-  <!-- HEADER -->
-  <div class="container">
-    <header class="reveal d1">
-      <div class="header-inner">
-        <div>
-          <div class="eyebrow">DevOps · Space Stack · AWS Ecommerce</div>
-          <h1>DAVID BRITTO</h1>
-          <div class="title-role">Infrastructure-minded builder · Remote-ready</div>
-        </div>
-        <div class="header-meta">
-          <div class="avail-badge">
-            <div class="dot"></div>
-            Available for Remote Work
-          </div>
-          <div class="meta-links">
-            <a href="mailto:davidbritto54@gmail.com">davidbritto54@gmail.com</a>
-            <a href="https://github.com/DavidBritto" target="_blank">github.com/DavidBritto</a>
-            <a href="https://linkedin.com/in/davidbrittoeth" target="_blank">linkedin.com/in/davidbrittoeth</a>
-            <a href="#" style="color:var(--w35);cursor:default;pointer-events:none;">Chaco, Argentina · UTC-3</a>
-          </div>
-        </div>
-      </div>
-    </header>
-  </div>
-
-  <!-- NAV -->
-  <nav class="reveal d2">
-    <div class="container">
-      <div class="nav-inner">
-        <a href="#summary">Summary</a>
-        <a href="#portfolio">Projects</a>
-        <a href="#migration">AWS Migration</a>
+  <div class="page-shell">
+    <header class="topbar reveal">
+      <a class="mark" href="#top" aria-label="David Britto portfolio home">
+        <span class="mark-dot" aria-hidden="true"></span>
+        <span>David Britto / Portfolio</span>
+      </a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="#projects">Projects</a>
+        <a href="#mission">Signal</a>
         <a href="#contact">Contact</a>
-      </div>
-    </div>
-  </nav>
+      </nav>
+    </header>
 
-  <!-- MAIN -->
-  <div class="container">
-    <main>
-
-      <!-- SUMMARY -->
-      <section id="summary" class="reveal d3">
-        <div class="sec-head">
-          <span class="sec-label">01 — Summary</span>
-          <div class="sec-rule"></div>
-        </div>
-        <p class="summary-text">
-          <strong>DevOps practitioner building real, inspectable systems</strong>: a 90-day DevOps challenge,
-          the space-stack Linux workflow, and a production ecommerce migration from Tiendanube to AWS.
-          This portfolio is the communication hub: one static GitHub Pages site that points to the evidence,
-          keeps the story focused, and shows how infrastructure, automation, Linux, and business software connect.
+    <section class="hero" id="top">
+      <div class="hero-copy reveal delay-1">
+        <p class="eyebrow">DevOps · Space Stack · AWS Ecommerce</p>
+        <h1>
+          <span class="hero-line">Deep</span>
+          <span class="hero-line offset">Void</span>
+          <span class="hero-line">Ops</span>
+        </h1>
+        <p class="lead">
+          <strong>Infrastructure-minded builder</strong> working from a terminal-first Linux workflow, a public
+          DevOps challenge, and a real ecommerce migration path into AWS. This page now behaves like a quiet
+          command deck: when interaction stops, the star field wakes up and the signal gets deeper.
         </p>
-      </section>
-
-      <!-- PORTFOLIO -->
-      <section id="portfolio" class="reveal d4">
-        <div class="sec-head">
-          <span class="sec-label">02 — Demonstrable Resources</span>
-          <div class="sec-rule"></div>
+        <div class="hero-actions">
+          <a class="button primary" href="#projects">Enter the field</a>
+          <a class="button" href="mailto:davidbritto54@gmail.com">Contact</a>
+          <a class="button" href="https://github.com/DavidBritto" target="_blank" rel="noopener">GitHub</a>
         </div>
-        <div class="proj-grid">
+      </div>
 
-          <div class="proj-card">
-            <div class="proj-status">
-              <div class="proj-dot live"></div>
-              Active · Public repo
-            </div>
-            <div class="proj-title">90 Days of DevOps — Roxs Challenge</div>
-            <p class="proj-desc">
-              Practical DevOps journey based on Rossana Suarez's challenge. Documents Linux, Bash, Docker,
-              Docker Compose, GitHub Actions, Terraform, remote state, Kubernetes, and the transversal Roxs
-              Voting App deployed through multiple approaches.
-            </p>
-            <div class="proj-tags">
-              <span class="tag hot">Docker · Compose</span>
-              <span class="tag hot">Terraform · IaC</span>
-              <span class="tag hot">GitHub Actions</span>
-              <span class="tag hot">Kubernetes</span>
-              <span class="tag">Linux · Bash</span>
-              <span class="tag">Ansible · Vagrant</span>
-            </div>
-            <div class="proj-links">
-              <a class="proj-link primary" href="https://github.com/DavidBritto/devops-portfolio" target="_blank">GitHub ↗</a>
-            </div>
+      <aside class="signal-panel reveal delay-2" aria-label="Idle star field status">
+        <div class="orbit-label">
+          <div class="status-row">
+            <span>Idle field</span>
+            <span class="idle-state">listening</span>
           </div>
-
-          <div class="proj-card">
-            <div class="proj-status">
-              <div class="proj-dot live"></div>
-              Linux workflow · Repository split pending
-            </div>
-            <div class="proj-title">space-stack — Terminal-first Linux Desktop</div>
-            <p class="proj-desc">
-              Keyboard-first i3 desktop package for Linux Mint/X11, formerly tracked as STACKI3. Built around Kitty, tmux, Zsh, Rofi,
-              Polybar, Dunst, Picom, and a SPACE command surface. It demonstrates real daily Linux operations,
-              automation discipline, and low-noise developer ergonomics.
-            </p>
-            <div class="proj-tags">
-              <span class="tag hot">i3wm · X11</span>
-              <span class="tag hot">tmux · Kitty</span>
-              <span class="tag hot">Zsh · CLI</span>
-              <span class="tag">Rofi · Polybar</span>
-              <span class="tag">Dunst · Picom</span>
-              <span class="tag">Linux Mint</span>
-            </div>
-            <div class="proj-links">
-              <span class="proj-link" style="cursor:default;opacity:0.4;">Screenshots and Git repo pending</span>
-            </div>
+          <div class="scanline" aria-hidden="true"></div>
+          <div class="status-row">
+            <span>Chaco, AR</span>
+            <span>UTC-3 / Remote</span>
           </div>
-
-          <div class="proj-card">
-            <div class="proj-status">
-              <div class="proj-dot live"></div>
-              Real store · Tiendanube → AWS
-            </div>
-            <div class="proj-title">Ecommerce Migration — AWS Almost-Free Stack</div>
-            <p class="proj-desc">
-              Real ecommerce currently running on Tiendanube, planned as a controlled AWS migration.
-              The goal is not a toy demo: preserve catalog, images, payments, operations, backups, SSL,
-              budgets, and monitoring while turning the migration into a visible DevOps case study.
-            </p>
-            <div class="proj-tags">
-              <span class="tag hot">AWS Free Tier</span>
-              <span class="tag hot">Cost controls</span>
-              <span class="tag hot">SSL · Domain</span>
-              <span class="tag">Catalog migration</span>
-              <span class="tag">Backups</span>
-              <span class="tag">Production store</span>
-            </div>
-            <div class="proj-links">
-              <span class="proj-link" style="cursor:default;opacity:0.4;">Migration in progress</span>
-            </div>
-          </div>
-
         </div>
-      </section>
+      </aside>
+    </section>
 
-      <!-- MIGRATION -->
-      <section id="migration" class="reveal d5">
-        <div class="sec-head">
-          <span class="sec-label">03 — AWS Migration Plan</span>
-          <div class="sec-rule"></div>
+    <main>
+      <section id="projects" class="reveal delay-1">
+        <div class="section-head">
+          <span class="section-kicker">01 / Three signals</span>
+          <div class="section-line"></div>
         </div>
-        <div class="domains-grid">
-          <div class="domain-cell">
-            <span class="domain-icon">✓</span>
-            <div class="domain-title">What is ready</div>
-            <div class="domain-desc">
-              Static portfolio hub, DevOps challenge repository, space-stack documentation, Tiendanube store,
-              and a new AWS account eligible for Free Tier / credits.
-            </div>
-            <div class="domain-tags">
-              <span class="tag">GitHub Pages</span>
-              <span class="tag">DevOps evidence</span>
-              <span class="tag">Linux workflow</span>
-            </div>
-          </div>
 
-          <div class="domain-cell">
-            <span class="domain-icon">→</span>
-            <div class="domain-title">What must be collected</div>
-            <div class="domain-desc">
-              Tiendanube product CSV, product images, current domain settings, payment method, shipping rules,
-              store branding, legal pages, and the target AWS monthly budget.
+        <div class="project-cloud">
+          <article class="project-card">
+            <div class="project-top">
+              <div class="project-meta">
+                <span class="project-index">01</span>
+                <span>Active · Public repo</span>
+              </div>
+              <h2>90 Days of DevOps</h2>
+              <p class="project-copy">
+                Practical DevOps journey based on Rossana Suarez's challenge. It documents Linux, Bash,
+                Docker, GitHub Actions, Terraform, Kubernetes, and the transversal Roxs Voting App.
+              </p>
             </div>
-            <div class="domain-tags">
-              <span class="tag hot">Catalog CSV</span>
-              <span class="tag hot">Images</span>
-              <span class="tag">Payments</span>
-              <span class="tag">Domain</span>
+            <div class="project-bottom">
+              <div class="tag-list">
+                <span class="tag">Docker</span>
+                <span class="tag">Terraform</span>
+                <span class="tag">GitHub Actions</span>
+                <span class="tag">Kubernetes</span>
+              </div>
+              <div class="project-links">
+                <a class="mini-link" href="https://github.com/DavidBritto/devops-portfolio" target="_blank"
+                  rel="noopener">Open repo</a>
+              </div>
             </div>
-          </div>
+          </article>
 
-          <div class="domain-cell">
-            <span class="domain-icon">☁️</span>
-            <div class="domain-title">How it will be built</div>
-            <div class="domain-desc">
-              Start with budgets, IAM/MFA, alarms, and a minimal production architecture. Only then migrate
-              catalog, deploy the store, validate checkout, document the architecture, and link the evidence here.
+          <article class="project-card">
+            <div class="project-top">
+              <div class="project-meta">
+                <span class="project-index">02</span>
+                <span>Linux workflow</span>
+              </div>
+              <h2>space-stack</h2>
+              <p class="project-copy">
+                Terminal-first desktop package for Linux Mint/X11, built around i3, Kitty, tmux, Zsh, Rofi,
+                Polybar, Dunst, Picom, and a SPACE command surface for daily operations.
+              </p>
             </div>
-            <div class="domain-tags">
-              <span class="tag hot">Budgets first</span>
-              <span class="tag hot">IaC when stable</span>
-              <span class="tag">Monitoring</span>
-              <span class="tag">Runbook</span>
+            <div class="project-bottom">
+              <div class="tag-list">
+                <span class="tag">i3wm</span>
+                <span class="tag">tmux</span>
+                <span class="tag">Zsh</span>
+                <span class="tag">Linux Mint</span>
+              </div>
+              <div class="project-links">
+                <span class="mini-link" aria-disabled="true">Repo pending</span>
+              </div>
             </div>
-          </div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-top">
+              <div class="project-meta">
+                <span class="project-index">03</span>
+                <span>Real store · AWS</span>
+              </div>
+              <h2>Ecommerce Migration</h2>
+              <p class="project-copy">
+                Controlled migration from Tiendanube into an AWS almost-free stack. The case study keeps the
+                focus on budget controls, SSL, backups, catalog data, checkout validation, and runbooks.
+              </p>
+            </div>
+            <div class="project-bottom">
+              <div class="tag-list">
+                <span class="tag">AWS Free Tier</span>
+                <span class="tag">Cost controls</span>
+                <span class="tag">SSL</span>
+                <span class="tag">Backups</span>
+              </div>
+              <div class="project-links">
+                <span class="mini-link" aria-disabled="true">Migration in progress</span>
+              </div>
+            </div>
+          </article>
         </div>
       </section>
 
-      <!-- CTA -->
-      <section id="contact" class="reveal d6">
-        <div class="cta-block">
-          <div class="cta-title">Focused on DevOps, space-stack, and real cloud operations</div>
-          <p class="cta-sub">
-            Available for remote DevOps, cloud migration, infrastructure QA, and technical implementation work.
-            Bilingual Spanish / English, based in Chaco, Argentina · UTC-3.
+      <section id="mission" class="mission-grid reveal delay-2">
+        <div class="mission-card">
+          <div class="section-head">
+            <span class="section-kicker">02 / Signal</span>
+            <div class="section-line"></div>
+          </div>
+          <h2>Inspectable systems, quiet presentation.</h2>
+          <p>
+            The portfolio keeps a small surface area, but each card points to visible work: documented practice,
+            repeatable workflows, and production-minded migration decisions. The visual language follows that
+            idea: minimal panels floating in a deep operational void.
           </p>
-          <div class="cta-links">
-            <a class="cta-btn primary" href="mailto:davidbritto54@gmail.com">Email Me</a>
-            <a class="cta-btn" href="https://github.com/DavidBritto" target="_blank">GitHub</a>
-            <a class="cta-btn" href="https://linkedin.com/in/davidbrittoeth" target="_blank">LinkedIn</a>
+        </div>
+
+        <div class="signal-list" aria-label="Portfolio signal details">
+          <div class="signal-item">
+            <span>Ready</span>
+            <p>Static portfolio hub, DevOps challenge repository, Linux workflow direction, and AWS account path.</p>
+          </div>
+          <div class="signal-item">
+            <span>Collect</span>
+            <p>Catalog CSV, images, domain settings, payment rules, shipping rules, legal pages, and target budget.</p>
+          </div>
+          <div class="signal-item">
+            <span>Build</span>
+            <p>Budgets, IAM/MFA, alarms, minimal architecture, checkout validation, documentation, and runbooks.</p>
           </div>
         </div>
       </section>
 
+      <section id="contact" class="contact-card reveal delay-3">
+        <span class="section-kicker">03 / Contact window</span>
+        <h2>Available for remote DevOps, cloud migration, and infrastructure QA.</h2>
+        <p>
+          Bilingual Spanish / English, based in Chaco, Argentina. Open to implementation work where Linux,
+          automation, cloud operations, and clear documentation matter.
+        </p>
+        <div class="hero-actions">
+          <a class="button primary" href="mailto:davidbritto54@gmail.com">Email me</a>
+          <a class="button" href="https://linkedin.com/in/davidbrittoeth" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+      </section>
     </main>
 
-    <!-- FOOTER -->
     <footer>
-      <span class="footer-text">David Britto · DevOps · Space Stack · AWS Ecommerce · 2026</span>
-      <span class="footer-text">Chaco, Argentina · UTC-3 · Remote Ready</span>
+      <span>David Britto · DevOps · Space Stack · AWS Ecommerce · 2026</span>
+      <span>Deep void interface · idle star field</span>
     </footer>
   </div>
 
+  <script>
+    (() => {
+      const canvas = document.getElementById("voidCanvas");
+      const ctx = canvas.getContext("2d");
+      if (!ctx) return;
+      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const idleDelay = 2800;
+      const state = {
+        width: 0,
+        height: 0,
+        dpr: 1,
+        stars: [],
+        dust: [],
+        idle: false,
+        idleMix: 0,
+        lastActivity: performance.now(),
+        pointerX: 0.5,
+        pointerY: 0.5
+      };
+
+      const randomBetween = (min, max) => min + Math.random() * (max - min);
+
+      function resize() {
+        state.dpr = Math.min(window.devicePixelRatio || 1, 2);
+        state.width = window.innerWidth;
+        state.height = window.innerHeight;
+        canvas.width = Math.floor(state.width * state.dpr);
+        canvas.height = Math.floor(state.height * state.dpr);
+        canvas.style.width = `${state.width}px`;
+        canvas.style.height = `${state.height}px`;
+        ctx.setTransform(state.dpr, 0, 0, state.dpr, 0, 0);
+
+        const area = state.width * state.height;
+        const starCount = prefersReducedMotion ? 130 : Math.min(520, Math.max(190, Math.floor(area / 3600)));
+        const dustCount = prefersReducedMotion ? 20 : Math.min(90, Math.max(32, Math.floor(area / 17000)));
+
+        state.stars = Array.from({ length: starCount }, () => createStar());
+        state.dust = Array.from({ length: dustCount }, () => createDust());
+      }
+
+      function createStar() {
+        const depth = Math.random() ** 1.8;
+        return {
+          x: Math.random() * state.width,
+          y: Math.random() * state.height,
+          z: depth,
+          radius: randomBetween(0.35, 1.55) * (1 + depth * 0.7),
+          alpha: randomBetween(0.18, 0.9),
+          twinkle: randomBetween(0.002, 0.015),
+          drift: randomBetween(0.05, 0.42) * (0.3 + depth)
+        };
+      }
+
+      function createDust() {
+        return {
+          x: Math.random() * state.width,
+          y: Math.random() * state.height,
+          radius: randomBetween(36, 130),
+          alpha: randomBetween(0.02, 0.08),
+          vx: randomBetween(-0.05, 0.05),
+          vy: randomBetween(-0.04, 0.04)
+        };
+      }
+
+      function noteActivity(event) {
+        state.lastActivity = performance.now();
+        if (event && "clientX" in event) {
+          state.pointerX = event.clientX / state.width;
+          state.pointerY = event.clientY / state.height;
+        }
+      }
+
+      function updateIdle(now) {
+        state.idle = now - state.lastActivity > idleDelay;
+        document.body.classList.toggle("is-idle", state.idle);
+        const target = state.idle ? 1 : 0;
+        state.idleMix += (target - state.idleMix) * 0.035;
+        document.body.style.setProperty("--idle-glow", state.idleMix.toFixed(3));
+      }
+
+      function drawNebula() {
+        for (const cloud of state.dust) {
+          cloud.x += cloud.vx * (1 + state.idleMix * 3);
+          cloud.y += cloud.vy * (1 + state.idleMix * 3);
+
+          if (cloud.x < -cloud.radius) cloud.x = state.width + cloud.radius;
+          if (cloud.x > state.width + cloud.radius) cloud.x = -cloud.radius;
+          if (cloud.y < -cloud.radius) cloud.y = state.height + cloud.radius;
+          if (cloud.y > state.height + cloud.radius) cloud.y = -cloud.radius;
+
+          const gradient = ctx.createRadialGradient(cloud.x, cloud.y, 0, cloud.x, cloud.y, cloud.radius);
+          gradient.addColorStop(0, `rgba(132, 243, 255, ${cloud.alpha * (0.4 + state.idleMix)})`);
+          gradient.addColorStop(0.45, `rgba(183, 163, 255, ${cloud.alpha * 0.34 * state.idleMix})`);
+          gradient.addColorStop(1, "rgba(0, 0, 0, 0)");
+          ctx.fillStyle = gradient;
+          ctx.beginPath();
+          ctx.arc(cloud.x, cloud.y, cloud.radius, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+
+      function drawStars(now) {
+        const centerPullX = (state.pointerX - 0.5) * 0.12;
+        const centerPullY = (state.pointerY - 0.5) * 0.08;
+
+        for (const star of state.stars) {
+          const speed = star.drift * (0.12 + state.idleMix * 1.7);
+          star.y += speed;
+          star.x += centerPullX * star.z * (0.4 + state.idleMix) + Math.sin(now * 0.00012 + star.y) * 0.015;
+          star.y += centerPullY * star.z * state.idleMix;
+
+          if (star.y > state.height + 12) {
+            star.y = -12;
+            star.x = Math.random() * state.width;
+          }
+          if (star.x < -12) star.x = state.width + 12;
+          if (star.x > state.width + 12) star.x = -12;
+
+          const twinkle = Math.sin(now * star.twinkle + star.x) * 0.22;
+          const alpha = Math.min(1, star.alpha + twinkle + state.idleMix * 0.28);
+          const radius = star.radius * (1 + state.idleMix * star.z * 0.9);
+
+          ctx.fillStyle = `rgba(235, 245, 255, ${alpha})`;
+          ctx.beginPath();
+          ctx.arc(star.x, star.y, radius, 0, Math.PI * 2);
+          ctx.fill();
+
+          if (state.idleMix > 0.45 && star.z > 0.62) {
+            ctx.strokeStyle = `rgba(132, 243, 255, ${(alpha * 0.16) * state.idleMix})`;
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(star.x, star.y - radius * 8 * state.idleMix);
+            ctx.lineTo(star.x, star.y + radius * 2);
+            ctx.stroke();
+          }
+        }
+      }
+
+      function connectBrightStars() {
+        if (state.idleMix < 0.35) return;
+
+        const bright = state.stars.filter((star) => star.z > 0.72 && star.alpha > 0.58).slice(0, 72);
+        ctx.lineWidth = 1;
+
+        for (let i = 0; i < bright.length; i += 1) {
+          for (let j = i + 1; j < bright.length; j += 1) {
+            const a = bright[i];
+            const b = bright[j];
+            const distance = Math.hypot(a.x - b.x, a.y - b.y);
+
+            if (distance < 128) {
+              const opacity = (1 - distance / 128) * 0.11 * state.idleMix;
+              ctx.strokeStyle = `rgba(132, 243, 255, ${opacity})`;
+              ctx.beginPath();
+              ctx.moveTo(a.x, a.y);
+              ctx.lineTo(b.x, b.y);
+              ctx.stroke();
+            }
+          }
+        }
+      }
+
+      function draw(now) {
+        updateIdle(now);
+        ctx.clearRect(0, 0, state.width, state.height);
+        ctx.fillStyle = "#020308";
+        ctx.fillRect(0, 0, state.width, state.height);
+        drawNebula();
+        drawStars(now);
+        connectBrightStars();
+
+        if (!prefersReducedMotion) {
+          requestAnimationFrame(draw);
+        }
+      }
+
+      resize();
+      noteActivity();
+
+      ["mousemove", "mousedown", "keydown", "scroll", "touchstart", "wheel"].forEach((eventName) => {
+        window.addEventListener(eventName, noteActivity, { passive: true });
+      });
+      window.addEventListener("resize", resize);
+
+      if (prefersReducedMotion) {
+        document.body.classList.remove("is-idle");
+        draw(performance.now());
+      } else {
+        requestAnimationFrame(draw);
+      }
+    })();
+  </script>
 </body>
 
 </html>
