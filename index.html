@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>David Britto — DevOps, Space Stack & AWS Ecommerce</title>
+  <title>David Britto — Systems, Cloud & Agentic AI Engineer</title>
   <link rel="icon" type="image/png" href="1.png">
   <link
     href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,300&display=swap"
@@ -217,6 +217,12 @@
       display: flex;
       gap: 0;
       overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    .nav-inner::-webkit-scrollbar {
+      display: none;
     }
 
     nav a {
@@ -879,9 +885,9 @@
     <header class="reveal d1">
       <div class="header-inner">
         <div>
-          <div class="eyebrow">DevOps · Space Stack · AWS Ecommerce</div>
+          <div class="eyebrow">Linux Systems · AWS Cloud Architecture · Agentic AI Tooling</div>
           <h1>DAVID BRITTO</h1>
-          <div class="title-role">Infrastructure-minded builder · Remote-ready</div>
+          <div class="title-role">Systems, Cloud & Agentic AI Engineer · Remote-Ready</div>
         </div>
         <div class="header-meta">
           <div class="avail-badge">
@@ -905,7 +911,7 @@
       <div class="nav-inner">
         <a href="#summary">Summary</a>
         <a href="#portfolio">Projects</a>
-        <a href="#migration">AWS Migration</a>
+        <a href="#ecommerce">Zero to Cloud</a>
         <a href="#contact">Contact</a>
       </div>
     </div>
@@ -922,10 +928,10 @@
           <div class="sec-rule"></div>
         </div>
         <p class="summary-text">
-          <strong>DevOps practitioner building real, inspectable systems</strong>: a 90-day DevOps challenge,
-          the space-stack Linux workflow, and a production ecommerce migration from Tiendanube to AWS.
-          This portfolio is the communication hub: one static GitHub Pages site that points to the evidence,
-          keeps the story focused, and shows how infrastructure, automation, Linux, and business software connect.
+          <strong>Specialized in Linux infrastructure, AWS Cloud Architecture, and Spec-Driven AI Agent Engineering</strong>:
+          I build observable, decoupled, and production-tested systems where specifications lead and code executes deterministically.
+          From enterprise IaC automation and production serverless e-commerce to developer tooling for autonomous AI agents,
+          this portfolio links the evidence and architecture behind inspectable engineering.
         </p>
       </section>
 
@@ -940,21 +946,43 @@
           <div class="proj-card">
             <div class="proj-status">
               <div class="proj-dot live"></div>
-              Active · Public repo
+              npm package · Active
             </div>
-            <div class="proj-title">90 Days of DevOps — Roxs Challenge</div>
+            <div class="proj-title">specly — Spec-Driven Development CLI</div>
             <p class="proj-desc">
-              Practical DevOps journey based on Rossana Suarez's challenge. Documents Linux, Bash, Docker,
-              Docker Compose, GitHub Actions, Terraform, remote state, Kubernetes, and the transversal Roxs
-              Voting App deployed through multiple approaches.
+              Developer CLI tool built to solve AI hallucination, agent drift, and unmaintainable code generation.
+              Enforces strict Spec-Driven Development (SDD) across structured requirements, architecture design, and verified task breakdowns before code generation begins.
             </p>
             <div class="proj-tags">
-              <span class="tag hot">Docker · Compose</span>
+              <span class="tag hot">TypeScript</span>
+              <span class="tag hot">Node.js</span>
+              <span class="tag hot">Agentic AI</span>
+              <span class="tag">CLI Engineering</span>
+              <span class="tag">npm</span>
+            </div>
+            <div class="proj-links">
+              <a class="proj-link primary" href="https://www.npmjs.com/package/specly" target="_blank">npm ↗</a>
+              <a class="proj-link" href="https://github.com/DavidBritto/specly" target="_blank">GitHub ↗</a>
+            </div>
+          </div>
+
+          <div class="proj-card">
+            <div class="proj-status">
+              <div class="proj-dot live"></div>
+              Production IaC · Public repo
+            </div>
+            <div class="proj-title">DevOps Engineering Lab — #90DaysOfDevOps</div>
+            <p class="proj-desc">
+              Comprehensive infrastructure engineering repository documenting progressive enterprise DevOps practices.
+              Covers Linux kernel fundamentals, Vagrant, Docker containerization, Kubernetes orchestration, and declarative Terraform IaC with automated GitHub Actions workflows.
+            </p>
+            <div class="proj-tags">
               <span class="tag hot">Terraform · IaC</span>
-              <span class="tag hot">GitHub Actions</span>
               <span class="tag hot">Kubernetes</span>
-              <span class="tag">Linux · Bash</span>
-              <span class="tag">Ansible · Vagrant</span>
+              <span class="tag hot">Docker · Compose</span>
+              <span class="tag hot">GitHub Actions</span>
+              <span class="tag">Linux (Ubuntu)</span>
+              <span class="tag">Ansible</span>
             </div>
             <div class="proj-links">
               <a class="proj-link primary" href="https://github.com/DavidBritto/devops-portfolio" target="_blank">GitHub ↗</a>
@@ -964,102 +992,98 @@
           <div class="proj-card">
             <div class="proj-status">
               <div class="proj-dot live"></div>
-              Linux workflow · Repository split pending
+              Live Store · Production AWS
             </div>
-            <div class="proj-title">space-stack — Terminal-first Linux Desktop</div>
+            <div class="proj-title">Onaxale — Serverless Ecommerce Architecture</div>
             <p class="proj-desc">
-              Keyboard-first i3 desktop package for Linux Mint/X11, formerly tracked as STACKI3. Built around Kitty, tmux, Zsh, Rofi,
-              Polybar, Dunst, Picom, and a SPACE command surface. It demonstrates real daily Linux operations,
-              automation discipline, and low-noise developer ergonomics.
+              End-to-end architectural migration from Tiendanube SaaS into an ultra-low-cost, high-availability AWS serverless ecosystem.
+              Features S3 and CloudFront global edge delivery, Lambda event-driven APIs, DynamoDB persistence, and Mercado Pago checkout integration. Slashes operational costs by >90%.
             </p>
             <div class="proj-tags">
-              <span class="tag hot">i3wm · X11</span>
-              <span class="tag hot">tmux · Kitty</span>
-              <span class="tag hot">Zsh · CLI</span>
-              <span class="tag">Rofi · Polybar</span>
-              <span class="tag">Dunst · Picom</span>
-              <span class="tag">Linux Mint</span>
+              <span class="tag hot">AWS Lambda</span>
+              <span class="tag hot">CloudFront · S3</span>
+              <span class="tag hot">DynamoDB</span>
+              <span class="tag hot">Mercado Pago</span>
+              <span class="tag">API Gateway</span>
+              <span class="tag">Python</span>
             </div>
             <div class="proj-links">
-              <span class="proj-link" style="cursor:default;opacity:0.4;">Screenshots and Git repo pending</span>
+              <a class="proj-link primary" href="https://onaxale.com" target="_blank">Live Store ↗</a>
+              <span class="proj-link" style="cursor:default;opacity:0.4;">Private Repo</span>
             </div>
           </div>
 
           <div class="proj-card">
             <div class="proj-status">
               <div class="proj-dot live"></div>
-              Real store · Tiendanube → AWS
+              Hackathon Sprint · Public repo
             </div>
-            <div class="proj-title">Ecommerce Migration — AWS Almost-Free Stack</div>
+            <div class="proj-title">Kuarahy — Real-Time Solar Telemetry</div>
             <p class="proj-desc">
-              Real ecommerce currently running on Tiendanube, planned as a controlled AWS migration.
-              The goal is not a toy demo: preserve catalog, images, payments, operations, backups, SSL,
-              budgets, and monitoring while turning the migration into a visible DevOps case study.
+              Environmental telemetry platform engineered during a 2-hour hackathon sprint.
+              Computes solar elevation, optimal irradiation windows, and clean energy recommendations using live meteorological data and astronomical solar equations.
             </p>
             <div class="proj-tags">
-              <span class="tag hot">AWS Free Tier</span>
-              <span class="tag hot">Cost controls</span>
-              <span class="tag hot">SSL · Domain</span>
-              <span class="tag">Catalog migration</span>
-              <span class="tag">Backups</span>
-              <span class="tag">Production store</span>
+              <span class="tag hot">Next.js 15</span>
+              <span class="tag hot">TypeScript</span>
+              <span class="tag hot">Tailwind CSS</span>
+              <span class="tag">Recharts</span>
+              <span class="tag">SunCalc</span>
+              <span class="tag">Open-Meteo API</span>
             </div>
             <div class="proj-links">
-              <span class="proj-link" style="cursor:default;opacity:0.4;">Migration in progress</span>
+              <a class="proj-link primary" href="https://github.com/DavidBritto/kuarahy" target="_blank">GitHub ↗</a>
             </div>
           </div>
 
         </div>
       </section>
 
-      <!-- MIGRATION -->
-      <section id="migration" class="reveal d5">
+      <!-- CASE STUDY / ZERO TO CLOUD -->
+      <section id="ecommerce" class="reveal d5">
         <div class="sec-head">
-          <span class="sec-label">03 — AWS Migration Plan</span>
+          <span class="sec-label">03 — Case Study: Real Ecommerce (Zero to Cloud)</span>
           <div class="sec-rule"></div>
         </div>
         <div class="domains-grid">
           <div class="domain-cell">
-            <span class="domain-icon">✓</span>
-            <div class="domain-title">What is ready</div>
+            <span class="domain-icon">⚡</span>
+            <div class="domain-title">SaaS Deconstruction & Edge Delivery</div>
             <div class="domain-desc">
-              Static portfolio hub, DevOps challenge repository, space-stack documentation, Tiendanube store,
-              and a new AWS account eligible for Free Tier / credits.
+              Migrated off Tiendanube SaaS into an ultra-low-cost, high-performance static edge. Hosted on Amazon S3 and distributed globally through CloudFront CDN with TLS/SSL encryption, slashing fixed monthly recurring infrastructure costs by &gt;90%.
             </div>
             <div class="domain-tags">
-              <span class="tag">GitHub Pages</span>
-              <span class="tag">DevOps evidence</span>
-              <span class="tag">Linux workflow</span>
+              <span class="tag hot">S3 · CloudFront</span>
+              <span class="tag hot">&gt;90% Cost Cut</span>
+              <span class="tag">Edge CDN · SSL</span>
             </div>
           </div>
 
           <div class="domain-cell">
-            <span class="domain-icon">→</span>
-            <div class="domain-title">What must be collected</div>
+            <span class="domain-icon">⚙️</span>
+            <div class="domain-title">Serverless Backend & Checkout Flow</div>
             <div class="domain-desc">
-              Tiendanube product CSV, product images, current domain settings, payment method, shipping rules,
-              store branding, legal pages, and the target AWS monthly budget.
+              Engineered Python microservices on AWS Lambda and Amazon API Gateway for cart lifecycle and checkout webhooks. Integrated Mercado Pago (Checkout Pro &amp; Wallet Brick) with backend-only secret management.
             </div>
             <div class="domain-tags">
-              <span class="tag hot">Catalog CSV</span>
-              <span class="tag hot">Images</span>
-              <span class="tag">Payments</span>
-              <span class="tag">Domain</span>
+              <span class="tag hot">AWS Lambda</span>
+              <span class="tag hot">API Gateway</span>
+              <span class="tag">Mercado Pago</span>
+              <span class="tag">Python</span>
             </div>
           </div>
 
           <div class="domain-cell">
-            <span class="domain-icon">☁️</span>
-            <div class="domain-title">How it will be built</div>
+            <span class="domain-icon">🛡️</span>
+            <div class="domain-title">State Persistence & Zero Maintenance</div>
             <div class="domain-desc">
-              Start with budgets, IAM/MFA, alarms, and a minimal production architecture. Only then migrate
-              catalog, deploy the store, validate checkout, document the architecture, and link the evidence here.
+              NoSQL order state persistence and customer tracking via Amazon DynamoDB. CloudWatch monitoring, automated backups, and pay-per-request economics deliver rock-solid uptime with zero server maintenance overhead.
             </div>
             <div class="domain-tags">
-              <span class="tag hot">Budgets first</span>
-              <span class="tag hot">IaC when stable</span>
-              <span class="tag">Monitoring</span>
-              <span class="tag">Runbook</span>
+              <span class="tag hot">DynamoDB</span>
+              <span class="tag hot">CloudWatch</span>
+              <span class="tag">Production Store</span>
+              <span class="tag">Zero Maintenance</span>
             </div>
           </div>
         </div>
@@ -1068,10 +1092,10 @@
       <!-- CTA -->
       <section id="contact" class="reveal d6">
         <div class="cta-block">
-          <div class="cta-title">Focused on DevOps, space-stack, and real cloud operations</div>
+          <div class="cta-title">Focused on Systems, Cloud Architecture, and Agentic AI</div>
           <p class="cta-sub">
-            Available for remote DevOps, cloud migration, infrastructure QA, and technical implementation work.
-            Bilingual Spanish / English, based in Chaco, Argentina · UTC-3.
+            Available for remote engineering roles across Cloud Architecture, DevOps/IaC automation, and AI Agent Developer Tooling.
+            Bilingual Spanish / English, based in Argentina · UTC-3.
           </p>
           <div class="cta-links">
             <a class="cta-btn primary" href="mailto:davidbritto54@gmail.com">Email Me</a>
@@ -1085,7 +1109,7 @@
 
     <!-- FOOTER -->
     <footer>
-      <span class="footer-text">David Britto · DevOps · Space Stack · AWS Ecommerce · 2026</span>
+      <span class="footer-text">David Britto · Systems · Cloud · Agentic AI · 2026</span>
       <span class="footer-text">Chaco, Argentina · UTC-3 · Remote Ready</span>
     </footer>
   </div>
