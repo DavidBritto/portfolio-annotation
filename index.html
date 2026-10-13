@@ -6,873 +6,783 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>David Britto — Systems, Cloud & Agentic AI Engineer</title>
   <link rel="icon" type="image/png" href="1.png">
-  <link
-    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,300&display=swap"
-    rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
   <style>
+    /* ============================================================
+       DESIGN SYSTEM & TOKENS (EDITORIAL OBSIDIAN & TERMINAL ACCENTS)
+       ============================================================ */
     :root {
-      --black: #000000;
-      --white: #ffffff;
-      --w92: rgba(0, 182, 0, 0.92);
-      --w90: rgba(240, 235, 235, 0.9);
-      --w60: rgba(255, 255, 255, 0.60);
-      --w35: rgba(255, 255, 255, 0.35);
-      --w12: rgba(255, 255, 255, 0.12);
-      --w06: rgba(255, 255, 255, 0.06);
-      --w03: rgba(255, 255, 255, 0.03);
-      --line: rgba(255, 255, 255, 0.14);
-      --line-bright: rgba(255, 255, 255, 0.30);
-      --accent: #FFFFFF;
+      --bg: #07080a;
+      --card-bg: #0f1117;
+      --card-hover: #141720;
+      --border: #1a1e28;
+      --border-bright: #2d3345;
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --text-dim: #64748b;
+      --cyan: #38bdf8;
+      --amber: #f59e0b;
+      --green: #10b981;
+      --purple: #c084fc;
+      --rose: #f43f5e;
+      --code-bg: #0b0d13;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
     }
 
-    *,
-    *::before,
-    *::after {
+    *, *::before, *::after {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
     }
 
     html {
       scroll-behavior: smooth;
+      background-color: var(--bg);
+      color: var(--text-main);
     }
 
     body {
-      background: var(--black);
-      color: var(--w90);
-      font-family: 'Roboto', sans-serif;
-      font-weight: 300;
+      font-family: var(--font-sans);
+      font-size: 14px;
+      line-height: 1.6;
       min-height: 100vh;
       overflow-x: hidden;
+      background-image: 
+        radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+      background-size: 24px 24px;
       -webkit-font-smoothing: antialiased;
     }
 
-    /* ── PAGE LOAD ANIMATION ── */
-    @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform: translateY(23px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .reveal {
-      opacity: 0;
-      animation: fadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
-
-    .d1 {
-      animation-delay: 0.05s;
-    }
-
-    .d2 {
-      animation-delay: 0.15s;
-    }
-
-    .d3 {
-      animation-delay: 0.25s;
-    }
-
-    .d4 {
-      animation-delay: 0.35s;
-    }
-
-    .d5 {
-      animation-delay: 0.45s;
-    }
-
-    .d6 {
-      animation-delay: 0.55s;
-    }
-
-    .d7 {
-      animation-delay: 0.65s;
-    }
-
-    .d8 {
-      animation-delay: 0.75s;
-    }
-
-    /* ── LAYOUT ── */
-    .container {
-      max-width: 1060px;
-      margin: 0 auto;
-      padding: 0 48px;
-    }
-
-    /* ── HEADER ── */
-    header {
-      border-bottom: 1px solid var(--line);
-      padding: 72px 0 56px;
-    }
-
-    .header-inner {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      align-items: end;
-      gap: 40px;
-    }
-
-    .eyebrow {
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--w35);
-      margin-bottom: 20px;
-    }
-
-    h1 {
-      font-size: clamp(2.6rem, 5.5vw, 4.2rem);
-      font-weight: 100;
-      letter-spacing: -0.01em;
-      color: var(--white);
-      line-height: 1;
-      margin-bottom: 16px;
-    }
-
-    .title-role {
-      font-size: 13px;
-      font-weight: 300;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--w60);
-    }
-
-    .header-meta {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 10px;
-    }
-
-    .avail-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 14px;
-      border: 1px solid var(--line-bright);
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--white);
-    }
-
-    .dot {
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background: var(--w92);
-      animation: blink 2s ease-in-out infinite;
-    }
-
-    @keyframes blink {
-
-      0%,
-      100% {
-        opacity: 1
-      }
-
-      50% {
-        opacity: 0.2
-      }
-    }
-
-    .meta-links {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 4px;
-    }
-
-    .meta-links a {
-      font-size: 11px;
-      font-weight: 300;
-      color: var(--w35);
+    a {
+      color: inherit;
       text-decoration: none;
-      letter-spacing: 0.04em;
-      transition: color 0.2s;
     }
 
-    .meta-links a:hover {
-      color: var(--w90);
+    /* ── LAYOUT CONTAINER ── */
+    .container {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 0 24px;
     }
 
-    /* ── NAV ── */
-    nav {
-      border-bottom: 1px solid var(--line);
+    /* ── TOP NAV BAR ── */
+    header {
+      border-bottom: 1px solid var(--border);
       position: sticky;
       top: 0;
-      background: rgba(0, 0, 0, 0.96);
+      background: rgba(7, 8, 10, 0.85);
       backdrop-filter: blur(12px);
       z-index: 100;
     }
 
     .nav-inner {
       display: flex;
-      gap: 0;
-      overflow-x: auto;
-      scrollbar-width: none;
-      -ms-overflow-style: none;
-    }
-
-    .nav-inner::-webkit-scrollbar {
-      display: none;
-    }
-
-    nav a {
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--w35);
-      text-decoration: none;
-      padding: 16px 20px;
-      border-bottom: 1px solid transparent;
-      transition: color 0.2s, border-color 0.2s;
-      white-space: nowrap;
-      margin-bottom: -1px;
-    }
-
-    nav a:hover {
-      color: var(--w90);
-      border-bottom-color: var(--w60);
-    }
-
-    /* ── MAIN ── */
-    main {
-      padding: 80px 0 120px;
-      display: flex;
-      flex-direction: column;
-      gap: 80px;
-    }
-
-    /* ── SECTION ── */
-    section {
-      display: flex;
-      flex-direction: column;
-      gap: 32px;
-    }
-
-    .sec-head {
-      display: grid;
-      grid-template-columns: auto 1fr;
+      justify-content: space-between;
       align-items: center;
-      gap: 24px;
-    }
-
-    .sec-label {
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--w35);
-      white-space: nowrap;
-    }
-
-    .sec-rule {
-      height: 1px;
-      background: var(--line);
-    }
-
-    h2 {
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.20em;
-      text-transform: uppercase;
-      color: var(--white);
-    }
-
-    /* ── SUMMARY ── */
-    .summary-text {
-      font-size: 15px;
-      font-weight: 300;
-      line-height: 1.80;
-      color: var(--w60);
-      max-width: 780px;
-    }
-
-    .summary-text strong {
-      color: var(--w90);
-      font-weight: 400;
-    }
-
-    /* ── SKILLS ── */
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
-      border-top: 1px solid var(--line);
-      border-left: 1px solid var(--line);
-    }
-
-    .skill-cell {
-      border-right: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-      padding: 20px 22px;
-      transition: background 0.2s;
-    }
-
-    .skill-cell:hover {
-      background: var(--w03);
-    }
-
-    .skill-cat {
-      font-size: 9px;
-      font-weight: 500;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--w35);
-      margin-bottom: 6px;
-    }
-
-    .skill-name {
-      font-size: 13px;
-      font-weight: 400;
-      color: var(--w90);
-      margin-bottom: 10px;
-    }
-
-    .bar-track {
-      height: 1px;
-      background: var(--w12);
-      width: 100%;
-      margin-bottom: 6px;
-    }
-
-    .bar-fill {
-      height: 1px;
-      background: var(--white);
-      position: relative;
-    }
-
-    .skill-lvl {
-      font-size: 9px;
-      font-weight: 400;
-      color: var(--w35);
-      letter-spacing: 0.08em;
-      text-align: right;
-    }
-
-    /* ── DOMAINS ── */
-    .domains-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
-      border-top: 1px solid var(--line);
-      border-left: 1px solid var(--line);
-    }
-
-    .sub-sec-head {
-      display: grid;
-      grid-template-columns: auto 1fr;
-      align-items: center;
-      gap: 24px;
-      margin-top: 48px;
-    }
-
-    .sub-sec-label {
-      font-size: 9px;
-      font-weight: 500;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--w35);
-      white-space: nowrap;
-    }
-
-    .domain-cell {
-      border-right: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-      padding: 28px 28px 24px;
-      transition: background 0.2s;
-    }
-
-    .domain-cell:hover {
-      background: var(--w03);
-    }
-
-    .domain-icon {
-      font-size: 18px;
-      display: block;
-      margin-bottom: 14px;
-      opacity: 0.85;
-    }
-
-    .domain-title {
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--white);
-      letter-spacing: 0.04em;
-      margin-bottom: 10px;
-    }
-
-    .domain-desc {
+      height: 56px;
+      font-family: var(--font-mono);
       font-size: 12px;
-      font-weight: 300;
-      line-height: 1.70;
-      color: var(--w60);
     }
 
-    .domain-tags {
+    .nav-status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      background: var(--green);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--green);
+      animation: pulseGreen 2.5s infinite;
+    }
+
+    @keyframes pulseGreen {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(0.9); }
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .nav-link {
+      color: var(--text-muted);
+      transition: color 0.15s;
+    }
+
+    .nav-link:hover {
+      color: var(--cyan);
+    }
+
+    .btn-ats {
+      background: transparent;
+      border: 1px solid var(--border-bright);
+      color: var(--text-main);
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .btn-ats:hover {
+      background: rgba(56, 189, 248, 0.1);
+      border-color: var(--cyan);
+      color: var(--cyan);
+    }
+
+    /* ── ASCII ART HERO ── */
+    .ascii-section {
+      padding: 40px 0 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .ascii-banner {
+      font-family: var(--font-mono);
+      font-size: clamp(7px, 1.3vw, 12px);
+      line-height: 1.15;
+      color: var(--cyan);
+      overflow-x: auto;
+      white-space: pre;
+      user-select: none;
+      opacity: 0.9;
+      margin-bottom: 16px;
+      padding-bottom: 6px;
+    }
+
+    .hero-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--amber);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .hero-eyebrow::before {
+      content: '>';
+      color: var(--text-dim);
+    }
+
+    /* ── AWS BUILDER CENTER STYLE HEADLINE ── */
+    .aws-hero-block {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 24px 28px;
+      margin: 16px 0 24px;
+      position: relative;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+    }
+
+    .code-headline {
+      font-family: var(--font-mono);
+      font-size: clamp(1.4rem, 4vw, 2.8rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.25;
+      color: #f3f4f6;
+      display: flex;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 6px 10px;
+    }
+
+    .kw-if {
+      color: var(--rose);
+      font-weight: 800;
+    }
+
+    .kw-condition {
+      color: var(--cyan);
+      font-weight: 700;
+    }
+
+    .kw-action {
+      color: var(--green);
+      font-weight: 700;
+    }
+
+    .code-cursor {
+      display: inline-block;
+      width: 0.55em;
+      height: 1.15em;
+      background-color: var(--green);
+      box-shadow: 0 0 10px var(--green);
+      vertical-align: -0.15em;
+      margin: 0 2px;
+      animation: cursorBlink 0.9s infinite step-end;
+    }
+
+    @keyframes cursorBlink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    .hero-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      max-width: 780px;
+      margin-bottom: 20px;
+    }
+
+    .hero-chips {
       display: flex;
       flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 16px;
-    }
-
-    .tag {
-      font-size: 9px;
-      font-weight: 500;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      padding: 4px 9px;
-      border: 1px solid var(--line);
-      color: var(--w35);
-      transition: all 0.2s;
-    }
-
-    .tag:hover {
-      border-color: var(--w60);
-      color: var(--w90);
-    }
-
-    .tag.hot {
-      border-color: var(--w35);
-      color: var(--w60);
-    }
-
-    /* ── EXPERIENCE ── */
-    .exp-list {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .exp-item {
-      border-top: 1px solid var(--line);
-      padding: 32px 0;
-      display: grid;
-      grid-template-columns: 220px 1fr;
-      gap: 40px;
-      transition: background 0.2s;
-    }
-
-    .exp-item:last-child {
-      border-bottom: 1px solid var(--line);
-    }
-
-    .exp-item:hover {
-      background: var(--w03);
-      padding-left: 16px;
-      padding-right: 16px;
-      margin-left: -16px;
-      margin-right: -16px;
-    }
-
-    .exp-left {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .exp-role {
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--white);
-      line-height: 1.4;
-    }
-
-    .exp-company {
-      font-size: 11px;
-      font-weight: 300;
-      color: var(--w60);
-      letter-spacing: 0.02em;
-    }
-
-    .exp-period {
-      font-size: 10px;
-      font-weight: 400;
-      letter-spacing: 0.10em;
-      color: var(--w35);
-      margin-top: 4px;
-    }
-
-    .exp-bullets {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
       gap: 8px;
-      padding-top: 2px;
+      font-family: var(--font-mono);
+      font-size: 11px;
     }
 
-    .exp-bullets li {
-      font-size: 13px;
-      font-weight: 300;
-      line-height: 1.65;
-      color: var(--w60);
-      padding-left: 16px;
-      position: relative;
+    .chip {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      padding: 4px 10px;
+      border-radius: 4px;
+      color: var(--text-main);
     }
 
-    .exp-bullets li::before {
-      content: '—';
-      position: absolute;
-      left: 0;
-      color: var(--w35);
-      font-weight: 100;
+    .chip.highlight {
+      border-color: rgba(56, 189, 248, 0.4);
+      color: var(--cyan);
+      background: rgba(56, 189, 248, 0.05);
     }
 
-    /* ── LANGUAGES ── */
-    .lang-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      border-top: 1px solid var(--line);
-      border-left: 1px solid var(--line);
+    /* ── SECTION STRUCTURE ── */
+    section {
+      padding: 48px 0;
+      border-bottom: 1px solid var(--border);
     }
 
-    .lang-cell {
-      border-right: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-      padding: 24px 28px;
+    .sec-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 28px;
     }
 
-    .lang-name {
-      font-size: 16px;
-      font-weight: 300;
-      color: var(--white);
-      margin-bottom: 4px;
-    }
-
-    .lang-level {
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--w35);
-      margin-bottom: 16px;
-    }
-
-    .lang-bar-track {
-      height: 1px;
-      background: var(--w12);
-    }
-
-    .lang-bar-fill {
-      height: 1px;
-      background: var(--white);
-    }
-
-    /* ── ATTRIBUTES ── */
-    .attr-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      border-top: 1px solid var(--line);
-      border-left: 1px solid var(--line);
-    }
-
-    .attr-cell {
-      border-right: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-      padding: 16px 20px;
-      font-size: 12px;
-      font-weight: 300;
-      color: var(--w60);
+    .sec-title {
+      font-family: var(--font-mono);
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-main);
       display: flex;
       align-items: center;
-      gap: 12px;
-      transition: all 0.2s;
+      gap: 8px;
     }
 
-    .attr-cell:hover {
-      color: var(--w90);
-      background: var(--w03);
+    .sec-title span {
+      color: var(--cyan);
     }
 
-    .attr-mark {
-      width: 4px;
-      height: 4px;
-      border: 1px solid var(--w35);
-      border-radius: 50%;
-      flex-shrink: 0;
-      transition: background 0.2s, border-color 0.2s;
+    .sec-hint {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-dim);
     }
 
-    .attr-cell:hover .attr-mark {
-      background: var(--white);
-      border-color: var(--white);
-    }
-
-    /* ── PLATFORMS ── */
-    .platforms-grid {
+    /* ── PROJECTS GRID ── */
+    .projects-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      border-top: 1px solid var(--line);
-      border-left: 1px solid var(--line);
+      grid-template-columns: repeat(auto-fill, minmax(440px, 1fr));
+      gap: 20px;
     }
 
-    .platform-cell {
-      border-right: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-      padding: 20px 22px;
-      display: flex;
-      align-items: flex-start;
-      gap: 14px;
-      transition: background 0.2s;
-    }
-
-    .platform-cell:hover {
-      background: var(--w03);
-    }
-
-    .platform-ind {
-      width: 1px;
-      height: 32px;
-      flex-shrink: 0;
-      margin-top: 3px;
-    }
-
-    .platform-ind.primary {
-      background: var(--white);
-    }
-
-    .platform-ind.secondary {
-      background: var(--w35);
-    }
-
-    .platform-name {
-      font-size: 13px;
-      font-weight: 400;
-      color: var(--w90);
-      margin-bottom: 3px;
-    }
-
-    .platform-note {
-      font-size: 10px;
-      font-weight: 300;
-      color: var(--w35);
-      letter-spacing: 0.04em;
-    }
-
-    /* ── PORTFOLIO ── */
-    .proj-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-      border-top: 1px solid var(--line);
-      border-left: 1px solid var(--line);
-    }
-
-    .proj-card {
-      border-right: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-      padding: 28px 28px 24px;
+    .project-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 24px;
+      transition: all 0.2s ease;
       display: flex;
       flex-direction: column;
-      gap: 12px;
-      transition: background 0.2s;
+      justify-content: space-between;
     }
 
-    .proj-card:hover {
-      background: var(--w03);
+    .project-card:hover {
+      background: var(--card-hover);
+      border-color: var(--border-bright);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
     }
 
-    .proj-status {
+    .project-card.card-specly {
+      background: linear-gradient(180deg, rgba(15, 17, 23, 0.86) 0%, rgba(15, 17, 23, 0.98) 100%),
+                  url('assets/specly.png') center / cover no-repeat, var(--card-bg);
+    }
+    .project-card.card-devops {
+      background: linear-gradient(180deg, rgba(15, 17, 23, 0.86) 0%, rgba(15, 17, 23, 0.98) 100%),
+                  url('assets/devops.png') center / cover no-repeat, var(--card-bg);
+    }
+    .project-card.card-onaxale {
+      background: linear-gradient(180deg, rgba(15, 17, 23, 0.86) 0%, rgba(15, 17, 23, 0.98) 100%),
+                  url('assets/onaxale.png') center / cover no-repeat, var(--card-bg);
+    }
+    .project-card.card-kuarahy {
+      background: linear-gradient(180deg, rgba(15, 17, 23, 0.86) 0%, rgba(15, 17, 23, 0.98) 100%),
+                  url('assets/kuarahy.png') center / cover no-repeat, var(--card-bg);
+    }
+
+    .proj-meta {
       display: flex;
+      justify-content: space-between;
       align-items: center;
-      gap: 7px;
-      font-size: 9px;
-      font-weight: 500;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--w35);
+      margin-bottom: 12px;
+      font-family: var(--font-mono);
+      font-size: 11px;
     }
 
-    .proj-dot {
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background: var(--w35);
-      flex-shrink: 0;
+    .proj-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--cyan);
+      background: rgba(56, 189, 248, 0.08);
+      border: 1px solid rgba(56, 189, 248, 0.2);
+      padding: 2px 8px;
+      border-radius: 3px;
     }
 
-    .proj-dot.live {
-      background: var(--w92);
+    .proj-badge.hot {
+      color: var(--amber);
+      background: rgba(245, 158, 11, 0.08);
+      border-color: rgba(245, 158, 11, 0.25);
+    }
+
+    .proj-badge.green {
+      color: var(--green);
+      background: rgba(16, 185, 129, 0.08);
+      border-color: rgba(16, 185, 129, 0.25);
     }
 
     .proj-title {
-      font-size: 15px;
-      font-weight: 400;
-      color: var(--white);
+      font-size: 17px;
+      font-weight: 600;
+      color: #ffffff;
+      margin-bottom: 8px;
       letter-spacing: -0.01em;
-      line-height: 1.3;
     }
 
     .proj-desc {
-      font-size: 12px;
-      font-weight: 300;
-      line-height: 1.72;
-      color: var(--w60);
-      flex-grow: 1;
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.65;
+      margin-bottom: 16px;
     }
 
     .proj-tags {
       display: flex;
       flex-wrap: wrap;
-      gap: 5px;
+      gap: 6px;
+      margin-bottom: 20px;
     }
 
-    .proj-links {
+    .proj-tag {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 2px 7px;
+      border-radius: 3px;
+    }
+
+    .proj-actions {
       display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      padding-top: 6px;
+      gap: 12px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      border-top: 1px solid var(--border);
+      padding-top: 14px;
     }
 
     .proj-link {
-      font-size: 9px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      color: var(--cyan);
       font-weight: 500;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      text-decoration: none;
-      padding: 6px 14px;
-      border: 1px solid var(--line);
-      color: var(--w35);
-      transition: all 0.2s;
+      transition: color 0.15s;
     }
 
     .proj-link:hover {
-      border-color: var(--w60);
-      color: var(--w90);
+      color: #ffffff;
+      text-decoration: underline;
     }
 
-    .proj-link.primary {
-      border-color: var(--w35);
-      color: var(--w60);
+    .proj-link.muted {
+      color: var(--text-dim);
+      cursor: default;
     }
 
-    .proj-link.primary:hover {
-      border-color: var(--white);
-      color: var(--white);
+    /* ── DEEP DIVE: ZERO TO CLOUD CASE STUDY ── */
+    .case-study-box {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 28px;
     }
 
-    /* ── CTA ── */
-    .cta-block {
-      border: 1px solid var(--line);
-      padding: 56px 48px;
+    .case-study-hero {
+      margin-bottom: 24px;
+    }
+
+    .case-study-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+
+    .case-study-sub {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    .arch-flow-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin: 20px 0;
+    }
+
+    .arch-step {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 16px;
+    }
+
+    .arch-step-num {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--amber);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .arch-step-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #ffffff;
+      margin-bottom: 6px;
+    }
+
+    .arch-step-body {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    .case-metrics-bar {
+      display: flex;
+      justify-content: space-around;
+      background: rgba(16, 185, 129, 0.04);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      border-radius: 4px;
+      padding: 14px 20px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .metric-item {
+      text-align: center;
+    }
+
+    .metric-val {
+      font-family: var(--font-mono);
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--green);
+    }
+
+    .metric-lbl {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    /* ── WRITING / BLOG SECTION ── */
+    .articles-list {
       display: flex;
       flex-direction: column;
-      align-items: center;
-      gap: 28px;
-      text-align: center;
-      position: relative;
+      gap: 12px;
     }
 
-    .cta-title {
-      font-size: clamp(1.4rem, 3vw, 2rem);
-      font-weight: 100;
-      color: var(--white);
-      letter-spacing: -0.01em;
-      line-height: 1.3;
-    }
-
-    .cta-sub {
-      font-size: 13px;
-      font-weight: 300;
-      color: var(--w60);
-      line-height: 1.7;
-      max-width: 520px;
-    }
-
-    .cta-links {
+    .article-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 18px 22px;
       display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .cta-btn {
-      display: inline-flex;
+      justify-content: space-between;
       align-items: center;
-      gap: 10px;
-      padding: 12px 28px;
-      font-family: 'Roboto', sans-serif;
+      gap: 16px;
+      transition: all 0.15s;
+    }
+
+    .article-item:hover {
+      background: var(--card-hover);
+      border-color: var(--border-bright);
+      transform: translateX(4px);
+    }
+
+    .article-main {
+      flex: 1;
+    }
+
+    .article-date {
+      font-family: var(--font-mono);
       font-size: 10px;
-      font-weight: 500;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      text-decoration: none;
-      border: 1px solid var(--line);
-      color: var(--w60);
-      transition: all 0.2s;
-      cursor: pointer;
+      color: var(--text-dim);
+      margin-bottom: 4px;
+    }
+
+    .article-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #ffffff;
+      margin-bottom: 4px;
+    }
+
+    .article-summary {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .article-tags {
+      display: flex;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    /* ── INTERACTIVE TERMINAL COMPONENT ── */
+    .terminal-box {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+      overflow: hidden;
+      font-family: var(--font-mono);
+      margin: 16px 0;
+    }
+
+    .terminal-topbar {
+      background: #12151d;
+      border-bottom: 1px solid var(--border);
+      padding: 8px 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      color: var(--text-dim);
+    }
+
+    .terminal-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .t-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+    .t-red { background: #ef4444; }
+    .t-yellow { background: #f59e0b; }
+    .t-green { background: #10b981; }
+
+    .terminal-output {
+      padding: 16px 20px;
+      font-size: 12px;
+      line-height: 1.6;
+      max-height: 280px;
+      overflow-y: auto;
+      color: var(--text-muted);
+    }
+
+    .terminal-prompt-line {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      padding: 10px 20px 14px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .t-prompt {
+      color: var(--cyan);
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .t-input {
       background: transparent;
+      border: none;
+      outline: none;
+      color: #ffffff;
+      font-family: inherit;
+      font-size: 12px;
+      flex: 1;
     }
 
-    .cta-btn:hover {
-      border-color: var(--white);
-      color: var(--white);
+    .terminal-quick-cmds {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      flex-wrap: wrap;
+      padding: 8px 16px;
+      background: #0f1219;
+      border-bottom: 1px solid var(--border);
     }
 
-    .cta-btn.primary {
-      border-color: var(--white);
-      color: var(--white);
-      background: var(--w06);
+    .t-chip {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      color: var(--cyan);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      padding: 3px 9px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.15s;
     }
 
-    .cta-btn.primary:hover {
-      background: var(--w12);
+    .t-chip:hover {
+      background: rgba(56, 189, 248, 0.15);
+      border-color: var(--cyan);
+      color: #ffffff;
+    }
+
+    /* ── RESUME ATS MODAL ── */
+    .modal-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(8px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 20px;
+    }
+
+    .modal-backdrop.is-open {
+      display: flex;
+    }
+
+    .modal-content {
+      background: var(--card-bg);
+      border: 1px solid var(--border-bright);
+      border-radius: 6px;
+      width: 100%;
+      max-width: 680px;
+      max-height: 85vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.7);
+    }
+
+    .modal-header {
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-mono);
+      font-size: 12px;
+    }
+
+    .modal-close-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .modal-body {
+      padding: 20px;
+      overflow-y: auto;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      line-height: 1.6;
+      color: var(--text-muted);
+      background: var(--code-bg);
+      white-space: pre-wrap;
+      user-select: text;
+    }
+
+    .modal-footer {
+      padding: 12px 20px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
     }
 
     /* ── FOOTER ── */
     footer {
-      border-top: 1px solid var(--line);
-      padding: 28px 0;
+      padding: 40px 0 60px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-dim);
+    }
+
+    .footer-inner {
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
-      gap: 12px;
+      gap: 16px;
     }
 
-    .footer-text {
-      font-size: 10px;
-      font-weight: 300;
-      letter-spacing: 0.10em;
-      color: var(--w35);
-      text-transform: uppercase;
+    .footer-links {
+      display: flex;
+      gap: 16px;
+    }
+
+    .footer-links a:hover {
+      color: var(--cyan);
     }
 
     /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
-      .container {
-        padding: 0 24px;
-      }
-
-      .header-inner {
+      .projects-grid {
         grid-template-columns: 1fr;
       }
-
-      .header-meta {
+      .arch-flow-grid {
+        grid-template-columns: 1fr;
+      }
+      .code-headline {
+        font-size: 1.4rem;
+      }
+      .article-item {
+        flex-direction: column;
         align-items: flex-start;
       }
-
-      .exp-item {
-        grid-template-columns: 1fr;
-        gap: 16px;
-      }
-
-      .lang-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .cta-block {
-        padding: 36px 24px;
-      }
-
-      footer {
-        flex-direction: column;
-        gap: 6px;
+      .article-tags {
+        margin-top: 6px;
       }
     }
   </style>
@@ -880,240 +790,537 @@
 
 <body>
 
-  <!-- HEADER -->
-  <div class="container">
-    <header class="reveal d1">
-      <div class="header-inner">
-        <div>
-          <div class="eyebrow">Linux Systems · AWS Cloud Architecture · Agentic AI Tooling</div>
-          <h1>DAVID BRITTO</h1>
-          <div class="title-role">Systems, Cloud & Agentic AI Engineer · Remote-Ready</div>
-        </div>
-        <div class="header-meta">
-          <div class="avail-badge">
-            <div class="dot"></div>
-            Available for Remote Work
-          </div>
-          <div class="meta-links">
-            <a href="mailto:davidbritto54@gmail.com">davidbritto54@gmail.com</a>
-            <a href="https://github.com/DavidBritto" target="_blank">github.com/DavidBritto</a>
-            <a href="https://linkedin.com/in/davidbrittoeth" target="_blank">linkedin.com/in/davidbrittoeth</a>
-            <a href="#" style="color:var(--w35);cursor:default;pointer-events:none;">Chaco, Argentina · UTC-3</a>
-          </div>
-        </div>
-      </div>
-    </header>
-  </div>
-
-  <!-- NAV -->
-  <nav class="reveal d2">
+  <!-- ============================================================
+       TOP NAVIGATION
+       ============================================================ -->
+  <header>
     <div class="container">
       <div class="nav-inner">
-        <a href="#summary">Summary</a>
-        <a href="#portfolio">Projects</a>
-        <a href="#ecommerce">Zero to Cloud</a>
-        <a href="#contact">Contact</a>
+        <div class="nav-status">
+          <div class="status-dot"></div>
+          <span>DAVID BRITTO · REMOTE (UTC-3)</span>
+        </div>
+        <nav class="nav-links">
+          <a class="nav-link" href="#projects">01. Projects</a>
+          <a class="nav-link" href="#terminal">02. Terminal</a>
+          <a class="nav-link" href="#casestudy">03. Case Studies</a>
+          <a class="nav-link" href="#writing">04. Writing</a>
+          <button class="btn-ats" id="open-ats-btn">Resume (ATS)</button>
+        </nav>
       </div>
     </div>
-  </nav>
+  </header>
 
-  <!-- MAIN -->
+  <!-- ============================================================
+       ASCII ART & HERO SECTION
+       ============================================================ -->
   <div class="container">
-    <main>
+    <div class="ascii-section">
+      <div class="hero-eyebrow">Production Systems · Cloud Architecture · Spec-Driven Agentic AI</div>
+      <pre class="ascii-banner" aria-label="David Britto ASCII Banner">
+  ___   _ __   _____ ___    ___  ___  ___ _____ _____ ___  
+ |   \ /_\ \ \ / /_ _|   \  | _ ) _ \_ _|_   _|_   _/ _ \ 
+ | |) / _ \ \ V / | || |) | | _ \   /| |  | |   | | | (_) |
+ |___/_/ \_\ \_/ |___|___/  |___/_|_\___| |_|   |_|  \___/ 
+      </pre>
 
-      <!-- SUMMARY -->
-      <section id="summary" class="reveal d3">
-        <div class="sec-head">
-          <span class="sec-label">01 — Summary</span>
-          <div class="sec-rule"></div>
-        </div>
-        <p class="summary-text">
-          <strong>Specialized in Linux infrastructure, AWS Cloud Architecture, and Spec-Driven AI Agent Engineering</strong>:
-          I build observable, decoupled, and production-tested systems where specifications lead and code executes deterministically.
-          From enterprise IaC automation and production serverless e-commerce to developer tooling for autonomous AI agents,
-          this portfolio links the evidence and architecture behind inspectable engineering.
-        </p>
-      </section>
+      <!-- AWS Builder Center Inspired Code Block -->
+      <div class="aws-hero-block">
+        <h1 class="code-headline" tabindex="-1">
+          <span class="kw-if">if&nbsp;</span>
+          <span class="kw-condition" id="typing-condition">building:</span>
+          <span class="code-cursor" aria-hidden="true"></span>
+          <span class="kw-action" id="typing-action">start_here()</span>
+        </h1>
+      </div>
 
-      <!-- PORTFOLIO -->
-      <section id="portfolio" class="reveal d4">
-        <div class="sec-head">
-          <span class="sec-label">02 — Demonstrable Resources</span>
-          <div class="sec-rule"></div>
-        </div>
-        <div class="proj-grid">
+      <p class="hero-desc">
+        Senior Systems &amp; Cloud Architect specialized in Linux kernel foundations, AWS Serverless economics, and Spec-Driven AI Agent Engineering.
+        I design decoupled, observable, and cost-optimized architectures where specifications lead and autonomous agents execute deterministically.
+      </p>
 
-          <div class="proj-card">
-            <div class="proj-status">
-              <div class="proj-dot live"></div>
-              npm package · Active
+      <div class="hero-chips">
+        <span class="chip highlight">AWS Cloud Architecture</span>
+        <span class="chip highlight">Linux Systems</span>
+        <span class="chip highlight">Agentic AI Tooling</span>
+        <span class="chip">Terraform &amp; IaC</span>
+        <span class="chip">Zero-Maintenance Serverless</span>
+        <span class="chip">Bilingual ES/EN</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       01. FEATURED PROJECTS
+       ============================================================ -->
+  <div class="container">
+    <section id="projects">
+      <div class="sec-header">
+        <h2 class="sec-title"><span>01.</span> Flagship Engineering Projects</h2>
+        <span class="sec-hint">[ 4 Production Repositories ]</span>
+      </div>
+
+      <div class="projects-grid">
+
+        <!-- PROJECT 1: SPECLY -->
+        <article class="project-card card-specly">
+          <div>
+            <div class="proj-meta">
+              <span class="proj-badge hot">Agentic AI · npm Registry</span>
+              <span style="color:var(--text-dim);font-family:var(--font-mono);font-size:10px;">Production CLI</span>
             </div>
-            <div class="proj-title">specly — Spec-Driven Development CLI</div>
+            <h3 class="proj-title">specly — Spec-Driven Development CLI</h3>
             <p class="proj-desc">
-              Developer CLI tool built to solve AI hallucination, agent drift, and unmaintainable code generation.
+              Developer CLI tool built to eliminate AI hallucination, agent drift, and unmaintainable code generation.
               Enforces strict Spec-Driven Development (SDD) across structured requirements, architecture design, and verified task breakdowns before code generation begins.
             </p>
             <div class="proj-tags">
-              <span class="tag hot">TypeScript</span>
-              <span class="tag hot">Node.js</span>
-              <span class="tag hot">Agentic AI</span>
-              <span class="tag">CLI Engineering</span>
-              <span class="tag">npm</span>
-            </div>
-            <div class="proj-links">
-              <a class="proj-link primary" href="https://www.npmjs.com/package/specly" target="_blank">npm ↗</a>
-              <a class="proj-link" href="https://github.com/DavidBritto/specly" target="_blank">GitHub ↗</a>
+              <span class="proj-tag">TypeScript</span>
+              <span class="proj-tag">Node.js</span>
+              <span class="proj-tag">Autonomous Agents</span>
+              <span class="proj-tag">CLI Engineering</span>
+              <span class="proj-tag">npm</span>
             </div>
           </div>
+          <div class="proj-actions">
+            <a class="proj-link" href="https://www.npmjs.com/package/specly" target="_blank">npm Registry ↗</a>
+            <a class="proj-link" href="https://github.com/DavidBritto/specly" target="_blank">GitHub Repo ↗</a>
+          </div>
+        </article>
 
-          <div class="proj-card">
-            <div class="proj-status">
-              <div class="proj-dot live"></div>
-              Production IaC · Public repo
+        <!-- PROJECT 2: DEVOPS LAB -->
+        <article class="project-card card-devops">
+          <div>
+            <div class="proj-meta">
+              <span class="proj-badge green">Enterprise IaC · DevOps</span>
+              <span style="color:var(--text-dim);font-family:var(--font-mono);font-size:10px;">Public Lab</span>
             </div>
-            <div class="proj-title">DevOps Engineering Lab — #90DaysOfDevOps</div>
+            <h3 class="proj-title">DevOps Engineering Lab — #90DaysOfDevOps</h3>
             <p class="proj-desc">
               Comprehensive infrastructure engineering repository documenting progressive enterprise DevOps practices.
-              Covers Linux kernel fundamentals, Vagrant, Docker containerization, Kubernetes orchestration, and declarative Terraform IaC with automated GitHub Actions workflows.
+              Covers Linux kernel internals, Vagrant environments, Docker containerization, Kubernetes cluster orchestration, and declarative Terraform IaC with GitHub Actions CI/CD.
             </p>
             <div class="proj-tags">
-              <span class="tag hot">Terraform · IaC</span>
-              <span class="tag hot">Kubernetes</span>
-              <span class="tag hot">Docker · Compose</span>
-              <span class="tag hot">GitHub Actions</span>
-              <span class="tag">Linux (Ubuntu)</span>
-              <span class="tag">Ansible</span>
-            </div>
-            <div class="proj-links">
-              <a class="proj-link primary" href="https://github.com/DavidBritto/devops-portfolio" target="_blank">GitHub ↗</a>
+              <span class="proj-tag">Terraform</span>
+              <span class="proj-tag">Kubernetes</span>
+              <span class="proj-tag">Docker</span>
+              <span class="proj-tag">GitHub Actions</span>
+              <span class="proj-tag">Linux (Ubuntu)</span>
+              <span class="proj-tag">Ansible</span>
             </div>
           </div>
+          <div class="proj-actions">
+            <a class="proj-link" href="https://github.com/DavidBritto/devops-portfolio" target="_blank">Inspect GitHub ↗</a>
+          </div>
+        </article>
 
-          <div class="proj-card">
-            <div class="proj-status">
-              <div class="proj-dot live"></div>
-              Live Store · Production AWS
+        <!-- PROJECT 3: ONAXALE -->
+        <article class="project-card card-onaxale">
+          <div>
+            <div class="proj-meta">
+              <span class="proj-badge green">AWS Production · &gt;90% Cost Cut</span>
+              <span style="color:var(--text-dim);font-family:var(--font-mono);font-size:10px;">Live Store</span>
             </div>
-            <div class="proj-title">Onaxale — Serverless Ecommerce Architecture</div>
+            <h3 class="proj-title">Onaxale — Serverless Ecommerce Architecture</h3>
             <p class="proj-desc">
               End-to-end architectural migration from Tiendanube SaaS into an ultra-low-cost, high-availability AWS serverless ecosystem.
-              Features S3 and CloudFront global edge delivery, Lambda event-driven APIs, DynamoDB persistence, and Mercado Pago checkout integration. Slashes operational costs by >90%.
+              Features S3 and CloudFront edge delivery, Lambda event-driven microservices, DynamoDB persistence, and Mercado Pago checkout integration.
             </p>
             <div class="proj-tags">
-              <span class="tag hot">AWS Lambda</span>
-              <span class="tag hot">CloudFront · S3</span>
-              <span class="tag hot">DynamoDB</span>
-              <span class="tag hot">Mercado Pago</span>
-              <span class="tag">API Gateway</span>
-              <span class="tag">Python</span>
-            </div>
-            <div class="proj-links">
-              <a class="proj-link primary" href="https://onaxale.com" target="_blank">Live Store ↗</a>
-              <span class="proj-link" style="cursor:default;opacity:0.4;">Private Repo</span>
+              <span class="proj-tag">AWS Lambda</span>
+              <span class="proj-tag">CloudFront</span>
+              <span class="proj-tag">Amazon S3</span>
+              <span class="proj-tag">DynamoDB</span>
+              <span class="proj-tag">Mercado Pago</span>
+              <span class="proj-tag">Python</span>
             </div>
           </div>
+          <div class="proj-actions">
+            <a class="proj-link" href="https://onaxale.com" target="_blank">Visit Live Store ↗</a>
+            <span class="proj-link muted">Private Architecture Repo</span>
+          </div>
+        </article>
 
-          <div class="proj-card">
-            <div class="proj-status">
-              <div class="proj-dot live"></div>
-              Hackathon Sprint · Public repo
+        <!-- PROJECT 4: KUARAHY -->
+        <article class="project-card card-kuarahy">
+          <div>
+            <div class="proj-meta">
+              <span class="proj-badge">Telemetry · Clean Energy</span>
+              <span style="color:var(--text-dim);font-family:var(--font-mono);font-size:10px;">Hackathon Sprint</span>
             </div>
-            <div class="proj-title">Kuarahy — Real-Time Solar Telemetry</div>
+            <h3 class="proj-title">Kuarahy — Real-Time Solar Telemetry</h3>
             <p class="proj-desc">
-              Environmental telemetry platform engineered during a 2-hour hackathon sprint.
+              Environmental telemetry platform engineered during an intensive 2-hour hackathon sprint.
               Computes solar elevation, optimal irradiation windows, and clean energy recommendations using live meteorological data and astronomical solar equations.
             </p>
             <div class="proj-tags">
-              <span class="tag hot">Next.js 15</span>
-              <span class="tag hot">TypeScript</span>
-              <span class="tag hot">Tailwind CSS</span>
-              <span class="tag">Recharts</span>
-              <span class="tag">SunCalc</span>
-              <span class="tag">Open-Meteo API</span>
-            </div>
-            <div class="proj-links">
-              <a class="proj-link primary" href="https://github.com/DavidBritto/kuarahy" target="_blank">GitHub ↗</a>
+              <span class="proj-tag">Next.js 15</span>
+              <span class="proj-tag">TypeScript</span>
+              <span class="proj-tag">Tailwind CSS</span>
+              <span class="proj-tag">SunCalc</span>
+              <span class="proj-tag">Open-Meteo API</span>
             </div>
           </div>
+          <div class="proj-actions">
+            <a class="proj-link" href="https://github.com/DavidBritto/kuarahy" target="_blank">GitHub Repo ↗</a>
+          </div>
+        </article>
 
+      </div>
+    </section>
+  </div>
+
+  <!-- ============================================================
+       02. FUNCTIONAL INTERACTIVE TERMINAL
+       ============================================================ -->
+  <div class="container">
+    <section id="terminal">
+      <div class="sec-header">
+        <h2 class="sec-title"><span>02.</span> Interactive Terminal &amp; CLI Inspector</h2>
+        <span class="sec-hint">[ Click quick commands or type directly ]</span>
+      </div>
+
+      <div class="terminal-box">
+        <div class="terminal-topbar">
+          <div class="terminal-dots">
+            <div class="t-dot t-red"></div>
+            <div class="t-dot t-yellow"></div>
+            <div class="t-dot t-green"></div>
+          </div>
+          <span>david@cloud-control:~</span>
+          <span style="font-size:10px;">zsh 5.9 · telemetry active</span>
         </div>
-      </section>
 
-      <!-- CASE STUDY / ZERO TO CLOUD -->
-      <section id="ecommerce" class="reveal d5">
-        <div class="sec-head">
-          <span class="sec-label">03 — Case Study: Real Ecommerce (Zero to Cloud)</span>
-          <div class="sec-rule"></div>
+        <!-- CLICKABLE QUICK RUN BUTTONS -->
+        <div class="terminal-quick-cmds">
+          <span style="color:var(--text-dim);font-size:11px;margin-right:2px;">Quick Run:</span>
+          <button class="t-chip" data-cmd="projects">$ projects</button>
+          <button class="t-chip" data-cmd="skills">$ skills</button>
+          <button class="t-chip" data-cmd="bio">$ bio</button>
+          <button class="t-chip" data-cmd="cat resume">$ cat resume</button>
+          <button class="t-chip" data-cmd="contact">$ contact</button>
+          <button class="t-chip" data-cmd="clear">$ clear</button>
         </div>
-        <div class="domains-grid">
-          <div class="domain-cell">
-            <span class="domain-icon">⚡</span>
-            <div class="domain-title">SaaS Deconstruction & Edge Delivery</div>
-            <div class="domain-desc">
-              Migrated off Tiendanube SaaS into an ultra-low-cost, high-performance static edge. Hosted on Amazon S3 and distributed globally through CloudFront CDN with TLS/SSL encryption, slashing fixed monthly recurring infrastructure costs by &gt;90%.
-            </div>
-            <div class="domain-tags">
-              <span class="tag hot">S3 · CloudFront</span>
-              <span class="tag hot">&gt;90% Cost Cut</span>
-              <span class="tag">Edge CDN · SSL</span>
-            </div>
-          </div>
 
-          <div class="domain-cell">
-            <span class="domain-icon">⚙️</span>
-            <div class="domain-title">Serverless Backend & Checkout Flow</div>
-            <div class="domain-desc">
-              Engineered Python microservices on AWS Lambda and Amazon API Gateway for cart lifecycle and checkout webhooks. Integrated Mercado Pago (Checkout Pro &amp; Wallet Brick) with backend-only secret management.
-            </div>
-            <div class="domain-tags">
-              <span class="tag hot">AWS Lambda</span>
-              <span class="tag hot">API Gateway</span>
-              <span class="tag">Mercado Pago</span>
-              <span class="tag">Python</span>
-            </div>
-          </div>
-
-          <div class="domain-cell">
-            <span class="domain-icon">🛡️</span>
-            <div class="domain-title">State Persistence & Zero Maintenance</div>
-            <div class="domain-desc">
-              NoSQL order state persistence and customer tracking via Amazon DynamoDB. CloudWatch monitoring, automated backups, and pay-per-request economics deliver rock-solid uptime with zero server maintenance overhead.
-            </div>
-            <div class="domain-tags">
-              <span class="tag hot">DynamoDB</span>
-              <span class="tag hot">CloudWatch</span>
-              <span class="tag">Production Store</span>
-              <span class="tag">Zero Maintenance</span>
-            </div>
-          </div>
+        <div class="terminal-output" id="term-output">
+David Britto Cloud &amp; Systems Terminal [Version 2.4.0]
+Ready. Type 'help' to inspect commands, or click any Quick Run button above.
         </div>
-      </section>
+        <div class="terminal-prompt-line">
+          <span class="t-prompt">david@vaio:~$</span>
+          <input class="t-input" id="term-input" type="text" placeholder="type a command (e.g. 'projects', 'skills')..." autocomplete="off" spellcheck="false">
+        </div>
+      </div>
+    </section>
+  </div>
 
-      <!-- CTA -->
-      <section id="contact" class="reveal d6">
-        <div class="cta-block">
-          <div class="cta-title">Focused on Systems, Cloud Architecture, and Agentic AI</div>
-          <p class="cta-sub">
-            Available for remote engineering roles across Cloud Architecture, DevOps/IaC automation, and AI Agent Developer Tooling.
-            Bilingual Spanish / English, based in Argentina · UTC-3.
+  <!-- ============================================================
+       03. PRODUCTION CASE STUDY
+       ============================================================ -->
+  <div class="container">
+    <section id="casestudy">
+      <div class="sec-header">
+        <h2 class="sec-title"><span>03.</span> Production Case Study: Zero to Cloud</h2>
+        <span class="sec-hint">[ Architecture Deep-Dive ]</span>
+      </div>
+
+      <div class="case-study-box">
+        <div class="case-study-hero">
+          <h3 class="case-study-title">Deconstructing Legacy SaaS into AWS Serverless Economics</h3>
+          <p class="case-study-sub">
+            Migrated the complete ecommerce infrastructure of Onaxale away from recurring Tiendanube monthly fees into a decoupled, pay-per-request architecture on Amazon Web Services.
           </p>
-          <div class="cta-links">
-            <a class="cta-btn primary" href="mailto:davidbritto54@gmail.com">Email Me</a>
-            <a class="cta-btn" href="https://github.com/DavidBritto" target="_blank">GitHub</a>
-            <a class="cta-btn" href="https://linkedin.com/in/davidbrittoeth" target="_blank">LinkedIn</a>
+        </div>
+
+        <div class="arch-flow-grid">
+          <div class="arch-step">
+            <div class="arch-step-num">Step 01 · Global Edge</div>
+            <div class="arch-step-title">S3 &amp; CloudFront CDN</div>
+            <div class="arch-step-body">
+              Static asset delivery hosted on Amazon S3 and distributed via CloudFront edge locations with TLS 1.3 encryption. Sub-50ms latency worldwide with zero servers to patch.
+            </div>
+          </div>
+
+          <div class="arch-step">
+            <div class="arch-step-num">Step 02 · Compute &amp; APIs</div>
+            <div class="arch-step-title">API Gateway &amp; Lambda</div>
+            <div class="arch-step-body">
+              Python microservices orchestrate cart lifecycles, webhook verifications, and Mercado Pago Checkout integration. Zero idle computing costs—charges trigger strictly on demand.
+            </div>
+          </div>
+
+          <div class="arch-step">
+            <div class="arch-step-num">Step 03 · State &amp; Logs</div>
+            <div class="arch-step-title">DynamoDB &amp; CloudWatch</div>
+            <div class="arch-step-body">
+              NoSQL order tracking and customer persistence in Amazon DynamoDB. Centralized telemetry, CloudWatch alarms, and automated point-in-time recovery.
+            </div>
           </div>
         </div>
-      </section>
 
-    </main>
+        <div class="case-metrics-bar">
+          <div class="metric-item">
+            <div class="metric-val">&gt;90%</div>
+            <div class="metric-lbl">Monthly Cost Cut</div>
+          </div>
+          <div class="metric-item">
+            <div class="metric-val">100%</div>
+            <div class="metric-lbl">Serverless (0 Maintenance)</div>
+          </div>
+          <div class="metric-item">
+            <div class="metric-val">&lt;80ms</div>
+            <div class="metric-lbl">P95 Global Edge TTFB</div>
+          </div>
+          <div class="metric-item">
+            <div class="metric-val">99.99%</div>
+            <div class="metric-lbl">High-Availability Uptime</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
 
-    <!-- FOOTER -->
+  <!-- ============================================================
+       04. TECHNICAL WRITING / ARTICLES
+       ============================================================ -->
+  <div class="container">
+    <section id="writing">
+      <div class="sec-header">
+        <h2 class="sec-title"><span>04.</span> Technical Writing &amp; Architecture Notes</h2>
+        <span class="sec-hint">[ Scalable Engineering Blog ]</span>
+      </div>
+
+      <div class="articles-list">
+
+        <article class="article-item">
+          <div class="article-main">
+            <div class="article-date">OCTOBER 2026 · 6 MIN READ</div>
+            <h3 class="article-title">Spec-Driven Development: Taming AI Hallucinations in Autonomous Coding Agents</h3>
+            <p class="article-summary">
+              Why code generation without formal specifications leads to architectural drift, and how Specly enforces contractual schemas before agents write a single file.
+            </p>
+          </div>
+          <div class="article-tags">
+            <span class="proj-tag">Agentic AI</span>
+            <span class="proj-tag">Architecture</span>
+          </div>
+        </article>
+
+        <article class="article-item">
+          <div class="article-main">
+            <div class="article-date">SEPTEMBER 2026 · 8 MIN READ</div>
+            <h3 class="article-title">Deconstructing Legacy SaaS: Migrating to Serverless AWS with &gt;90% Cost Cut</h3>
+            <p class="article-summary">
+              A comprehensive breakdown of decoupling ecommerce frontends onto S3/CloudFront and running webhook pipelines on event-driven AWS Lambda microservices.
+            </p>
+          </div>
+          <div class="article-tags">
+            <span class="proj-tag">AWS Cloud</span>
+            <span class="proj-tag">Serverless</span>
+          </div>
+        </article>
+
+        <article class="article-item">
+          <div class="article-main">
+            <div class="article-date">AUGUST 2026 · 5 MIN READ</div>
+            <h3 class="article-title">Declarative Infrastructure as Code: Lessons from #90DaysOfDevOps</h3>
+            <p class="article-summary">
+              Key insights from architecting Kubernetes clusters, immutable container images, and state-locked Terraform workflows in production environments.
+            </p>
+          </div>
+          <div class="article-tags">
+            <span class="proj-tag">DevOps</span>
+            <span class="proj-tag">Terraform</span>
+          </div>
+        </article>
+
+      </div>
+    </section>
+  </div>
+
+  <!-- ============================================================
+       RESUME ATS MODAL
+       ============================================================ -->
+  <div class="modal-backdrop" id="ats-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span>RESUME_DAVID_BRITTO.MD (ATS &amp; PLAIN TEXT)</span>
+        <button class="modal-close-btn" id="close-modal-btn">✕</button>
+      </div>
+      <pre class="modal-body" id="ats-content"># DAVID BRITTO
+Systems, Cloud &amp; Agentic AI Engineer
+Email: davidbritto54@gmail.com | GitHub: https://github.com/DavidBritto | LinkedIn: https://linkedin.com/in/davidbrittoeth
+Location: Chaco, Argentina (UTC-3) | Remote-Ready
+
+## SUMMARY
+Senior Systems, Cloud &amp; Agentic AI Architect specialized in Linux kernel fundamentals, AWS Serverless architecture, and Spec-Driven AI Agent Engineering. Experienced in delivering high-availability serverless ecosystems (>90% recurring cost cuts), enterprise Infrastructure as Code (Terraform, Kubernetes, Docker, CI/CD), and developer CLI tooling that eliminates AI hallucination and agent drift.
+
+## TECHNICAL SKILLS
+- Cloud Architecture: AWS (Lambda, CloudFront, S3, DynamoDB, API Gateway, CloudWatch, IAM)
+- Infrastructure &amp; DevOps: Terraform (IaC), Kubernetes, Docker, Vagrant, Ansible, GitHub Actions
+- Linux &amp; Systems: Linux Kernel fundamentals, Ubuntu, Bash/Shell automation, Networking, TLS/SSL
+- AI &amp; Agentic Systems: Spec-Driven Development (SDD), Agent Scaffolding, Autonomous Pipelines, LLM Tooling
+- Languages: TypeScript, Python, Node.js, Shell scripting, Go basics
+
+## CORE PROJECTS
+1. Specly (npm package): Spec-Driven Development CLI for structured AI agent code generation.
+2. DevOps Lab (#90DaysOfDevOps): Enterprise IaC, Kubernetes, Docker, and GitHub Actions pipelines.
+3. Onaxale: Full architectural migration from Tiendanube SaaS to AWS serverless cutting recurring costs by >90%.
+4. Kuarahy: Real-time solar telemetry and irradiation engine built during a 2-hour hackathon.
+      </pre>
+      <div class="modal-footer">
+        <button class="btn-ats" id="copy-ats-action">Copy ATS Markdown</button>
+        <button class="btn-ats" id="modal-email-action">Dispatch Email</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <div class="container">
     <footer>
-      <span class="footer-text">David Britto · Systems · Cloud · Agentic AI · 2026</span>
-      <span class="footer-text">Chaco, Argentina · UTC-3 · Remote Ready</span>
+      <div class="footer-inner">
+        <div>
+          <span>David Britto · 2026</span>
+          <span style="margin: 0 8px;">·</span>
+          <span>Linux Systems · AWS Cloud · Agentic AI</span>
+        </div>
+        <div class="footer-links">
+          <a href="mailto:davidbritto54@gmail.com">Email</a>
+          <a href="https://github.com/DavidBritto" target="_blank">GitHub</a>
+          <a href="https://linkedin.com/in/davidbrittoeth" target="_blank">LinkedIn</a>
+        </div>
+      </div>
     </footer>
   </div>
 
+  <!-- ============================================================
+       INTERACTIVE RUNTIME (TYPEWRITER & TERMINAL)
+       ============================================================ -->
+  <script>
+    (function () {
+      // 1. DYNAMIC TYPEWRITER WITH AWS BUILDER PATTERN
+      const typingSequences = [
+        { condition: 'building:', action: 'start_here()' },
+        { condition: 'architecting:', action: 'aws_cloud()' },
+        { condition: 'scaling:', action: 'linux_systems()' },
+        { condition: 'automating:', action: 'agentic_ai()' },
+        { condition: 'shipping:', action: 'devops_pipelines()' },
+        { condition: 'optimizing:', action: 'zero_to_cloud()' }
+      ];
+
+      const condEl = document.getElementById('typing-condition');
+      const actEl = document.getElementById('typing-action');
+      let seqIndex = 0;
+      let charIndex = 0;
+      let isDeleting = false;
+
+      function typeWriterLoop() {
+        const current = typingSequences[seqIndex];
+        const fullText = `${current.condition} ${current.action}`;
+        
+        if (!isDeleting) {
+          charIndex++;
+          const currentText = fullText.substring(0, charIndex);
+          const parts = currentText.split(' ');
+          condEl.textContent = parts[0] || '';
+          actEl.textContent = parts[1] || '';
+
+          if (charIndex >= fullText.length) {
+            isDeleting = true;
+            setTimeout(typeWriterLoop, 2200);
+            return;
+          }
+          setTimeout(typeWriterLoop, 75);
+        } else {
+          charIndex--;
+          const currentText = fullText.substring(0, charIndex);
+          const parts = currentText.split(' ');
+          condEl.textContent = parts[0] || '';
+          actEl.textContent = parts[1] || '';
+
+          if (charIndex <= 0) {
+            isDeleting = false;
+            seqIndex = (seqIndex + 1) % typingSequences.length;
+            setTimeout(typeWriterLoop, 400);
+            return;
+          }
+          setTimeout(typeWriterLoop, 35);
+        }
+      }
+      setTimeout(typeWriterLoop, 600);
+
+      // 2. FUNCTIONAL TERMINAL COMMAND RUNNER
+      const termOutput = document.getElementById('term-output');
+      const termInput = document.getElementById('term-input');
+
+      const commands = {
+        help: "Available commands:\n  projects     - List 4 flagship repositories\n  skills       - Show technical capabilities matrix\n  bio          - Background & architectural vision\n  cat resume   - Show ATS plain-text resume\n  contact      - Display direct contact channels\n  clear        - Clear terminal screen",
+        projects: "FLAGSHIP ENGINEERING PROJECTS:\n  1. specly        - Spec-Driven AI CLI (npm package)\n  2. devops-lab    - Enterprise IaC, Kubernetes, Terraform\n  3. onaxale       - Serverless SaaS Migration (>90% AWS cost cut)\n  4. kuarahy       - Solar Telemetry & Meteorological API",
+        skills: "CORE TECHNICAL CAPABILITIES:\n  - Cloud:       AWS (Lambda, CloudFront, S3, DynamoDB, API Gateway)\n  - DevOps:      Terraform, Kubernetes, Docker, GitHub Actions, Ansible\n  - Linux:       Kernel fundamentals, Ubuntu, Bash automation\n  - AI Agents:   Spec-Driven Development (SDD), Agent Tooling",
+        bio: "DAVID BRITTO:\n  Senior Systems, Cloud & Agentic AI Architect.\n  Focused on observable, decoupled architectures where specifications lead\n  and autonomous agents execute deterministically.",
+        contact: "CONTACT CHANNELS:\n  - Email:    davidbritto54@gmail.com\n  - GitHub:   https://github.com/DavidBritto\n  - LinkedIn: https://linkedin.com/in/davidbrittoeth\n  - Location: Chaco, Argentina (UTC-3) · Remote Ready",
+        "cat resume": document.getElementById('ats-content').textContent.trim()
+      };
+
+      function runCommand(cmdText) {
+        const cmd = cmdText.trim().toLowerCase();
+        termOutput.innerHTML += `\n<span style="color:var(--cyan)">david@vaio:~$</span> ${cmdText}`;
+        
+        if (cmd === 'clear' || cmd === 'cls') {
+          termOutput.innerHTML = "Terminal cleared.";
+        } else if (commands[cmd]) {
+          termOutput.innerHTML += `\n${commands[cmd]}`;
+        } else if (cmd !== '') {
+          termOutput.innerHTML += `\nCommand not found: '${cmd}'. Type 'help' for available commands.`;
+        }
+        termOutput.scrollTop = termOutput.scrollHeight;
+      }
+
+      termInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          const val = termInput.value;
+          termInput.value = '';
+          runCommand(val);
+        }
+      });
+
+      // Quick Run Chip Click Handlers
+      document.querySelectorAll('.t-chip').forEach(chip => {
+        chip.addEventListener('click', () => {
+          const cmd = chip.getAttribute('data-cmd');
+          if (cmd) runCommand(cmd);
+        });
+      });
+
+      // 3. ATS RESUME MODAL & 1-CLICK COPY
+      const modal = document.getElementById('ats-modal');
+      const openModalBtn = document.getElementById('open-ats-btn');
+      const closeModalBtn = document.getElementById('close-modal-btn');
+      const copyAtsBtn = document.getElementById('copy-ats-action');
+      const emailAtsBtn = document.getElementById('modal-email-action');
+
+      openModalBtn.addEventListener('click', () => modal.classList.add('is-open'));
+      closeModalBtn.addEventListener('click', () => modal.classList.remove('is-open'));
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) modal.classList.remove('is-open');
+      });
+
+      copyAtsBtn.addEventListener('click', () => {
+        const text = document.getElementById('ats-content').textContent.trim();
+        navigator.clipboard.writeText(text).then(() => {
+          copyAtsBtn.textContent = 'Copied to Clipboard! ✓';
+          setTimeout(() => { copyAtsBtn.textContent = 'Copy ATS Markdown'; }, 2000);
+        });
+      });
+
+      emailAtsBtn.addEventListener('click', () => {
+        window.location.href = "mailto:davidbritto54@gmail.com";
+      });
+
+    })();
+  </script>
 </body>
 
 </html>

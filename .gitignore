@@ -2,3 +2,5 @@
 .sdd/
 AGENTS.md
 .atl/
+.agents/
+skills-lock.json
