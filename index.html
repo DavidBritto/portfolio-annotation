@@ -1,1326 +1,1028 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>David Britto — Systems, Cloud & Agentic AI Engineer</title>
+  <title>david britto</title>
   <link rel="icon" type="image/png" href="1.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            accent: 'var(--color-accent)',
+          },
+          fontFamily: {
+            mono: ['"Geist Mono"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
 
   <style>
-    /* ============================================================
-       DESIGN SYSTEM & TOKENS (EDITORIAL OBSIDIAN & TERMINAL ACCENTS)
-       ============================================================ */
     :root {
-      --bg: #07080a;
-      --card-bg: #0f1117;
-      --card-hover: #141720;
-      --border: #1a1e28;
-      --border-bright: #2d3345;
-      --text-main: #f3f4f6;
-      --text-muted: #9ca3af;
-      --text-dim: #64748b;
-      --cyan: #38bdf8;
-      --amber: #f59e0b;
-      --green: #10b981;
-      --purple: #c084fc;
-      --rose: #f43f5e;
-      --code-bg: #0b0d13;
-      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
-    }
-
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
+      --color-accent: #c084fc;
+      color: #fff;
       scroll-behavior: smooth;
-      background-color: var(--bg);
-      color: var(--text-main);
+      --font-geist-mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      background-color: #000;
     }
 
     body {
-      font-family: var(--font-sans);
-      font-size: 14px;
-      line-height: 1.6;
+      font-family: var(--font-geist-mono);
+      -webkit-font-smoothing: antialiased;
+      background-color: #000;
+      color: #fff;
       min-height: 100vh;
       overflow-x: hidden;
-      background-image: 
-        radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
-      background-size: 24px 24px;
-      -webkit-font-smoothing: antialiased;
     }
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    /* ── LAYOUT CONTAINER ── */
-    .container {
-      max-width: 980px;
-      margin: 0 auto;
-      padding: 0 24px;
-    }
-
-    /* ── TOP NAV BAR ── */
-    header {
-      border-bottom: 1px solid var(--border);
-      position: sticky;
-      top: 0;
-      background: rgba(7, 8, 10, 0.85);
-      backdrop-filter: blur(12px);
-      z-index: 100;
-    }
-
-    .nav-inner {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      height: 56px;
-      font-family: var(--font-mono);
-      font-size: 12px;
-    }
-
-    .nav-status {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      color: var(--text-muted);
-    }
-
-    .status-dot {
-      width: 7px;
-      height: 7px;
-      background: var(--green);
-      border-radius: 50%;
-      box-shadow: 0 0 8px var(--green);
-      animation: pulseGreen 2.5s infinite;
-    }
-
-    @keyframes pulseGreen {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.6; transform: scale(0.9); }
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 20px;
-      align-items: center;
-    }
-
-    .nav-link {
-      color: var(--text-muted);
-      transition: color 0.15s;
-    }
-
-    .nav-link:hover {
-      color: var(--cyan);
-    }
-
-    .btn-ats {
-      background: transparent;
-      border: 1px solid var(--border-bright);
-      color: var(--text-main);
-      padding: 4px 10px;
-      border-radius: 4px;
-      font-family: var(--font-mono);
-      font-size: 11px;
-      cursor: pointer;
-      transition: all 0.15s;
-    }
-
-    .btn-ats:hover {
-      background: rgba(56, 189, 248, 0.1);
-      border-color: var(--cyan);
-      color: var(--cyan);
-    }
-
-    /* ── ASCII ART HERO ── */
-    .ascii-section {
-      padding: 40px 0 20px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .ascii-banner {
-      font-family: var(--font-mono);
-      font-size: clamp(7px, 1.3vw, 12px);
-      line-height: 1.15;
-      color: var(--cyan);
-      overflow-x: auto;
-      white-space: pre;
-      user-select: none;
-      opacity: 0.9;
-      margin-bottom: 16px;
-      padding-bottom: 6px;
-    }
-
-    .hero-eyebrow {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--amber);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 12px;
-    }
-
-    .hero-eyebrow::before {
-      content: '>';
-      color: var(--text-dim);
-    }
-
-    /* ── AWS BUILDER CENTER STYLE HEADLINE ── */
-    .aws-hero-block {
-      background: var(--code-bg);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 24px 28px;
-      margin: 16px 0 24px;
-      position: relative;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.4);
-    }
-
-    .code-headline {
-      font-family: var(--font-mono);
-      font-size: clamp(1.4rem, 4vw, 2.8rem);
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      line-height: 1.25;
-      color: #f3f4f6;
-      display: flex;
-      align-items: baseline;
-      flex-wrap: wrap;
-      gap: 6px 10px;
-    }
-
-    .kw-if {
-      color: var(--rose);
-      font-weight: 800;
-    }
-
-    .kw-condition {
-      color: var(--cyan);
-      font-weight: 700;
-    }
-
-    .kw-action {
-      color: var(--green);
-      font-weight: 700;
-    }
-
-    .code-cursor {
-      display: inline-block;
-      width: 0.55em;
-      height: 1.15em;
-      background-color: var(--green);
-      box-shadow: 0 0 10px var(--green);
-      vertical-align: -0.15em;
-      margin: 0 2px;
-      animation: cursorBlink 0.9s infinite step-end;
-    }
-
-    @keyframes cursorBlink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0; }
-    }
-
-    .hero-desc {
-      font-size: 14px;
-      color: var(--text-muted);
-      line-height: 1.7;
-      max-width: 780px;
-      margin-bottom: 20px;
-    }
-
-    .hero-chips {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      font-family: var(--font-mono);
-      font-size: 11px;
-    }
-
-    .chip {
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid var(--border);
-      padding: 4px 10px;
-      border-radius: 4px;
-      color: var(--text-main);
-    }
-
-    .chip.highlight {
-      border-color: rgba(56, 189, 248, 0.4);
-      color: var(--cyan);
-      background: rgba(56, 189, 248, 0.05);
-    }
-
-    /* ── SECTION STRUCTURE ── */
-    section {
-      padding: 48px 0;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .sec-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      margin-bottom: 28px;
-    }
-
-    .sec-title {
-      font-family: var(--font-mono);
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--text-main);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .sec-title span {
-      color: var(--cyan);
-    }
-
-    .sec-hint {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      color: var(--text-dim);
-    }
-
-    /* ── PROJECTS GRID ── */
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(440px, 1fr));
-      gap: 20px;
-    }
-
-    .project-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 24px;
-      transition: all 0.2s ease;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .project-card:hover {
-      background: var(--card-hover);
-      border-color: var(--border-bright);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
-    }
-
-    .project-card.card-specly {
-      background: linear-gradient(180deg, rgba(15, 17, 23, 0.86) 0%, rgba(15, 17, 23, 0.98) 100%),
-                  url('assets/specly.png') center / cover no-repeat, var(--card-bg);
-    }
-    .project-card.card-devops {
-      background: linear-gradient(180deg, rgba(15, 17, 23, 0.86) 0%, rgba(15, 17, 23, 0.98) 100%),
-                  url('assets/devops.png') center / cover no-repeat, var(--card-bg);
-    }
-    .project-card.card-onaxale {
-      background: linear-gradient(180deg, rgba(15, 17, 23, 0.86) 0%, rgba(15, 17, 23, 0.98) 100%),
-                  url('assets/onaxale.png') center / cover no-repeat, var(--card-bg);
-    }
-    .project-card.card-kuarahy {
-      background: linear-gradient(180deg, rgba(15, 17, 23, 0.86) 0%, rgba(15, 17, 23, 0.98) 100%),
-                  url('assets/kuarahy.png') center / cover no-repeat, var(--card-bg);
-    }
-
-    .proj-meta {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
-      font-family: var(--font-mono);
-      font-size: 11px;
-    }
-
-    .proj-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      color: var(--cyan);
-      background: rgba(56, 189, 248, 0.08);
-      border: 1px solid rgba(56, 189, 248, 0.2);
-      padding: 2px 8px;
-      border-radius: 3px;
-    }
-
-    .proj-badge.hot {
-      color: var(--amber);
-      background: rgba(245, 158, 11, 0.08);
-      border-color: rgba(245, 158, 11, 0.25);
-    }
-
-    .proj-badge.green {
-      color: var(--green);
-      background: rgba(16, 185, 129, 0.08);
-      border-color: rgba(16, 185, 129, 0.25);
-    }
-
-    .proj-title {
-      font-size: 17px;
-      font-weight: 600;
-      color: #ffffff;
-      margin-bottom: 8px;
-      letter-spacing: -0.01em;
-    }
-
-    .proj-desc {
-      font-size: 13px;
-      color: var(--text-muted);
-      line-height: 1.65;
-      margin-bottom: 16px;
-    }
-
-    .proj-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 20px;
-    }
-
-    .proj-tag {
-      font-family: var(--font-mono);
-      font-size: 10px;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid var(--border);
-      color: var(--text-muted);
-      padding: 2px 7px;
-      border-radius: 3px;
-    }
-
-    .proj-actions {
-      display: flex;
-      gap: 12px;
-      font-family: var(--font-mono);
-      font-size: 11px;
-      border-top: 1px solid var(--border);
-      padding-top: 14px;
-    }
-
-    .proj-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      color: var(--cyan);
-      font-weight: 500;
-      transition: color 0.15s;
-    }
-
-    .proj-link:hover {
-      color: #ffffff;
-      text-decoration: underline;
-    }
-
-    .proj-link.muted {
-      color: var(--text-dim);
-      cursor: default;
-    }
-
-    /* ── DEEP DIVE: ZERO TO CLOUD CASE STUDY ── */
-    .case-study-box {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 28px;
-    }
-
-    .case-study-hero {
-      margin-bottom: 24px;
-    }
-
-    .case-study-title {
-      font-size: 18px;
-      font-weight: 600;
-      color: #ffffff;
-      margin-bottom: 8px;
-    }
-
-    .case-study-sub {
-      font-size: 13px;
-      color: var(--text-muted);
-      line-height: 1.65;
-    }
-
-    .arch-flow-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-      margin: 20px 0;
-    }
-
-    .arch-step {
-      background: var(--code-bg);
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      padding: 16px;
-    }
-
-    .arch-step-num {
-      font-family: var(--font-mono);
-      font-size: 10px;
-      color: var(--amber);
-      margin-bottom: 6px;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .arch-step-title {
-      font-size: 13px;
-      font-weight: 600;
-      color: #ffffff;
-      margin-bottom: 6px;
-    }
-
-    .arch-step-body {
-      font-size: 12px;
-      color: var(--text-muted);
-      line-height: 1.55;
-    }
-
-    .case-metrics-bar {
-      display: flex;
-      justify-content: space-around;
-      background: rgba(16, 185, 129, 0.04);
-      border: 1px solid rgba(16, 185, 129, 0.2);
-      border-radius: 4px;
-      padding: 14px 20px;
-      margin-top: 20px;
-      flex-wrap: wrap;
-      gap: 16px;
-    }
-
-    .metric-item {
-      text-align: center;
-    }
-
-    .metric-val {
-      font-family: var(--font-mono);
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--green);
-    }
-
-    .metric-lbl {
-      font-size: 11px;
-      color: var(--text-muted);
-    }
-
-    /* ── WRITING / BLOG SECTION ── */
-    .articles-list {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .article-item {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 18px 22px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 16px;
-      transition: all 0.15s;
-    }
-
-    .article-item:hover {
-      background: var(--card-hover);
-      border-color: var(--border-bright);
-      transform: translateX(4px);
-    }
-
-    .article-main {
-      flex: 1;
-    }
-
-    .article-date {
-      font-family: var(--font-mono);
-      font-size: 10px;
-      color: var(--text-dim);
-      margin-bottom: 4px;
-    }
-
-    .article-title {
-      font-size: 14px;
-      font-weight: 600;
-      color: #ffffff;
-      margin-bottom: 4px;
-    }
-
-    .article-summary {
-      font-size: 12px;
-      color: var(--text-muted);
-      line-height: 1.5;
-    }
-
-    .article-tags {
-      display: flex;
-      gap: 6px;
-      flex-shrink: 0;
-    }
-
-    /* ── INTERACTIVE TERMINAL COMPONENT ── */
-    .terminal-box {
-      background: var(--code-bg);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.5);
-      overflow: hidden;
-      font-family: var(--font-mono);
-      margin: 16px 0;
-    }
-
-    .terminal-topbar {
-      background: #12151d;
-      border-bottom: 1px solid var(--border);
-      padding: 8px 14px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 11px;
-      color: var(--text-dim);
-    }
-
-    .terminal-dots {
-      display: flex;
-      gap: 6px;
-    }
-
-    .t-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-    }
-    .t-red { background: #ef4444; }
-    .t-yellow { background: #f59e0b; }
-    .t-green { background: #10b981; }
-
-    .terminal-output {
-      padding: 16px 20px;
-      font-size: 12px;
-      line-height: 1.6;
-      max-height: 280px;
-      overflow-y: auto;
-      color: var(--text-muted);
-    }
-
-    .terminal-prompt-line {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-      padding: 10px 20px 14px;
-      border-top: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    .t-prompt {
-      color: var(--cyan);
-      font-size: 12px;
-      font-weight: bold;
-    }
-
-    .t-input {
-      background: transparent;
-      border: none;
-      outline: none;
-      color: #ffffff;
-      font-family: inherit;
-      font-size: 12px;
-      flex: 1;
-    }
-
-    .terminal-quick-cmds {
-      display: flex;
-      gap: 6px;
-      align-items: center;
-      flex-wrap: wrap;
-      padding: 8px 16px;
-      background: #0f1219;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .t-chip {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid var(--border);
-      color: var(--cyan);
-      font-family: var(--font-mono);
-      font-size: 11px;
-      padding: 3px 9px;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: all 0.15s;
-    }
-
-    .t-chip:hover {
-      background: rgba(56, 189, 248, 0.15);
-      border-color: var(--cyan);
-      color: #ffffff;
-    }
-
-    /* ── RESUME ATS MODAL ── */
-    .modal-backdrop {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.85);
-      backdrop-filter: blur(8px);
+    /* Scrollbars hidden completely like d1rshan.me */
+    ::-webkit-scrollbar {
       display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 1000;
-      padding: 20px;
+    }
+    html {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    .scrollbar-none::-webkit-scrollbar {
+      display: none;
+    }
+    .scrollbar-none {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
     }
 
-    .modal-backdrop.is-open {
-      display: flex;
+    /* ASCII Banner with Accent glow & subtle CRT flicker */
+    .ascii-banner {
+      font-family: var(--font-geist-mono);
+      font-size: clamp(6.5px, 1.25vw, 11px);
+      line-height: 1.12;
+      color: var(--color-accent);
+      text-shadow: 0 0 12px rgba(192, 132, 252, 0.35);
+      white-space: pre;
+      animation: asciiFlicker 14s infinite alternate;
+      letter-spacing: 0px;
     }
 
-    .modal-content {
-      background: var(--card-bg);
-      border: 1px solid var(--border-bright);
-      border-radius: 6px;
-      width: 100%;
-      max-width: 680px;
-      max-height: 85vh;
-      display: flex;
-      flex-direction: column;
-      box-shadow: 0 16px 40px rgba(0,0,0,0.7);
-    }
-
-    .modal-header {
-      padding: 14px 20px;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-family: var(--font-mono);
-      font-size: 12px;
-    }
-
-    .modal-close-btn {
-      background: transparent;
-      border: none;
-      color: var(--text-muted);
-      cursor: pointer;
-      font-size: 16px;
-    }
-
-    .modal-body {
-      padding: 20px;
-      overflow-y: auto;
-      font-family: var(--font-mono);
-      font-size: 11px;
-      line-height: 1.6;
-      color: var(--text-muted);
-      background: var(--code-bg);
-      white-space: pre-wrap;
-      user-select: text;
-    }
-
-    .modal-footer {
-      padding: 12px 20px;
-      border-top: 1px solid var(--border);
-      display: flex;
-      justify-content: flex-end;
-      gap: 10px;
-    }
-
-    /* ── FOOTER ── */
-    footer {
-      padding: 40px 0 60px;
-      font-family: var(--font-mono);
-      font-size: 11px;
-      color: var(--text-dim);
-    }
-
-    .footer-inner {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 16px;
-    }
-
-    .footer-links {
-      display: flex;
-      gap: 16px;
-    }
-
-    .footer-links a:hover {
-      color: var(--cyan);
-    }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 768px) {
-      .projects-grid {
-        grid-template-columns: 1fr;
+    @keyframes asciiFlicker {
+      0%, 96%, 100% {
+        opacity: 1;
+        filter: drop-shadow(0 0 4px var(--color-accent));
       }
-      .arch-flow-grid {
-        grid-template-columns: 1fr;
+      96.5% {
+        opacity: 0.85;
+        transform: translate3d(-0.5px, 0.5px, 0);
       }
-      .code-headline {
-        font-size: 1.4rem;
+      97% {
+        opacity: 0.95;
       }
-      .article-item {
-        flex-direction: column;
-        align-items: flex-start;
+      97.5% {
+        opacity: 0.7;
+        transform: translate3d(0.5px, -0.5px, 0);
       }
-      .article-tags {
-        margin-top: 6px;
+      98% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
       }
+    }
+
+    /* 3D Glitch Easter Egg text */
+    .glitch-easter-egg {
+      font-weight: 700;
+      text-shadow: 
+        2px 2px 0px #000000,
+        -2px -2px 0px #EF4444,
+        3px 3px 0px #FACC15;
     }
   </style>
 </head>
-
-<body>
+<body class="selection:bg-accent selection:text-black">
 
   <!-- ============================================================
-       TOP NAVIGATION
+       BACKGROUND: FaultyTerminal WebGL Shader Canvas
        ============================================================ -->
-  <header>
-    <div class="container">
-      <div class="nav-inner">
-        <div class="nav-status">
-          <div class="status-dot"></div>
-          <span>DAVID BRITTO · REMOTE (UTC-3)</span>
+  <div class="fixed inset-0 z-0 pointer-events-none">
+    <canvas id="terminal-canvas" class="w-full h-full block"></canvas>
+  </div>
+
+  <!-- ============================================================
+       MAIN CONTAINER: max-w-5xl centered
+       ============================================================ -->
+  <main class="relative z-10 max-w-5xl mx-auto py-10 px-4 grid gap-6">
+
+    <!-- ============================================================
+         HEADER CARD: Avatar, Decrypted Name, Navigation, Themes, Socials
+         ============================================================ -->
+    <div class="border border-zinc-700/50 p-4 md:p-6 bg-black/80 backdrop-blur-md flex items-center gap-4 pointer-events-auto">
+      
+      <!-- Avatar with easter egg toggle -->
+      <img 
+        id="avatar-img"
+        src="1.png" 
+        alt="avatar" 
+        role="button" 
+        tabindex="0" 
+        class="size-12 md:size-15 object-cover shrink-0 cursor-pointer border border-zinc-800 transition-transform active:scale-95"
+        title="Click to toggle glitch mode"
+      />
+
+      <!-- Name & Nav -->
+      <div>
+        <div class="min-h-9 flex items-center">
+          <h2 id="hero-name" class="text-2xl font-bold text-accent select-none cursor-pointer" data-decrypt="david britto">david britto</h2>
         </div>
-        <nav class="nav-links">
-          <a class="nav-link" href="#projects">01. Projects</a>
-          <a class="nav-link" href="#terminal">02. Terminal</a>
-          <a class="nav-link" href="#casestudy">03. Case Studies</a>
-          <a class="nav-link" href="#writing">04. Writing</a>
-          <button class="btn-ats" id="open-ats-btn">Resume (ATS)</button>
-        </nav>
+        <div class="flex items-center gap-2">
+          <a id="nav-home" href="#/home" class="text-sm transition-colors text-accent">/home</a>
+          <a id="nav-projects" href="#/projects" class="text-sm transition-colors text-gray-400 hover:text-accent">/projects</a>
+          <button id="theme-btn" type="button" class="text-sm text-accent transition-colors cursor-pointer" aria-label="Cycle theme">#c084fc</button>
+        </div>
+      </div>
+
+      <!-- Desktop Socials & Resume (Right column) -->
+      <div class="max-sm:hidden flex flex-col gap-2 self-center ml-auto shrink-0">
+        <div class="grid grid-cols-5 gap-2">
+          <!-- GitHub -->
+          <a href="https://github.com/DavidBritto" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-accent transition-colors flex items-center justify-center" aria-label="github" title="github">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+              <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+            </svg>
+          </a>
+          <!-- Email -->
+          <a href="mailto:davidbritto54@gmail.com" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-accent transition-colors flex items-center justify-center" aria-label="email" title="email">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+              <path d="M3 3H21C21.5523 3 22 3.44772 22 4V20C22 20.5523 21.5523 21 21 21H3C2.44772 21 2 20.5523 2 20V4C2 3.44772 2.44772 3 3 3ZM12.0606 11.6829L5.64722 6.2377L4.35278 7.7623L12.0731 14.3171L19.6544 7.75616L18.3456 6.24384L12.0606 11.6829Z"/>
+            </svg>
+          </a>
+          <!-- Discord -->
+          <a href="mailto:davidbritto54@gmail.com?subject=Discord%20Contact" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-accent transition-colors flex items-center justify-center" aria-label="discord" title="discord">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+              <path d="M19.27 5.33C17.94 4.71 16.5 4.26 15 4a.09.09 0 0 0-.07.03c-.18.33-.39.76-.53 1.09a16.09 16.09 0 0 0-4.8 0c-.14-.34-.35-.76-.54-1.09-.01-.02-.04-.03-.07-.03-1.5.26-2.93.71-4.27 1.33-.01 0-.02.01-.03.02-2.72 4.07-3.47 8.03-3.1 11.95 0 .02.01.04.03.05 1.8 1.32 3.53 2.12 5.24 2.65.03.01.06 0 .07-.02.4-.55.76-1.13 1.07-1.74.02-.04 0-.08-.04-.09-.57-.22-1.11-.48-1.64-.78-.04-.02-.04-.08-.01-.11.11-.08.22-.17.33-.25.02-.02.05-.02.07-.01 3.44 1.57 7.15 1.57 10.55 0 .02-.01.05-.01.07.01.11.09.22.17.33.26.04.03.04.09-.01.11-.52.31-1.07.56-1.64.78-.04.01-.05.06-.04.09.32.61.68 1.19 1.07 1.74.03.01.06.02.09.01 1.72-.53 3.45-1.33 5.25-2.65.02-.01.03-.03.03-.05.44-4.53-.73-8.46-3.1-11.95-.01-.01-.02-.02-.04-.02zM8.52 14.91c-1.03 0-1.89-.95-1.89-2.12s.84-2.12 1.89-2.12c1.06 0 1.9.96 1.89 2.12 0 1.17-.84 2.12-1.89 2.12zm6.97 0c-1.03 0-1.89-.95-1.89-2.12s.84-2.12 1.89-2.12c1.06 0 1.9.96 1.89 2.12 0 1.17-.83 2.12-1.89 2.12z"/>
+            </svg>
+          </a>
+          <!-- LinkedIn -->
+          <a href="https://linkedin.com/in/davidbrittoeth" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-accent transition-colors flex items-center justify-center" aria-label="linkedin" title="linkedin">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+              <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/>
+            </svg>
+          </a>
+          <!-- X / Twitter -->
+          <a href="https://x.com/davidbrittoeth" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-accent transition-colors flex items-center justify-center" aria-label="x" title="x">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+              <path d="M17.6874 3.0625L12.6907 8.77425L8.37045 3.0625H2.11328L9.58961 12.8387L2.50378 20.9375H5.53795L11.0068 14.6886L15.7863 20.9375H21.8885L14.095 10.6342L20.7198 3.0625H17.6874ZM16.6232 19.1225L5.65436 4.78217H7.45745L18.3034 19.1225H16.6232Z"/>
+            </svg>
+          </a>
+        </div>
+
+        <!-- Resume button -->
+        <a id="btn-open-resume" href="#/resume" class="border border-gray-700 py-1 text-sm text-gray-400 hover:text-accent hover:border-accent transition-colors text-center flex items-center justify-center gap-1">
+          resume <span class="text-xs">→</span>
+        </a>
+      </div>
+
+    </div>
+
+    <!-- ============================================================
+         CONTENT CARD: Home View (/home) or All Projects View (/projects)
+         ============================================================ -->
+    <div class="border border-zinc-700/50 p-4 md:p-6 bg-black/80 backdrop-blur-md h-full flex flex-col pointer-events-auto">
+      <div class="flex-1 overflow-y-auto scrollbar-none">
+
+        <!-- ==================== HOME VIEW ==================== -->
+        <div id="home-view" class="space-y-12">
+          
+          <!-- ASCII ART BANNER (Explicitly preserved as requested) -->
+          <div class="overflow-x-auto pb-2 scrollbar-none text-center">
+            <pre class="ascii-banner select-none inline-block text-left" aria-label="David Britto ASCII Banner">
+██████╗   █████╗  ██╗   ██╗ ██╗ ██████╗      ██████╗  ██████╗  ██╗ ████████╗ ████████╗  ██████╗ 
+██╔══██╗ ██╔══██╗ ██║   ██║ ██║ ██╔══██╗     ██╔══██╗ ██╔══██╗ ██║ ╚══██╔══╝ ╚══██╔══╝ ██╔═══██╗
+██║  ██║ ███████║ ██║   ██║ ██║ ██║  ██║     ██████╔╝ ██████╔╝ ██║    ██║       ██║    ██║   ██║
+██║  ██║ ██╔══██║ ╚██╗ ██╔╝ ██║ ██║  ██║     ██╔══██╗ ██╔══██╗ ██║    ██║       ██║    ██║   ██║
+██████╔╝ ██║  ██║  ╚████╔╝  ██║ ██████╔╝     ██████╔╝ ██║  ██║ ██║    ██║       ██║    ╚██████╔╝
+╚═════╝  ╚═╝  ╚═╝   ╚═══╝   ╚═╝ ╚═════╝      ╚═════╝  ╚═╝  ╚═╝ ╚═╝    ╚═╝       ╚═╝     ╚═════╝ 
+            </pre>
+          </div>
+
+          <!-- ABOUT SECTION -->
+          <section class="mb-16 space-y-6">
+            <div>
+              <h2 class="text-2xl font-bold text-accent cursor-pointer select-none" data-decrypt="about">about</h2>
+            </div>
+            <div class="space-y-5 text-sm">
+              <p class="text-gray-300 leading-relaxed tracking-wide">
+                senior systems, cloud &amp; agentic ai architect<br>
+                i design decoupled, observable, and cost-optimized architectures where specifications lead and autonomous agents execute deterministically.
+              </p>
+              <p class="text-gray-300 leading-relaxed tracking-wide">
+                i work across the stack: linux kernel foundations, aws serverless economics, terraform iac, and spec-driven agent tooling.<br>
+                most of what i make ends up open source.
+              </p>
+              <p class="text-gray-300 leading-relaxed tracking-wide">
+                into linux, ricing my setup, and understanding how things work past the surface.
+              </p>
+              <div class="flex items-center justify-between">
+                <p class="text-gray-300 leading-relaxed tracking-wide">
+                  <a class="hover:underline decoration-dashed hover:text-accent transition-colors" href="mailto:davidbritto54@gmail.com">open to work</a> &lt;3
+                </p>
+                <!-- Mobile Socials Row -->
+                <div class="max-sm:grid grid-cols-5 max-w-fit gap-2 hidden">
+                  <a href="https://github.com/DavidBritto" target="_blank" rel="noopener noreferrer" class="text-accent flex items-center justify-center" aria-label="github">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+                  </a>
+                  <a href="mailto:davidbritto54@gmail.com" target="_blank" rel="noopener noreferrer" class="text-accent flex items-center justify-center" aria-label="email">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M3 3H21C21.5523 3 22 3.44772 22 4V20C22 20.5523 21.5523 21 21 21H3C2.44772 21 2 20.5523 2 20V4C2 3.44772 2.44772 3 3 3ZM12.0606 11.6829L5.64722 6.2377L4.35278 7.7623L12.0731 14.3171L19.6544 7.75616L18.3456 6.24384L12.0606 11.6829Z"/></svg>
+                  </a>
+                  <a href="mailto:davidbritto54@gmail.com?subject=Discord%20Contact" target="_blank" rel="noopener noreferrer" class="text-accent flex items-center justify-center" aria-label="discord">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M19.27 5.33C17.94 4.71 16.5 4.26 15 4a.09.09 0 0 0-.07.03c-.18.33-.39.76-.53 1.09a16.09 16.09 0 0 0-4.8 0c-.14-.34-.35-.76-.54-1.09-.01-.02-.04-.03-.07-.03-1.5.26-2.93.71-4.27 1.33-.01 0-.02.01-.03.02-2.72 4.07-3.47 8.03-3.1 11.95 0 .02.01.04.03.05 1.8 1.32 3.53 2.12 5.24 2.65.03.01.06 0 .07-.02.4-.55.76-1.13 1.07-1.74.02-.04 0-.08-.04-.09-.57-.22-1.11-.48-1.64-.78-.04-.02-.04-.08-.01-.11.11-.08.22-.17.33-.25.02-.02.05-.02.07-.01 3.44 1.57 7.15 1.57 10.55 0 .02-.01.05-.01.07.01.11.09.22.17.33.26.04.03.04.09-.01.11-.52.31-1.07.56-1.64.78-.04.01-.05.06-.04.09.32.61.68 1.19 1.07 1.74.03.01.06.02.09.01 1.72-.53 3.45-1.33 5.25-2.65.02-.01.03-.03.03-.05.44-4.53-.73-8.46-3.1-11.95-.01-.01-.02-.02-.04-.02zM8.52 14.91c-1.03 0-1.89-.95-1.89-2.12s.84-2.12 1.89-2.12c1.06 0 1.9.96 1.89 2.12 0 1.17-.84 2.12-1.89 2.12zm6.97 0c-1.03 0-1.89-.95-1.89-2.12s.84-2.12 1.89-2.12c1.06 0 1.9.96 1.89 2.12 0 1.17-.83 2.12-1.89 2.12z"/></svg>
+                  </a>
+                  <a href="https://linkedin.com/in/davidbrittoeth" target="_blank" rel="noopener noreferrer" class="text-accent flex items-center justify-center" aria-label="linkedin">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+                  </a>
+                  <a href="https://x.com/davidbrittoeth" target="_blank" rel="noopener noreferrer" class="text-accent flex items-center justify-center" aria-label="x">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M17.6874 3.0625L12.6907 8.77425L8.37045 3.0625H2.11328L9.58961 12.8387L2.50378 20.9375H5.53795L11.0068 14.6886L15.7863 20.9375H21.8885L14.095 10.6342L20.7198 3.0625H17.6874ZM16.6232 19.1225L5.65436 4.78217H7.45745L18.3034 19.1225H16.6232Z"/></svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- PROJECTS PREVIEW (Top 4) -->
+          <div class="text-white mb-4">
+            <div class="flex items-center justify-between mb-8">
+              <h2 class="text-2xl font-bold text-accent cursor-pointer select-none" data-decrypt="projects">projects</h2>
+              <a href="#/projects" class="text-sm text-gray-500 hover:text-accent transition-all duration-300 flex items-center gap-1">
+                view all <span class="text-xs">→</span>
+              </a>
+            </div>
+            
+            <div class="space-y-8">
+              <!-- Item 1: Specly -->
+              <div class="group">
+                <a href="https://github.com/DavidBritto/specly" target="_blank" rel="noopener noreferrer" class="block">
+                  <div class="flex items-baseline justify-between gap-4">
+                    <h3 class="text-xl font-semibold text-gray-200 group-hover:text-accent transition-colors duration-300 truncate">specly</h3>
+                    <p class="text-gray-500 text-xs font-mono whitespace-nowrap">typescript, node, agentic-ai</p>
+                  </div>
+                  <p class="text-gray-400 mt-2 text-sm leading-relaxed max-w-[95%]">
+                    a spec-driven ai agent development cli with deterministic execution and model-agnostic verification
+                  </p>
+                </a>
+              </div>
+
+              <!-- Item 2: Onaxale -->
+              <div class="group">
+                <a href="https://github.com/DavidBritto" target="_blank" rel="noopener noreferrer" class="block">
+                  <div class="flex items-baseline justify-between gap-4">
+                    <h3 class="text-xl font-semibold text-gray-200 group-hover:text-accent transition-colors duration-300 truncate">onaxale</h3>
+                    <p class="text-gray-500 text-xs font-mono whitespace-nowrap">aws, serverless, terraform</p>
+                  </div>
+                  <p class="text-gray-400 mt-2 text-sm leading-relaxed max-w-[95%]">
+                    legacy monolithic saas migration to 100% serverless aws reducing infrastructure cost by &gt;90%
+                  </p>
+                </a>
+              </div>
+
+              <!-- Item 3: Kuarahy -->
+              <div class="group">
+                <a href="https://github.com/DavidBritto/kuarahy" target="_blank" rel="noopener noreferrer" class="block">
+                  <div class="flex items-baseline justify-between gap-4">
+                    <h3 class="text-xl font-semibold text-gray-200 group-hover:text-accent transition-colors duration-300 truncate">kuarahy</h3>
+                    <p class="text-gray-500 text-xs font-mono whitespace-nowrap">python, iot, event-driven</p>
+                  </div>
+                  <p class="text-gray-400 mt-2 text-sm leading-relaxed max-w-[95%]">
+                    real-time solar telemetry and atmospheric data ingestion engine with resilient event-driven pipeline
+                  </p>
+                </a>
+              </div>
+
+              <!-- Item 4: Zero-to-Cloud -->
+              <div class="group">
+                <a href="https://github.com/DavidBritto" target="_blank" rel="noopener noreferrer" class="block">
+                  <div class="flex items-baseline justify-between gap-4">
+                    <h3 class="text-xl font-semibold text-gray-200 group-hover:text-accent transition-colors duration-300 truncate">zero-to-cloud</h3>
+                    <p class="text-gray-500 text-xs font-mono whitespace-nowrap">linux, kernel, architecture</p>
+                  </div>
+                  <p class="text-gray-400 mt-2 text-sm leading-relaxed max-w-[95%]">
+                    production case studies on linux kernel tuning, cloud economics, and automated zero-maintenance setups
+                  </p>
+                </a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ==================== ALL PROJECTS VIEW (/projects) ==================== -->
+        <div id="projects-view" class="hidden space-y-6">
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="text-2xl font-bold text-accent cursor-pointer select-none" data-decrypt="projects">projects</h2>
+            <a href="#/home" class="text-sm text-gray-500 hover:text-accent transition-all duration-300 flex items-center gap-1">
+              ← home
+            </a>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- Project 1 -->
+            <div class="p-6 border border-zinc-700/50 group transition-all duration-200 ease-in-out hover:border-accent">
+              <a href="https://github.com/DavidBritto/specly" target="_blank" rel="noopener noreferrer" class="block group-hover:text-accent">
+                <p class="text-xl font-bold">specly</p>
+                <p class="text-gray-400 text-sm mt-5 leading-relaxed">a spec-driven ai agent development cli with deterministic execution and model-agnostic verification</p>
+                <p class="text-sm text-gray-500 mt-4">
+                  <span>* typescript </span>
+                  <span>* node </span>
+                  <span>* agentic-ai </span>
+                  <span>* sdd </span>
+                </p>
+              </a>
+            </div>
+
+            <!-- Project 2 -->
+            <div class="p-6 border border-zinc-700/50 group transition-all duration-200 ease-in-out hover:border-accent">
+              <a href="https://github.com/DavidBritto" target="_blank" rel="noopener noreferrer" class="block group-hover:text-accent">
+                <p class="text-xl font-bold">onaxale</p>
+                <p class="text-gray-400 text-sm mt-5 leading-relaxed">legacy monolithic saas migration to 100% serverless aws reducing infrastructure cost by &gt;90%</p>
+                <p class="text-sm text-gray-500 mt-4">
+                  <span>* aws </span>
+                  <span>* serverless </span>
+                  <span>* terraform </span>
+                  <span>* dynamodb </span>
+                </p>
+              </a>
+            </div>
+
+            <!-- Project 3 -->
+            <div class="p-6 border border-zinc-700/50 group transition-all duration-200 ease-in-out hover:border-accent">
+              <a href="https://github.com/DavidBritto/kuarahy" target="_blank" rel="noopener noreferrer" class="block group-hover:text-accent">
+                <p class="text-xl font-bold">kuarahy</p>
+                <p class="text-gray-400 text-sm mt-5 leading-relaxed">real-time solar telemetry and atmospheric data ingestion engine with resilient event-driven pipeline</p>
+                <p class="text-sm text-gray-500 mt-4">
+                  <span>* python </span>
+                  <span>* iot </span>
+                  <span>* event-driven </span>
+                  <span>* fastapi </span>
+                </p>
+              </a>
+            </div>
+
+            <!-- Project 4 -->
+            <div class="p-6 border border-zinc-700/50 group transition-all duration-200 ease-in-out hover:border-accent">
+              <a href="https://github.com/DavidBritto" target="_blank" rel="noopener noreferrer" class="block group-hover:text-accent">
+                <p class="text-xl font-bold">zero-to-cloud</p>
+                <p class="text-gray-400 text-sm mt-5 leading-relaxed">production case studies on linux kernel tuning, cloud economics, and automated zero-maintenance setups</p>
+                <p class="text-sm text-gray-500 mt-4">
+                  <span>* linux </span>
+                  <span>* kernel </span>
+                  <span>* aws </span>
+                  <span>* architecture </span>
+                </p>
+              </a>
+            </div>
+
+            <!-- Project 5 -->
+            <div class="p-6 border border-zinc-700/50 group transition-all duration-200 ease-in-out hover:border-accent">
+              <a href="https://github.com/DavidBritto" target="_blank" rel="noopener noreferrer" class="block group-hover:text-accent">
+                <p class="text-xl font-bold">devops-lab</p>
+                <p class="text-gray-400 text-sm mt-5 leading-relaxed">declarative multi-cloud iac pipelines, automated kubernetes clusters, and zero-trust security profiles</p>
+                <p class="text-sm text-gray-500 mt-4">
+                  <span>* terraform </span>
+                  <span>* kubernetes </span>
+                  <span>* docker </span>
+                  <span>* ci-cd </span>
+                </p>
+              </a>
+            </div>
+
+            <!-- Project 6 -->
+            <div class="p-6 border border-zinc-700/50 group transition-all duration-200 ease-in-out hover:border-accent">
+              <a href="https://github.com/DavidBritto" target="_blank" rel="noopener noreferrer" class="block group-hover:text-accent">
+                <p class="text-xl font-bold">agentic-hub</p>
+                <p class="text-gray-400 text-sm mt-5 leading-relaxed">testing frameworks and harness benchmarks for autonomous multi-agent software engineering</p>
+                <p class="text-sm text-gray-500 mt-4">
+                  <span>* python </span>
+                  <span>* llm-evals </span>
+                  <span>* benchmarks </span>
+                  <span>* tools </span>
+                </p>
+              </a>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
-  </header>
+  </main>
 
   <!-- ============================================================
-       ASCII ART & HERO SECTION
+       RESUME MODAL: Clean Terminal ATS Resume
        ============================================================ -->
-  <div class="container">
-    <div class="ascii-section">
-      <div class="hero-eyebrow">Production Systems · Cloud Architecture · Spec-Driven Agentic AI</div>
-      <pre class="ascii-banner" aria-label="David Britto ASCII Banner">
-  ___   _ __   _____ ___    ___  ___  ___ _____ _____ ___  
- |   \ /_\ \ \ / /_ _|   \  | _ ) _ \_ _|_   _|_   _/ _ \ 
- | |) / _ \ \ V / | || |) | | _ \   /| |  | |   | | | (_) |
- |___/_/ \_\ \_/ |___|___/  |___/_|_\___| |_|   |_|  \___/ 
-      </pre>
-
-      <!-- AWS Builder Center Inspired Code Block -->
-      <div class="aws-hero-block">
-        <h1 class="code-headline" tabindex="-1">
-          <span class="kw-if">if&nbsp;</span>
-          <span class="kw-condition" id="typing-condition">building:</span>
-          <span class="code-cursor" aria-hidden="true"></span>
-          <span class="kw-action" id="typing-action">start_here()</span>
-        </h1>
+  <div id="resume-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 hidden">
+    <div class="border border-zinc-700/50 bg-black/95 p-6 max-w-2xl w-full max-h-[85vh] flex flex-col font-mono text-xs text-gray-300 relative shadow-2xl">
+      <div class="flex items-center justify-between pb-3 border-b border-zinc-800 mb-4">
+        <span class="text-accent font-semibold flex items-center gap-2">
+          <span>●</span> david-britto-resume.txt
+        </span>
+        <button id="close-resume-btn" type="button" class="text-gray-400 hover:text-accent transition-colors px-2 py-1 border border-zinc-800">
+          [ESC] close
+        </button>
       </div>
 
-      <p class="hero-desc">
-        Senior Systems &amp; Cloud Architect specialized in Linux kernel foundations, AWS Serverless economics, and Spec-Driven AI Agent Engineering.
-        I design decoupled, observable, and cost-optimized architectures where specifications lead and autonomous agents execute deterministically.
-      </p>
-
-      <div class="hero-chips">
-        <span class="chip highlight">AWS Cloud Architecture</span>
-        <span class="chip highlight">Linux Systems</span>
-        <span class="chip highlight">Agentic AI Tooling</span>
-        <span class="chip">Terraform &amp; IaC</span>
-        <span class="chip">Zero-Maintenance Serverless</span>
-        <span class="chip">Bilingual ES/EN</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- ============================================================
-       01. FEATURED PROJECTS
-       ============================================================ -->
-  <div class="container">
-    <section id="projects">
-      <div class="sec-header">
-        <h2 class="sec-title"><span>01.</span> Flagship Engineering Projects</h2>
-        <span class="sec-hint">[ 4 Production Repositories ]</span>
-      </div>
-
-      <div class="projects-grid">
-
-        <!-- PROJECT 1: SPECLY -->
-        <article class="project-card card-specly">
-          <div>
-            <div class="proj-meta">
-              <span class="proj-badge hot">Agentic AI · npm Registry</span>
-              <span style="color:var(--text-dim);font-family:var(--font-mono);font-size:10px;">Production CLI</span>
-            </div>
-            <h3 class="proj-title">specly — Spec-Driven Development CLI</h3>
-            <p class="proj-desc">
-              Developer CLI tool built to eliminate AI hallucination, agent drift, and unmaintainable code generation.
-              Enforces strict Spec-Driven Development (SDD) across structured requirements, architecture design, and verified task breakdowns before code generation begins.
-            </p>
-            <div class="proj-tags">
-              <span class="proj-tag">TypeScript</span>
-              <span class="proj-tag">Node.js</span>
-              <span class="proj-tag">Autonomous Agents</span>
-              <span class="proj-tag">CLI Engineering</span>
-              <span class="proj-tag">npm</span>
-            </div>
-          </div>
-          <div class="proj-actions">
-            <a class="proj-link" href="https://www.npmjs.com/package/specly" target="_blank">npm Registry ↗</a>
-            <a class="proj-link" href="https://github.com/DavidBritto/specly" target="_blank">GitHub Repo ↗</a>
-          </div>
-        </article>
-
-        <!-- PROJECT 2: DEVOPS LAB -->
-        <article class="project-card card-devops">
-          <div>
-            <div class="proj-meta">
-              <span class="proj-badge green">Enterprise IaC · DevOps</span>
-              <span style="color:var(--text-dim);font-family:var(--font-mono);font-size:10px;">Public Lab</span>
-            </div>
-            <h3 class="proj-title">DevOps Engineering Lab — #90DaysOfDevOps</h3>
-            <p class="proj-desc">
-              Comprehensive infrastructure engineering repository documenting progressive enterprise DevOps practices.
-              Covers Linux kernel internals, Vagrant environments, Docker containerization, Kubernetes cluster orchestration, and declarative Terraform IaC with GitHub Actions CI/CD.
-            </p>
-            <div class="proj-tags">
-              <span class="proj-tag">Terraform</span>
-              <span class="proj-tag">Kubernetes</span>
-              <span class="proj-tag">Docker</span>
-              <span class="proj-tag">GitHub Actions</span>
-              <span class="proj-tag">Linux (Ubuntu)</span>
-              <span class="proj-tag">Ansible</span>
-            </div>
-          </div>
-          <div class="proj-actions">
-            <a class="proj-link" href="https://github.com/DavidBritto/devops-portfolio" target="_blank">Inspect GitHub ↗</a>
-          </div>
-        </article>
-
-        <!-- PROJECT 3: ONAXALE -->
-        <article class="project-card card-onaxale">
-          <div>
-            <div class="proj-meta">
-              <span class="proj-badge green">AWS Production · &gt;90% Cost Cut</span>
-              <span style="color:var(--text-dim);font-family:var(--font-mono);font-size:10px;">Live Store</span>
-            </div>
-            <h3 class="proj-title">Onaxale — Serverless Ecommerce Architecture</h3>
-            <p class="proj-desc">
-              End-to-end architectural migration from Tiendanube SaaS into an ultra-low-cost, high-availability AWS serverless ecosystem.
-              Features S3 and CloudFront edge delivery, Lambda event-driven microservices, DynamoDB persistence, and Mercado Pago checkout integration.
-            </p>
-            <div class="proj-tags">
-              <span class="proj-tag">AWS Lambda</span>
-              <span class="proj-tag">CloudFront</span>
-              <span class="proj-tag">Amazon S3</span>
-              <span class="proj-tag">DynamoDB</span>
-              <span class="proj-tag">Mercado Pago</span>
-              <span class="proj-tag">Python</span>
-            </div>
-          </div>
-          <div class="proj-actions">
-            <a class="proj-link" href="https://onaxale.com" target="_blank">Visit Live Store ↗</a>
-            <span class="proj-link muted">Private Architecture Repo</span>
-          </div>
-        </article>
-
-        <!-- PROJECT 4: KUARAHY -->
-        <article class="project-card card-kuarahy">
-          <div>
-            <div class="proj-meta">
-              <span class="proj-badge">Telemetry · Clean Energy</span>
-              <span style="color:var(--text-dim);font-family:var(--font-mono);font-size:10px;">Hackathon Sprint</span>
-            </div>
-            <h3 class="proj-title">Kuarahy — Real-Time Solar Telemetry</h3>
-            <p class="proj-desc">
-              Environmental telemetry platform engineered during an intensive 2-hour hackathon sprint.
-              Computes solar elevation, optimal irradiation windows, and clean energy recommendations using live meteorological data and astronomical solar equations.
-            </p>
-            <div class="proj-tags">
-              <span class="proj-tag">Next.js 15</span>
-              <span class="proj-tag">TypeScript</span>
-              <span class="proj-tag">Tailwind CSS</span>
-              <span class="proj-tag">SunCalc</span>
-              <span class="proj-tag">Open-Meteo API</span>
-            </div>
-          </div>
-          <div class="proj-actions">
-            <a class="proj-link" href="https://github.com/DavidBritto/kuarahy" target="_blank">GitHub Repo ↗</a>
-          </div>
-        </article>
-
-      </div>
-    </section>
-  </div>
-
-  <!-- ============================================================
-       02. FUNCTIONAL INTERACTIVE TERMINAL
-       ============================================================ -->
-  <div class="container">
-    <section id="terminal">
-      <div class="sec-header">
-        <h2 class="sec-title"><span>02.</span> Interactive Terminal &amp; CLI Inspector</h2>
-        <span class="sec-hint">[ Click quick commands or type directly ]</span>
-      </div>
-
-      <div class="terminal-box">
-        <div class="terminal-topbar">
-          <div class="terminal-dots">
-            <div class="t-dot t-red"></div>
-            <div class="t-dot t-yellow"></div>
-            <div class="t-dot t-green"></div>
-          </div>
-          <span>david@cloud-control:~</span>
-          <span style="font-size:10px;">zsh 5.9 · telemetry active</span>
+      <div class="overflow-y-auto space-y-4 pr-2 text-sm leading-relaxed scrollbar-none">
+        <div>
+          <h1 class="text-lg font-bold text-white">DAVID BRITTO</h1>
+          <p class="text-accent">Senior Systems, Cloud &amp; Agentic AI Architect</p>
+          <p class="text-gray-400 text-xs">Email: davidbritto54@gmail.com · GitHub: github.com/DavidBritto · LinkedIn: linkedin.com/in/davidbrittoeth</p>
         </div>
 
-        <!-- CLICKABLE QUICK RUN BUTTONS -->
-        <div class="terminal-quick-cmds">
-          <span style="color:var(--text-dim);font-size:11px;margin-right:2px;">Quick Run:</span>
-          <button class="t-chip" data-cmd="projects">$ projects</button>
-          <button class="t-chip" data-cmd="skills">$ skills</button>
-          <button class="t-chip" data-cmd="bio">$ bio</button>
-          <button class="t-chip" data-cmd="cat resume">$ cat resume</button>
-          <button class="t-chip" data-cmd="contact">$ contact</button>
-          <button class="t-chip" data-cmd="clear">$ clear</button>
-        </div>
-
-        <div class="terminal-output" id="term-output">
-David Britto Cloud &amp; Systems Terminal [Version 2.4.0]
-Ready. Type 'help' to inspect commands, or click any Quick Run button above.
-        </div>
-        <div class="terminal-prompt-line">
-          <span class="t-prompt">david@vaio:~$</span>
-          <input class="t-input" id="term-input" type="text" placeholder="type a command (e.g. 'projects', 'skills')..." autocomplete="off" spellcheck="false">
-        </div>
-      </div>
-    </section>
-  </div>
-
-  <!-- ============================================================
-       03. PRODUCTION CASE STUDY
-       ============================================================ -->
-  <div class="container">
-    <section id="casestudy">
-      <div class="sec-header">
-        <h2 class="sec-title"><span>03.</span> Production Case Study: Zero to Cloud</h2>
-        <span class="sec-hint">[ Architecture Deep-Dive ]</span>
-      </div>
-
-      <div class="case-study-box">
-        <div class="case-study-hero">
-          <h3 class="case-study-title">Deconstructing Legacy SaaS into AWS Serverless Economics</h3>
-          <p class="case-study-sub">
-            Migrated the complete ecommerce infrastructure of Onaxale away from recurring Tiendanube monthly fees into a decoupled, pay-per-request architecture on Amazon Web Services.
+        <div>
+          <h2 class="text-xs uppercase tracking-wider text-gray-400 border-b border-zinc-800 pb-1 mb-2">SUMMARY</h2>
+          <p class="text-gray-300 text-xs">
+            Architect with 15+ years equivalent focus on Linux kernel fundamentals, AWS serverless economics, and spec-driven AI agent engineering. Proven track record eliminating recurring cloud overhead, designing zero-maintenance infrastructure, and deploying deterministic agentic workflows.
           </p>
         </div>
 
-        <div class="arch-flow-grid">
-          <div class="arch-step">
-            <div class="arch-step-num">Step 01 · Global Edge</div>
-            <div class="arch-step-title">S3 &amp; CloudFront CDN</div>
-            <div class="arch-step-body">
-              Static asset delivery hosted on Amazon S3 and distributed via CloudFront edge locations with TLS 1.3 encryption. Sub-50ms latency worldwide with zero servers to patch.
-            </div>
-          </div>
-
-          <div class="arch-step">
-            <div class="arch-step-num">Step 02 · Compute &amp; APIs</div>
-            <div class="arch-step-title">API Gateway &amp; Lambda</div>
-            <div class="arch-step-body">
-              Python microservices orchestrate cart lifecycles, webhook verifications, and Mercado Pago Checkout integration. Zero idle computing costs—charges trigger strictly on demand.
-            </div>
-          </div>
-
-          <div class="arch-step">
-            <div class="arch-step-num">Step 03 · State &amp; Logs</div>
-            <div class="arch-step-title">DynamoDB &amp; CloudWatch</div>
-            <div class="arch-step-body">
-              NoSQL order tracking and customer persistence in Amazon DynamoDB. Centralized telemetry, CloudWatch alarms, and automated point-in-time recovery.
-            </div>
-          </div>
+        <div>
+          <h2 class="text-xs uppercase tracking-wider text-gray-400 border-b border-zinc-800 pb-1 mb-2">CORE CAPABILITIES</h2>
+          <p class="text-gray-300 text-xs font-mono">
+            • Cloud Architecture: AWS (Lambda, API Gateway, DynamoDB, S3, CloudFront, EventBridge)<br>
+            • Systems &amp; OS: Linux kernel internals, Ubuntu, Bash automation, eBPF telemetry<br>
+            • Infrastructure as Code: Terraform, Docker, Kubernetes, CI/CD GitHub Actions<br>
+            • AI Tooling: Spec-Driven Development (SDD), Agent Harnesses, Eval Suites
+          </p>
         </div>
 
-        <div class="case-metrics-bar">
-          <div class="metric-item">
-            <div class="metric-val">&gt;90%</div>
-            <div class="metric-lbl">Monthly Cost Cut</div>
-          </div>
-          <div class="metric-item">
-            <div class="metric-val">100%</div>
-            <div class="metric-lbl">Serverless (0 Maintenance)</div>
-          </div>
-          <div class="metric-item">
-            <div class="metric-val">&lt;80ms</div>
-            <div class="metric-lbl">P95 Global Edge TTFB</div>
-          </div>
-          <div class="metric-item">
-            <div class="metric-val">99.99%</div>
-            <div class="metric-lbl">High-Availability Uptime</div>
-          </div>
+        <div>
+          <h2 class="text-xs uppercase tracking-wider text-gray-400 border-b border-zinc-800 pb-1 mb-2">SELECT PROJECTS</h2>
+          <p class="text-xs text-gray-300">
+            <strong class="text-white">specly:</strong> Spec-Driven Development CLI &amp; AI Orchestrator.<br>
+            <strong class="text-white">Onaxale:</strong> Monolithic SaaS migrated to 100% Serverless AWS (&gt;90% cost cut).<br>
+            <strong class="text-white">Kuarahy:</strong> Real-time solar telemetry &amp; meteorological data pipeline.
+          </p>
         </div>
       </div>
-    </section>
-  </div>
 
-  <!-- ============================================================
-       04. TECHNICAL WRITING / ARTICLES
-       ============================================================ -->
-  <div class="container">
-    <section id="writing">
-      <div class="sec-header">
-        <h2 class="sec-title"><span>04.</span> Technical Writing &amp; Architecture Notes</h2>
-        <span class="sec-hint">[ Scalable Engineering Blog ]</span>
-      </div>
-
-      <div class="articles-list">
-
-        <article class="article-item">
-          <div class="article-main">
-            <div class="article-date">OCTOBER 2026 · 6 MIN READ</div>
-            <h3 class="article-title">Spec-Driven Development: Taming AI Hallucinations in Autonomous Coding Agents</h3>
-            <p class="article-summary">
-              Why code generation without formal specifications leads to architectural drift, and how Specly enforces contractual schemas before agents write a single file.
-            </p>
-          </div>
-          <div class="article-tags">
-            <span class="proj-tag">Agentic AI</span>
-            <span class="proj-tag">Architecture</span>
-          </div>
-        </article>
-
-        <article class="article-item">
-          <div class="article-main">
-            <div class="article-date">SEPTEMBER 2026 · 8 MIN READ</div>
-            <h3 class="article-title">Deconstructing Legacy SaaS: Migrating to Serverless AWS with &gt;90% Cost Cut</h3>
-            <p class="article-summary">
-              A comprehensive breakdown of decoupling ecommerce frontends onto S3/CloudFront and running webhook pipelines on event-driven AWS Lambda microservices.
-            </p>
-          </div>
-          <div class="article-tags">
-            <span class="proj-tag">AWS Cloud</span>
-            <span class="proj-tag">Serverless</span>
-          </div>
-        </article>
-
-        <article class="article-item">
-          <div class="article-main">
-            <div class="article-date">AUGUST 2026 · 5 MIN READ</div>
-            <h3 class="article-title">Declarative Infrastructure as Code: Lessons from #90DaysOfDevOps</h3>
-            <p class="article-summary">
-              Key insights from architecting Kubernetes clusters, immutable container images, and state-locked Terraform workflows in production environments.
-            </p>
-          </div>
-          <div class="article-tags">
-            <span class="proj-tag">DevOps</span>
-            <span class="proj-tag">Terraform</span>
-          </div>
-        </article>
-
-      </div>
-    </section>
-  </div>
-
-  <!-- ============================================================
-       RESUME ATS MODAL
-       ============================================================ -->
-  <div class="modal-backdrop" id="ats-modal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <span>RESUME_DAVID_BRITTO.MD (ATS &amp; PLAIN TEXT)</span>
-        <button class="modal-close-btn" id="close-modal-btn">✕</button>
-      </div>
-      <pre class="modal-body" id="ats-content"># DAVID BRITTO
-Systems, Cloud &amp; Agentic AI Engineer
-Email: davidbritto54@gmail.com | GitHub: https://github.com/DavidBritto | LinkedIn: https://linkedin.com/in/davidbrittoeth
-Location: Chaco, Argentina (UTC-3) | Remote-Ready
-
-## SUMMARY
-Senior Systems, Cloud &amp; Agentic AI Architect specialized in Linux kernel fundamentals, AWS Serverless architecture, and Spec-Driven AI Agent Engineering. Experienced in delivering high-availability serverless ecosystems (>90% recurring cost cuts), enterprise Infrastructure as Code (Terraform, Kubernetes, Docker, CI/CD), and developer CLI tooling that eliminates AI hallucination and agent drift.
-
-## TECHNICAL SKILLS
-- Cloud Architecture: AWS (Lambda, CloudFront, S3, DynamoDB, API Gateway, CloudWatch, IAM)
-- Infrastructure &amp; DevOps: Terraform (IaC), Kubernetes, Docker, Vagrant, Ansible, GitHub Actions
-- Linux &amp; Systems: Linux Kernel fundamentals, Ubuntu, Bash/Shell automation, Networking, TLS/SSL
-- AI &amp; Agentic Systems: Spec-Driven Development (SDD), Agent Scaffolding, Autonomous Pipelines, LLM Tooling
-- Languages: TypeScript, Python, Node.js, Shell scripting, Go basics
-
-## CORE PROJECTS
-1. Specly (npm package): Spec-Driven Development CLI for structured AI agent code generation.
-2. DevOps Lab (#90DaysOfDevOps): Enterprise IaC, Kubernetes, Docker, and GitHub Actions pipelines.
-3. Onaxale: Full architectural migration from Tiendanube SaaS to AWS serverless cutting recurring costs by >90%.
-4. Kuarahy: Real-time solar telemetry and irradiation engine built during a 2-hour hackathon.
-      </pre>
-      <div class="modal-footer">
-        <button class="btn-ats" id="copy-ats-action">Copy ATS Markdown</button>
-        <button class="btn-ats" id="modal-email-action">Dispatch Email</button>
+      <div class="pt-4 border-t border-zinc-800 mt-4 flex justify-between items-center text-xs">
+        <span class="text-gray-500">Press [T] anywhere to cycle theme</span>
+        <a href="mailto:davidbritto54@gmail.com?subject=Opportunity" class="text-accent hover:underline">get in touch →</a>
       </div>
     </div>
   </div>
 
   <!-- ============================================================
-       FOOTER
-       ============================================================ -->
-  <div class="container">
-    <footer>
-      <div class="footer-inner">
-        <div>
-          <span>David Britto · 2026</span>
-          <span style="margin: 0 8px;">·</span>
-          <span>Linux Systems · AWS Cloud · Agentic AI</span>
-        </div>
-        <div class="footer-links">
-          <a href="mailto:davidbritto54@gmail.com">Email</a>
-          <a href="https://github.com/DavidBritto" target="_blank">GitHub</a>
-          <a href="https://linkedin.com/in/davidbrittoeth" target="_blank">LinkedIn</a>
-        </div>
-      </div>
-    </footer>
-  </div>
-
-  <!-- ============================================================
-       INTERACTIVE RUNTIME (TYPEWRITER & TERMINAL)
+       SCRIPTS: WebGL Shader, Themes, DecryptedText, Routing
        ============================================================ -->
   <script>
-    (function () {
-      // 1. DYNAMIC TYPEWRITER WITH AWS BUILDER PATTERN
-      const typingSequences = [
-        { condition: 'building:', action: 'start_here()' },
-        { condition: 'architecting:', action: 'aws_cloud()' },
-        { condition: 'scaling:', action: 'linux_systems()' },
-        { condition: 'automating:', action: 'agentic_ai()' },
-        { condition: 'shipping:', action: 'devops_pipelines()' },
-        { condition: 'optimizing:', action: 'zero_to_cloud()' }
+    /* ============================================================
+       1. THEME MANAGEMENT SYSTEM (Exact match to d1rshan.me)
+       ============================================================ */
+    const THEMES = [
+      { name: 'purple', color: '#c084fc' },
+      { name: 'blue', color: '#93c5fd' },
+      { name: 'green', color: '#86efac' },
+      { name: 'orange', color: '#fdba74' },
+      { name: 'pink', color: '#f9a8d4' }
+    ];
+
+    const STORAGE_KEY = 'theme';
+    let currentThemeIndex = 0;
+
+    function hexToRgb(hex) {
+      const bigint = parseInt(hex.slice(1), 16);
+      return [
+        ((bigint >> 16) & 255) / 255,
+        ((bigint >> 8) & 255) / 255,
+        (bigint & 255) / 255
       ];
+    }
 
-      const condEl = document.getElementById('typing-condition');
-      const actEl = document.getElementById('typing-action');
-      let seqIndex = 0;
-      let charIndex = 0;
-      let isDeleting = false;
+    function applyTheme(theme, save = true) {
+      document.documentElement.style.setProperty('--color-accent', theme.color);
+      const themeBtn = document.getElementById('theme-btn');
+      if (themeBtn) {
+        themeBtn.textContent = theme.color;
+      }
+      if (save) {
+        localStorage.setItem(STORAGE_KEY, theme.name);
+      }
+      if (window.updateShaderTint) {
+        window.updateShaderTint(hexToRgb(theme.color));
+      }
+    }
 
-      function typeWriterLoop() {
-        const current = typingSequences[seqIndex];
-        const fullText = `${current.condition} ${current.action}`;
-        
-        if (!isDeleting) {
-          charIndex++;
-          const currentText = fullText.substring(0, charIndex);
-          const parts = currentText.split(' ');
-          condEl.textContent = parts[0] || '';
-          actEl.textContent = parts[1] || '';
+    function cycleTheme() {
+      currentThemeIndex = (currentThemeIndex + 1) % THEMES.length;
+      applyTheme(THEMES[currentThemeIndex]);
+    }
 
-          if (charIndex >= fullText.length) {
-            isDeleting = true;
-            setTimeout(typeWriterLoop, 2200);
-            return;
+    // Init theme from localStorage (defaults to purple)
+    const savedThemeName = localStorage.getItem(STORAGE_KEY);
+    let foundIdx = THEMES.findIndex(t => t.name === savedThemeName);
+    if (!savedThemeName || savedThemeName === 'green') {
+      foundIdx = 0; // default to purple
+    }
+    currentThemeIndex = foundIdx !== -1 ? foundIdx : 0;
+    applyTheme(THEMES[currentThemeIndex], false);
+
+    document.getElementById('theme-btn').addEventListener('click', cycleTheme);
+
+    // Keyboard shortcut 't' / 'T' to cycle theme
+    window.addEventListener('keydown', (e) => {
+      if (e.code === 'KeyT' && e.target === document.body) {
+        e.preventDefault();
+        cycleTheme();
+      }
+      if (e.key === 'Escape') {
+        closeResume();
+      }
+    });
+
+    /* ============================================================
+       2. DECRYPTED TEXT EFFECT (Exact match to d1rshan.me)
+       ============================================================ */
+    const CIPHER_CHARS = Object.freeze("#$01+-/*%^@!`~<>&".split(""));
+
+    function runDecryptAnimation(element, targetText, duration = 650) {
+      if (!element) return;
+      let startTime = null;
+      let rafId = null;
+      const len = targetText.length;
+
+      function step(timestamp) {
+        if (!startTime) startTime = timestamp;
+        const elapsed = timestamp - startTime;
+        const progress = Math.min(elapsed / duration, 1.0);
+        const resolvedCount = Math.floor(progress * len);
+
+        let output = "";
+        for (let i = 0; i < len; i++) {
+          if (targetText[i] === " ") {
+            output += " ";
+          } else if (i <= resolvedCount) {
+            output += targetText[i];
+          } else {
+            output += CIPHER_CHARS[Math.floor(Math.random() * CIPHER_CHARS.length)];
           }
-          setTimeout(typeWriterLoop, 75);
+        }
+        element.textContent = output;
+
+        if (progress < 1.0) {
+          rafId = requestAnimationFrame(step);
         } else {
-          charIndex--;
-          const currentText = fullText.substring(0, charIndex);
-          const parts = currentText.split(' ');
-          condEl.textContent = parts[0] || '';
-          actEl.textContent = parts[1] || '';
-
-          if (charIndex <= 0) {
-            isDeleting = false;
-            seqIndex = (seqIndex + 1) % typingSequences.length;
-            setTimeout(typeWriterLoop, 400);
-            return;
-          }
-          setTimeout(typeWriterLoop, 35);
+          element.textContent = targetText;
         }
       }
-      setTimeout(typeWriterLoop, 600);
 
-      // 2. FUNCTIONAL TERMINAL COMMAND RUNNER
-      const termOutput = document.getElementById('term-output');
-      const termInput = document.getElementById('term-input');
+      rafId = requestAnimationFrame(step);
+      return () => cancelAnimationFrame(rafId);
+    }
 
-      const commands = {
-        help: "Available commands:\n  projects     - List 4 flagship repositories\n  skills       - Show technical capabilities matrix\n  bio          - Background & architectural vision\n  cat resume   - Show ATS plain-text resume\n  contact      - Display direct contact channels\n  clear        - Clear terminal screen",
-        projects: "FLAGSHIP ENGINEERING PROJECTS:\n  1. specly        - Spec-Driven AI CLI (npm package)\n  2. devops-lab    - Enterprise IaC, Kubernetes, Terraform\n  3. onaxale       - Serverless SaaS Migration (>90% AWS cost cut)\n  4. kuarahy       - Solar Telemetry & Meteorological API",
-        skills: "CORE TECHNICAL CAPABILITIES:\n  - Cloud:       AWS (Lambda, CloudFront, S3, DynamoDB, API Gateway)\n  - DevOps:      Terraform, Kubernetes, Docker, GitHub Actions, Ansible\n  - Linux:       Kernel fundamentals, Ubuntu, Bash automation\n  - AI Agents:   Spec-Driven Development (SDD), Agent Tooling",
-        bio: "DAVID BRITTO:\n  Senior Systems, Cloud & Agentic AI Architect.\n  Focused on observable, decoupled architectures where specifications lead\n  and autonomous agents execute deterministically.",
-        contact: "CONTACT CHANNELS:\n  - Email:    davidbritto54@gmail.com\n  - GitHub:   https://github.com/DavidBritto\n  - LinkedIn: https://linkedin.com/in/davidbrittoeth\n  - Location: Chaco, Argentina (UTC-3) · Remote Ready",
-        "cat resume": document.getElementById('ats-content').textContent.trim()
+    function initDecryptedElements() {
+      const items = document.querySelectorAll('[data-decrypt]');
+      items.forEach(el => {
+        const text = el.getAttribute('data-decrypt');
+        runDecryptAnimation(el, text);
+        el.addEventListener('mouseenter', () => {
+          runDecryptAnimation(el, text);
+        });
+      });
+    }
+
+    // Run decrypt on page load
+    setTimeout(initDecryptedElements, 60);
+
+    /* ============================================================
+       3. AVATAR EASTER EGG (Glitch Name Toggle like d1rshan.me)
+       ============================================================ */
+    let isGlitchMode = false;
+    const heroNameEl = document.getElementById('hero-name');
+    const avatarImg = document.getElementById('avatar-img');
+
+    function toggleGlitchEasterEgg() {
+      isGlitchMode = !isGlitchMode;
+      if (isGlitchMode) {
+        heroNameEl.classList.add('glitch-easter-egg');
+        heroNameEl.style.color = '#ffffff';
+        heroNameEl.textContent = 'd1rshan';
+      } else {
+        heroNameEl.classList.remove('glitch-easter-egg');
+        heroNameEl.style.color = '';
+        runDecryptAnimation(heroNameEl, 'david britto');
+      }
+    }
+
+    avatarImg.addEventListener('click', toggleGlitchEasterEgg);
+    avatarImg.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggleGlitchEasterEgg();
+      }
+    });
+
+    /* ============================================================
+       4. CLIENT ROUTING (/home vs /projects vs /resume)
+       ============================================================ */
+    const homeView = document.getElementById('home-view');
+    const projectsView = document.getElementById('projects-view');
+    const navHome = document.getElementById('nav-home');
+    const navProjects = document.getElementById('nav-projects');
+    const resumeModal = document.getElementById('resume-modal');
+
+    function updateRoute() {
+      const hash = window.location.hash.toLowerCase();
+
+      if (hash === '#/projects') {
+        homeView.classList.add('hidden');
+        projectsView.classList.remove('hidden');
+        navHome.className = 'text-sm transition-colors text-gray-400 hover:text-accent';
+        navProjects.className = 'text-sm transition-colors text-accent';
+        closeResume();
+      } else if (hash === '#/resume') {
+        openResume();
+      } else {
+        homeView.classList.remove('hidden');
+        projectsView.classList.add('hidden');
+        navHome.className = 'text-sm transition-colors text-accent';
+        navProjects.className = 'text-sm transition-colors text-gray-400 hover:text-accent';
+        closeResume();
+      }
+    }
+
+    function openResume() {
+      resumeModal.classList.remove('hidden');
+    }
+
+    function closeResume() {
+      resumeModal.classList.add('hidden');
+      if (window.location.hash.toLowerCase() === '#/resume') {
+        window.location.hash = '#/home';
+      }
+    }
+
+    document.getElementById('btn-open-resume').addEventListener('click', (e) => {
+      e.preventDefault();
+      openResume();
+    });
+
+    document.getElementById('close-resume-btn').addEventListener('click', closeResume);
+    resumeModal.addEventListener('click', (e) => {
+      if (e.target === resumeModal) {
+        closeResume();
+      }
+    });
+
+    window.addEventListener('hashchange', updateRoute);
+    updateRoute();
+
+    /* ============================================================
+       5. FAULTY TERMINAL CRT SHADER CANVAS (WebGL)
+       ============================================================ */
+    (function initShader() {
+      const canvas = document.getElementById('terminal-canvas');
+      const gl = canvas.getContext('webgl', { alpha: false, antialias: false });
+      if (!gl) {
+        console.warn('WebGL not supported, falling back to static background');
+        return;
+      }
+
+      const vsSource = `
+        attribute vec2 position;
+        attribute vec2 uv;
+        varying vec2 vUv;
+        void main() {
+          vUv = uv;
+          gl_Position = vec4(position, 0.0, 1.0);
+        }
+      `;
+
+      const fsSource = `
+        precision mediump float;
+        varying vec2 vUv;
+
+        uniform float iTime;
+        uniform vec3  iResolution;
+        uniform float uScale;
+        uniform vec2  uGridMul;
+        uniform float uDigitSize;
+        uniform float uScanlineIntensity;
+        uniform float uGlitchAmount;
+        uniform float uFlickerAmount;
+        uniform float uNoiseAmp;
+        uniform float uChromaticAberration;
+        uniform float uDither;
+        uniform float uCurvature;
+        uniform vec3  uTint;
+        uniform vec2  uMouse;
+        uniform float uMouseStrength;
+        uniform float uUseMouse;
+        uniform float uPageLoadProgress;
+        uniform float uUsePageLoadAnimation;
+        uniform float uBrightness;
+
+        float time;
+
+        float hash21(vec2 p){
+          p = fract(p * 234.56);
+          p += dot(p, p + 34.56);
+          return fract(p.x * p.y);
+        }
+
+        float noise(vec2 p) {
+          return sin(p.x * 10.0) * sin(p.y * (3.0 + sin(time * 0.090909))) + 0.2; 
+        }
+
+        mat2 rotate(float angle) {
+          float c = cos(angle);
+          float s = sin(angle);
+          return mat2(c, -s, s, c);
+        }
+
+        float fbm(vec2 p) {
+          p *= 1.1;
+          float f = 0.0;
+          float amp = 0.5 * uNoiseAmp;
+          
+          mat2 modify0 = rotate(time * 0.02);
+          f += amp * noise(p);
+          p = modify0 * p * 2.0;
+          amp *= 0.454545;
+          
+          mat2 modify1 = rotate(time * 0.02);
+          f += amp * noise(p);
+          p = modify1 * p * 2.0;
+          amp *= 0.454545;
+          
+          mat2 modify2 = rotate(time * 0.08);
+          f += amp * noise(p);
+          return f;
+        }
+
+        float pattern(vec2 p, out vec2 q, out vec2 r) {
+          vec2 offset1 = vec2(1.0);
+          vec2 offset0 = vec2(0.0);
+          mat2 rot01 = rotate(0.1 * time);
+          mat2 rot1 = rotate(0.1);
+          
+          q = vec2(fbm(p + offset1), fbm(rot01 * p + offset1));
+          r = vec2(fbm(rot1 * q + offset0), fbm(q + offset0));
+          return fbm(p + r);
+        }
+
+        float getIntensity(vec2 p){
+          vec2 grid = uGridMul * 15.0;
+          vec2 s = floor(p * grid) / grid;
+          vec2 q, r;
+          float intensity = pattern(s * 0.1, q, r) * 1.3 - 0.03;
+          
+          if(uUseMouse > 0.5){
+            vec2 mouseWorld = uMouse * uScale;
+            float distToMouse = distance(s, mouseWorld);
+            float mouseInfluence = exp(-distToMouse * 8.0) * uMouseStrength * 10.0;
+            intensity += mouseInfluence;
+            float ripple = sin(distToMouse * 20.0 - iTime * 5.0) * 0.1 * mouseInfluence;
+            intensity += ripple;
+          }
+          
+          if(uUsePageLoadAnimation > 0.5){
+            float cellRandom = fract(sin(dot(s, vec2(12.9898, 78.233))) * 43758.5453);
+            float cellDelay = cellRandom * 0.8;
+            float cellProgress = clamp((uPageLoadProgress - cellDelay) / 0.2, 0.0, 1.0);
+            float fadeAlpha = smoothstep(0.0, 1.0, cellProgress);
+            intensity *= fadeAlpha;
+          }
+          
+          return intensity;
+        }
+
+        float digit(vec2 p, float intensity){
+          vec2 grid = uGridMul * 15.0;
+          p = p * grid;
+          p = fract(p);
+          p *= uDigitSize;
+          
+          float px5 = p.x * 5.0;
+          float py5 = (1.0 - p.y) * 5.0;
+          float x = fract(px5);
+          float y = fract(py5);
+          
+          float i = floor(py5) - 2.0;
+          float j = floor(px5) - 2.0;
+          float n = i * i + j * j;
+          float f = n * 0.0625;
+          
+          float isOn = step(0.1, intensity - f);
+          float brightness = isOn * (0.2 + y * 0.8) * (0.75 + x * 0.25);
+          return step(0.0, p.x) * step(p.x, 1.0) * step(0.0, p.y) * step(p.y, 1.0) * brightness;
+        }
+
+        float onOff(float a, float b, float c) {
+          return step(c, sin(iTime + a * cos(iTime * b))) * uFlickerAmount;
+        }
+
+        float displace(vec2 look) {
+          float y = look.y - mod(iTime * 0.25, 1.0);
+          float window = 1.0 / (1.0 + 50.0 * y * y);
+          return sin(look.y * 20.0 + iTime) * 0.0125 * onOff(4.0, 2.0, 0.8) * (1.0 + cos(iTime * 60.0)) * window;
+        }
+
+        vec3 getColor(vec2 p){
+          float bar = step(mod(p.y + time * 20.0, 1.0), 0.2) * 0.4 + 1.0;
+          bar *= uScanlineIntensity;
+          
+          float displacement = displace(p);
+          p.x += displacement;
+
+          if (uGlitchAmount != 1.0) {
+            float extra = displacement * (uGlitchAmount - 1.0);
+            p.x += extra;
+          }
+
+          float intensity = getIntensity(p);
+          float middle = digit(p, intensity);
+          
+          const float off = 0.002;
+          float sum = digit(p + vec2(-off, -off), intensity) + digit(p + vec2(0.0, -off), intensity) + digit(p + vec2(off, -off), intensity) +
+                      digit(p + vec2(-off, 0.0), intensity) + digit(p + vec2(0.0, 0.0), intensity) + digit(p + vec2(off, 0.0), intensity) +
+                      digit(p + vec2(-off, off), intensity) + digit(p + vec2(0.0, off), intensity) + digit(p + vec2(off, off), intensity);
+          
+          vec3 baseColor = vec3(0.9) * middle + sum * 0.1 * vec3(1.0) * bar;
+          return baseColor;
+        }
+
+        vec2 barrel(vec2 uv){
+          vec2 c = uv * 2.0 - 1.0;
+          float r2 = dot(c, c);
+          c *= 1.0 + uCurvature * r2;
+          return c * 0.5 + 0.5;
+        }
+
+        void main() {
+          time = iTime * 0.333333;
+          vec2 uv = vUv;
+          if(uCurvature != 0.0){
+            uv = barrel(uv);
+          }
+          vec2 p = uv * uScale;
+          vec3 col = getColor(p);
+          if(uChromaticAberration != 0.0){
+            vec2 ca = vec2(uChromaticAberration) / iResolution.xy;
+            col.r = getColor(p + ca).r;
+            col.b = getColor(p - ca).b;
+          }
+          col *= uTint;
+          col *= uBrightness;
+          if(uDither > 0.0){
+            float rnd = hash21(gl_FragCoord.xy);
+            col += (rnd - 0.5) * (uDither * 0.003922);
+          }
+          gl_FragColor = vec4(col, 1.0);
+        }
+      `;
+
+      function createShader(gl, type, source) {
+        const shader = gl.createShader(type);
+        gl.shaderSource(shader, source);
+        gl.compileShader(shader);
+        if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+          console.error(gl.getShaderInfoLog(shader));
+          gl.deleteShader(shader);
+          return null;
+        }
+        return shader;
+      }
+
+      const vs = createShader(gl, gl.VERTEX_SHADER, vsSource);
+      const fs = createShader(gl, gl.FRAGMENT_SHADER, fsSource);
+      if (!vs || !fs) return;
+
+      const program = gl.createProgram();
+      gl.attachShader(program, vs);
+      gl.attachShader(program, fs);
+      gl.linkProgram(program);
+
+      if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+        console.error(gl.getProgramInfoLog(program));
+        return;
+      }
+
+      gl.useProgram(program);
+
+      // Fullscreen quad buffer
+      const posBuffer = gl.createBuffer();
+      gl.bindBuffer(gl.ARRAY_BUFFER, posBuffer);
+      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
+        -1, -1,
+         1, -1,
+        -1,  1,
+        -1,  1,
+         1, -1,
+         1,  1,
+      ]), gl.STATIC_DRAW);
+
+      const aPosition = gl.getAttribLocation(program, 'position');
+      gl.enableVertexAttribArray(aPosition);
+      gl.vertexAttribPointer(aPosition, 2, gl.FLOAT, false, 0, 0);
+
+      const uvBuffer = gl.createBuffer();
+      gl.bindBuffer(gl.ARRAY_BUFFER, uvBuffer);
+      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
+        0, 0,
+        1, 0,
+        0, 1,
+        0, 1,
+        1, 0,
+        1, 1,
+      ]), gl.STATIC_DRAW);
+
+      const aUv = gl.getAttribLocation(program, 'uv');
+      gl.enableVertexAttribArray(aUv);
+      gl.vertexAttribPointer(aUv, 2, gl.FLOAT, false, 0, 0);
+
+      // Uniforms
+      const uLoc = {
+        iTime: gl.getUniformLocation(program, 'iTime'),
+        iResolution: gl.getUniformLocation(program, 'iResolution'),
+        uScale: gl.getUniformLocation(program, 'uScale'),
+        uGridMul: gl.getUniformLocation(program, 'uGridMul'),
+        uDigitSize: gl.getUniformLocation(program, 'uDigitSize'),
+        uScanlineIntensity: gl.getUniformLocation(program, 'uScanlineIntensity'),
+        uGlitchAmount: gl.getUniformLocation(program, 'uGlitchAmount'),
+        uFlickerAmount: gl.getUniformLocation(program, 'uFlickerAmount'),
+        uNoiseAmp: gl.getUniformLocation(program, 'uNoiseAmp'),
+        uChromaticAberration: gl.getUniformLocation(program, 'uChromaticAberration'),
+        uDither: gl.getUniformLocation(program, 'uDither'),
+        uCurvature: gl.getUniformLocation(program, 'uCurvature'),
+        uTint: gl.getUniformLocation(program, 'uTint'),
+        uMouse: gl.getUniformLocation(program, 'uMouse'),
+        uMouseStrength: gl.getUniformLocation(program, 'uMouseStrength'),
+        uUseMouse: gl.getUniformLocation(program, 'uUseMouse'),
+        uPageLoadProgress: gl.getUniformLocation(program, 'uPageLoadProgress'),
+        uUsePageLoadAnimation: gl.getUniformLocation(program, 'uUsePageLoadAnimation'),
+        uBrightness: gl.getUniformLocation(program, 'uBrightness')
       };
 
-      function runCommand(cmdText) {
-        const cmd = cmdText.trim().toLowerCase();
-        termOutput.innerHTML += `\n<span style="color:var(--cyan)">david@vaio:~$</span> ${cmdText}`;
-        
-        if (cmd === 'clear' || cmd === 'cls') {
-          termOutput.innerHTML = "Terminal cleared.";
-        } else if (commands[cmd]) {
-          termOutput.innerHTML += `\n${commands[cmd]}`;
-        } else if (cmd !== '') {
-          termOutput.innerHTML += `\nCommand not found: '${cmd}'. Type 'help' for available commands.`;
-        }
-        termOutput.scrollTop = termOutput.scrollHeight;
+      // Set constant uniforms matching d1rshan.me
+      gl.uniform1f(uLoc.uScale, 3.0);
+      gl.uniform2f(uLoc.uGridMul, 2.0, 1.0);
+      gl.uniform1f(uLoc.uDigitSize, 1.2);
+      gl.uniform1f(uLoc.uScanlineIntensity, 0.5);
+      gl.uniform1f(uLoc.uGlitchAmount, 1.0);
+      gl.uniform1f(uLoc.uFlickerAmount, 1.0);
+      gl.uniform1f(uLoc.uNoiseAmp, 1.0);
+      gl.uniform1f(uLoc.uChromaticAberration, 0.0);
+      gl.uniform1f(uLoc.uDither, 0.0);
+      gl.uniform1f(uLoc.uCurvature, 0.1);
+      gl.uniform1f(uLoc.uMouseStrength, 0.5);
+      gl.uniform1f(uLoc.uUseMouse, 0.0);
+      gl.uniform1f(uLoc.uUsePageLoadAnimation, 1.0);
+      gl.uniform1f(uLoc.uBrightness, 0.5);
+
+      let currentTint = hexToRgb(THEMES[currentThemeIndex].color);
+      gl.uniform3f(uLoc.uTint, currentTint[0], currentTint[1], currentTint[2]);
+
+      window.updateShaderTint = function(rgb) {
+        currentTint = rgb;
+        gl.useProgram(program);
+        gl.uniform3f(uLoc.uTint, rgb[0], rgb[1], rgb[2]);
+      };
+
+      function resize() {
+        const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+        const w = window.innerWidth;
+        const h = window.innerHeight;
+        canvas.width = w * dpr;
+        canvas.height = h * dpr;
+        gl.viewport(0, 0, canvas.width, canvas.height);
+        gl.useProgram(program);
+        gl.uniform3f(uLoc.iResolution, canvas.width, canvas.height, canvas.width / canvas.height);
       }
 
-      termInput.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-          const val = termInput.value;
-          termInput.value = '';
-          runCommand(val);
-        }
-      });
+      window.addEventListener('resize', resize);
+      resize();
 
-      // Quick Run Chip Click Handlers
-      document.querySelectorAll('.t-chip').forEach(chip => {
-        chip.addEventListener('click', () => {
-          const cmd = chip.getAttribute('data-cmd');
-          if (cmd) runCommand(cmd);
-        });
-      });
+      let startTime = null;
+      const seed = Math.random() * 100;
 
-      // 3. ATS RESUME MODAL & 1-CLICK COPY
-      const modal = document.getElementById('ats-modal');
-      const openModalBtn = document.getElementById('open-ats-btn');
-      const closeModalBtn = document.getElementById('close-modal-btn');
-      const copyAtsBtn = document.getElementById('copy-ats-action');
-      const emailAtsBtn = document.getElementById('modal-email-action');
+      function render(timeMs) {
+        if (!startTime) startTime = timeMs;
+        const elapsedSec = (timeMs - startTime) * 0.001;
+        const pageLoadProgress = Math.min(elapsedSec / 2.0, 1.0);
 
-      openModalBtn.addEventListener('click', () => modal.classList.add('is-open'));
-      closeModalBtn.addEventListener('click', () => modal.classList.remove('is-open'));
-      modal.addEventListener('click', (e) => {
-        if (e.target === modal) modal.classList.remove('is-open');
-      });
+        gl.useProgram(program);
+        gl.uniform1f(uLoc.iTime, (elapsedSec + seed) * 0.2);
+        gl.uniform1f(uLoc.uPageLoadProgress, pageLoadProgress);
 
-      copyAtsBtn.addEventListener('click', () => {
-        const text = document.getElementById('ats-content').textContent.trim();
-        navigator.clipboard.writeText(text).then(() => {
-          copyAtsBtn.textContent = 'Copied to Clipboard! ✓';
-          setTimeout(() => { copyAtsBtn.textContent = 'Copy ATS Markdown'; }, 2000);
-        });
-      });
+        gl.drawArrays(gl.TRIANGLES, 0, 6);
+        requestAnimationFrame(render);
+      }
 
-      emailAtsBtn.addEventListener('click', () => {
-        window.location.href = "mailto:davidbritto54@gmail.com";
-      });
-
+      requestAnimationFrame(render);
     })();
   </script>
 </body>
-
 </html>
